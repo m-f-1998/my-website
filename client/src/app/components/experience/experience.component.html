@@ -1,0 +1,38 @@
+<div id="experience margin-top-40">
+  <div class="container-fluid cc-experience">
+    @for (experience of experiences; track $index) {
+      <div class="card padding-left-10 padding-right-10">
+        <div class="row">
+          <div class="col-md-3 bg-primary">
+            <div class="card-body cc-experience-header">
+              <div class="h5 fw-bold">
+                {{experience.company}}
+              </div>
+              <p>{{experience.period}}</p>
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="card-body">
+              @for (role of experience.roles; track $index) {
+                <h5>{{role}}</h5>
+              }
+              @if (experience.description) {
+                <p>{{experience.description}}</p>
+              }
+              @if (experience.achievements) {
+                <ul>
+                  @for (achievement of experience.achievements; track $index) {
+                    <li>{{achievement}}</li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    <div class="text-center">
+      <a href="/assets/docs/cv.pdf" >See my CV for more information.</a>
+    </div>
+  </div>
+</div>

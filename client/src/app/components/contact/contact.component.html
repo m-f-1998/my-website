@@ -1,0 +1,51 @@
+<div id="contact" class="margin-30">
+  <div class="row">
+    <div class="p-0">
+      <div class="card mb-0">
+        <div class="h4 text-center title margin-top-30 margin-bottom-30">Contact Me</div>
+        <div class="row margin-right-30 margin-left-30 margin-bottom-30">
+          <div class="card-body">
+            @if (processing()) {
+              <div class="alert alert-info text-center h5" role="alert">
+                <fa-icon [icon]="faSpinner" animation="spin" />
+                Sending...
+              </div>
+            } @else if (success()) {
+              <div class="alert alert-success text-center h5" role="alert">
+                <fa-icon [icon]="faCheck" />
+                Sent!
+              </div>
+            } @else if (error()) {
+              <div class="alert alert-danger text-center h5" role="alert">
+                <fa-icon [icon]="faExclamationTriangle" />
+                Error!
+              </div>
+            } @else {
+              <form [formGroup]="contactForm" (submit)="sendEmail()">
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="subject" placeholder="Subject" formControlName="subject"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col">
+                    <div class="form-group">
+                      <textarea class="form-control" name="message" placeholder="Your Message" formControlName="message"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="btn btn-primary" type="submit" [disabled]="!contactForm.valid">Send</button>
+                  </div>
+                </div>
+              </form>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
