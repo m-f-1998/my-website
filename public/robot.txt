@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /ordo-1962/
