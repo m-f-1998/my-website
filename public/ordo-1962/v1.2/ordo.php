@@ -116,13 +116,11 @@ function GetCommemorations ( $celebration ) {
         ->bind ( $commemoration [ "feast" ] )
         ->first ( );
 
-      array_push ( $res, array_merge (
-        array (
-          "title" => $feast [ "title" ],
-          "rank" => $feast [ "rank" ],
-          "colors" => $feast [ "colors" ]
-        ),
-        GetProperTexts ( $commemoration )
+      array_push ( $res, array (
+        "title" => $feast [ "title" ],
+        "rank" => $feast [ "rank" ],
+        "colors" => $feast [ "colors" ],
+        "propers" => GetProperTexts ( $commemoration )
       ) );
     
     }
@@ -141,16 +139,17 @@ function GetProperTexts ( $propers ) {
 
     $proper_texts = db ( )->query ( 'SELECT `category`, `english`, `latin` FROM ProperText WHERE HEX(`id`) IN ("'
       . implode ( '", "', array_map ( fn ( $value ): string => bin2hex ( $value ), array_filter ( $propers ) ) ) .
+    '") ORDER BY find_in_set(`category`, "'
+      . implode ( ',',  array_keys ( $propers ) ) .
     '")' )->all ( );
 
     foreach ( $proper_texts as $proper ) {
-      
-      $res [ $proper [ "category" ] ] = array (
 
+      array_push ( $res, array (
+        "title" => ucwords ( str_replace ( "_", " ", $proper [ "category" ] ) ),
         "english" => $proper [ "english" ],
-        "latin" => $proper [ "latin" ]
-      
-      );
+        "latin" => $proper [ "latin" ],
+      ) );
 
     }
 

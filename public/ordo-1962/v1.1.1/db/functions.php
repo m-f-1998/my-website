@@ -201,7 +201,7 @@ class Functions {
 
     private function GetProperText ( $id, $date ) {
 
-      $query = "SELECT pt.`commemoration`, pt.`category`, pt.`english`, pt.`latin`
+      $query = "SELECT pt.`category`, pt.`english`, pt.`latin`
       FROM `ProperText` pt INNER JOIN (SELECT * FROM `Propers` WHERE `date`=? LIMIT 1) p
         ON (
               p.`introit`=pt.`id`
@@ -219,17 +219,7 @@ class Functions {
 
       $result = array ( );
       foreach ( $res as $row ) {
-        $category = $row [ "category" ];
-        if ( $category == "collect" ) {
-          $category = "commemoratio_oratio";
-        }
-        if ( $category == "secret" ) {
-          $category = "commemoratio_secreta";
-        }
-        if ( $category == "postcommunion" ) {
-          $category = "commemoratio_postcommunio";
-        }
-        $result [ $category ] = array (
+        $result [ $row [ "category" ] ] = array (
           "english" => $row [ "english" ],
           "latin" => $row [ "latin" ]
         );
