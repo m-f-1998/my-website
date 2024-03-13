@@ -1,6 +1,0 @@
-{
-    "require": {
-        "leafs/db": "^2.1",
-        "leafs/leaf": "^3.5"
-    }
-}
