@@ -8,20 +8,6 @@ function sendEmail(event) {
 }
 addEventListener("submit", sendEmail);
 
-const navLinks = document.querySelectorAll('.nav-item')
-const menuToggle = document.getElementById('navbarSupportedContent')
-if ( navLinks.length > 0 && menuToggle ) {
-  const bsCollapse = bootstrap.Collapse.getOrCreateInstance(menuToggle, {toggle: false})
-  navLinks.forEach((l) => {
-      l.addEventListener('click', () => {
-        if ( !l.classList.contains ( "dropdown" ) ) {
-          console.log ( l.classList)
-          bsCollapse.toggle()
-        }
-      })
-  })
-}
-
 window.addEventListener ( "load", ( ) => {
   if ( window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     document.documentElement.setAttribute('data-bs-theme','dark')
