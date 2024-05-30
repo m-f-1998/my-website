@@ -14,4 +14,4 @@ window.addEventListener ( "load", ( ) => {
   } else {
     document.documentElement.setAttribute('data-bs-theme','light')
   }
-}, { passive: true })
+}, { passive: true });
