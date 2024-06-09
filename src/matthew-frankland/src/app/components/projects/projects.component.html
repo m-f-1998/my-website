@@ -1,0 +1,22 @@
+<div id="projects">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; position: relative; overflow-x: auto;">
+      @for (project of projects; track $index) {
+        <div class="card" style="width: 23%; min-width: 350px; text-align: center; margin: 20px">
+          <img src="{{ project.imageUrl }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover; object-position: top;">
+          <div class="card-header" style="height: 100px; display: flex; justify-content: center; align-items: center;">
+            <h5 class="card-title" style="margin: 0; text-align: center; font-weight: bold;">{{ project.title }}</h5>
+          </div>
+          <div class="card-body text-center">
+            <p class="card-text">{{ project.description }}</p>
+            <div style="display: flex; flex-direction: row; gap: 5px; justify-content: center;">
+              @for (link of project.links; track $index) {
+                <a target="_blank" href="{{ link.url }}" class="btn btn-primary">{{ link.label }}</a>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

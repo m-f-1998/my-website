@@ -1,0 +1,186 @@
+{
+  "country": "The United States",
+  "jan": {
+    "4": [
+      {
+        "title": "St Elizabeth Ann Seton (Optional)",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "feb": {
+    "1": [
+      {
+        "title": "St Bridget",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "mar": {
+    "22": [
+      {
+        "title": "St Catherine Fiesca Adorna",
+        "colors": "w",
+        "rank": 1,
+        "options": "Gl | Cr | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "apr": {
+    "26": [
+      {
+        "title": "Our Lady of Good Counsel",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Blessed Virgin Mary",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "may": {
+    "16": [
+      {
+        "title": "St John Nepomucene",
+        "colors": "r",
+        "rank": 2,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      },
+      {
+        "title": "St Brendan",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "aug": {
+    "11": [
+      {
+        "title": "St Philomena",
+        "colors": "r",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "sep": {
+    "9": [
+      {
+        "title": "St Peter Claver",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ],
+    "26": [
+      {
+        "title": "Sts Isac Jogues, John de Brebeuf, and Companions",
+        "colors": "r",
+        "rank": 2,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "oct": {
+    "13": [
+      {
+        "title": "Sts Isac Jogues, John de Brebeuf, and Companions",
+        "colors": "r",
+        "rank": 2,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ],
+    "25": [
+      {
+        "title":  "St Isidore the Farmer",
+        "colors": "w",
+        "rank": 2,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "nov": {
+    "7": [
+      {
+        "title": "St Leonard",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ],
+    "13": [
+      {
+        "title": "St Francis Xavier Cabrini",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ],
+    "27": [
+      {
+        "title": "St Virgilius",
+        "colors": "w",
+        "rank": 3,
+        "options": "Gl | Preface of the Season",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  },
+  "dec": {
+    "12": [
+      {
+        "title": "Our Lady of Guadalupe, Patroness of the Americas",
+        "colors": "w",
+        "rank": 1,
+        "options": "Gl | Cr | Preface of the Blessed Virgin Mary",
+        "propers": [ ],
+        "commemorations": [ ],
+        "diocese": "All Dioceses"
+      }
+    ]
+  }
+}

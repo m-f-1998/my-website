@@ -1,0 +1,20 @@
+.card {
+	background-color: var(--bs-tertiary-bg);
+	border: 0;
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 20px;
+	box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cc-experience .cc-experience-header {
+	padding-right: 0;
+	text-align: center;
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.bg-primary {
+	background-color: #378c3f !important;
+}

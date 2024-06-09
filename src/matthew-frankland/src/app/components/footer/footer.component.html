@@ -1,0 +1,15 @@
+<footer class="footer" style="margin-bottom: 20px;">
+  <div class="button-container text-center">
+    <div class="h4 title text-center" style="color: var(--bs-emphasis-color); margin-bottom: 0;">Matthew Frankland</div>
+    <div class="text-center text-muted">
+      <p style="margin-bottom: 10px;">&copy; {{year}}. All rights reserved.</p>
+    </div>
+    <div style="display: flex; flex-direction: row; justify-content: center; gap: 10px;">
+      @for (link of socialLinks; track $index) {
+        <a [href]="link.url" target="_blank" [class]="link.class" rel="tooltip" [title]="link.tooltip">
+          <i [class]="link.icon"></i>
+        </a>
+      }
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,483 @@
+{
+  "in_certain_locations": [
+      {
+          "date": "3 Jan",
+          "title": "St Gaspar del Bufalo",
+          "colors": "w"
+      },
+      {
+          "date": "3 Jan",
+          "title": "St Frances Xavier Cabrini (Transferred to 13 Nov)",
+          "colors": "w"
+      },
+      {
+          "date": "23 Jan",
+          "title": "St Ildephonsus",
+          "colors": "w"
+      },
+      {
+          "date": "29 Jan",
+          "title": "St Francis de Sales [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "21 Feb",
+          "title": "St Margaret of Cortona",
+          "colors": "w"
+      },
+      {
+          "date": "15 Mar",
+          "title": "St Louise de Marillac",
+          "colors": "w"
+      },
+      {
+          "date": "21 Mar",
+          "title": "St Benedict [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "16 Apr",
+          "title": "St Benedict Joseph Labre",
+          "colors": "w"
+      },
+      {
+          "date": "26 Apr",
+          "title": "Our Lady of Good Counsel",
+          "colors": "w"
+      },
+      {
+          "date": "28 Apr",
+          "title": "St Peter Chanel",
+          "colors": "r"
+      },
+      {
+          "date": "28 Apr",
+          "title": "St Louis-Marie Grignion de Montfort",
+          "colors": "w"
+      },
+      {
+          "date": "29 Apr",
+          "title": "St Joseph Benedict Cottolengo",
+          "colors": "w"
+      },
+      {
+          "date": "3 May",
+          "title": "On the Finding of the Holy Cross",
+          "colors": "r"
+      },
+      {
+          "date": "6 May",
+          "title": "St John Before the Latin Gate",
+          "colors": "w"
+      },
+      {
+          "date": "6 May",
+          "title": "St Dominic Savio",
+          "colors": "w"
+      },
+      {
+          "date": "8 May",
+          "title": "Our Lady, Queen of All Saints and Mother of Fair Love",
+          "colors": "w"
+      },
+      {
+          "date": "8 May",
+          "title": "Our Lady, Mediatrix of All Graces",
+          "colors": "w"
+      },
+      {
+          "date": "8 May",
+          "title": "Our Lady of the Sacred Heart of Jesus",
+          "colors": "w"
+      },
+      {
+          "date": "8 May",
+          "title": "On the Apparition of St. Michael Archangel",
+          "colors": "w"
+      },
+      {
+          "date": "15 May",
+          "title": "St Isidore Farmer and Confessor [In Some Places on 22 Mar or 25 Oct]",
+          "colors": "w"
+      },
+      {
+          "date": "16 May",
+          "title": "St John of Nepomuk",
+          "colors": "r"
+      },
+      {
+          "date": "22 May",
+          "title": "St Rita of Cascia",
+          "colors": "w"
+      },
+      {
+          "date": "23 May",
+          "title": "St John Baptist de Rossi",
+          "colors": "w"
+      },
+      {
+          "date": "24 May",
+          "title": "Our Lady, Help of Christians",
+          "colors": "w"
+      },
+      {
+          "date": "30 May",
+          "title": "St Ferdinand",
+          "colors": "w"
+      },
+      {
+          "date": "30 May",
+          "title": "St Joan of Arc",
+          "colors": "w"
+      },
+      {
+          "date": "Saturday after the Ascension",
+          "title": "Our Lady, Queen of Apostles",
+          "colors": "w"
+      },
+      {
+          "date": "9 Jun",
+          "title": "Our Lady, Mother of Grace",
+          "colors": "w"
+      },
+      {
+          "date": "13 Jun",
+          "title": "St Anthony of Padua [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "16 Jun",
+          "title": "St John Francis Regis",
+          "colors": "w"
+      },
+      {
+          "date": "27 Jun",
+          "title": "Our Lady of Perpetual Help",
+          "colors": "w"
+      },
+      {
+          "date": "27 Jun",
+          "title": "St Joseph Cafasso",
+          "colors": "w"
+      },
+      {
+          "date": "9 Jun",
+          "title": "On the Commemoration of All Holy Popes",
+          "colors": "w"
+      },
+      {
+          "date": "13 Jun",
+          "title": "St Maria Goretti",
+          "colors": "r"
+      },
+      {
+          "date": "16 Jun",
+          "title": "St Veronica Giuliani",
+          "colors": "w"
+      },
+      {
+          "date": "27 Jun",
+          "title": "St Vincent de Paul [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "27 Jun",
+          "title": "St Lawrence of Brindisi [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "Saturday before the IV Sunday in July",
+          "title": "Our Lady, Mother of Mercy",
+          "colors": "w"
+      },
+      {
+          "date": "1 Aug",
+          "title": "St. Peter in Chains",
+          "colors": "w"
+      },
+      {
+          "date": "3 Aug",
+          "title": "On the Finding of the Body of St. Stephen",
+          "colors": "r"
+      },
+      {
+          "date": "8 Aug",
+          "title": "St John Mary Vianney [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "11 Aug",
+          "title": "St Emygdius",
+          "colors": "r"
+      },
+      {
+          "date": "13 Aug",
+          "title": "Our Lady, Refuge of Sinners",
+          "colors": "w"
+      },
+      {
+          "date": "16 Aug",
+          "title": "St Roch",
+          "colors": "w"
+      },
+      {
+          "date": "18 Aug",
+          "title": "St Helena",
+          "colors": "w"
+      },
+      {
+          "date": "20 Aug",
+          "title": "St Bernard [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "28 Aug",
+          "title": "St Augustine [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "Saturday after the Feast of St. Augustine",
+          "title": "Our Lady of Consolation",
+          "colors": "w"
+      },
+      {
+          "date": "Saturday before the last Sunday in August",
+          "title": "Our Lady, Health of the Sick",
+          "colors": "w"
+      },
+      {
+          "date": "4 Sep",
+          "title": "Our Lady, Mother of the Divine Pastor",
+          "colors": "w"
+      },
+      {
+          "date": "4 Sep",
+          "title": "St Rose of Viterbo",
+          "colors": "w"
+      },
+      {
+          "date": "9 Sep",
+          "title": "St Peter Claver",
+          "colors": "w"
+      },
+      {
+          "date": "15 Sep",
+          "title": "St Catherine Fieschi Adorno [In Some Places on 22 Mar]",
+          "colors": "w"
+      },
+      {
+          "date": "26 Sep",
+          "title": "St Jean, Isaac, and Companions",
+          "colors": "r"
+      },
+      {
+          "date": "1 Oct",
+          "title": "St. Gregory Patriarch of Armenia",
+          "colors": "r"
+      },
+      {
+          "date": "15 Oct",
+          "title": "St Teresa [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "23 Oct",
+          "title": "The Most Holy Redeemer",
+          "colors": "w"
+      },
+      {
+          "date": "4 Nov",
+          "title": "St Charles [Proper Mass]",
+          "colors": "w"
+      },
+      {
+          "date": "5 Nov",
+          "title": "On the Holy Relics",
+          "colors": "w"
+      },
+      {
+          "date": "13 Nov",
+          "title": "St Stanislaus Kostka",
+          "colors": "w"
+      },
+      {
+          "date": "Saturday before the III Sunday in November",
+          "title": "Our Lady, Mother of Divine Providence",
+          "colors": "w"
+      },
+      {
+          "date": "24 Nov",
+          "title": "St John of the Cross",
+          "colors": "w"
+      },
+      {
+          "date": "26 Nov",
+          "title": "St Leonard of Port Maurice",
+          "colors": "w"
+      },
+      {
+          "date": "27 Nov",
+          "title": "Our Lady of the Miraculous Medal",
+          "colors": "w"
+      },
+      {
+          "date": "7 Dec",
+          "title": "St Ambrose [Proper Mass]",
+          "colors": "w"
+      }
+  ],
+  "feasts": {
+      "countries": [
+          "USA",
+          "Scotland"
+      ],
+      "locale": {
+          "USA": {
+              "dioceses": [
+                  "All Dioceses",
+                  "In Certain Dioceses"
+              ],
+              "locale": {
+                  "All Dioceses": [
+                      {
+                          "date": "12 Dec",
+                          "title": "Our Lady of Guadalupe, Patroness of the Americas",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "5 Jan",
+                          "title": "St John Neuman",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "22 Jan",
+                          "title": "Votive Mass for Peace",
+                          "colors": "v"
+                      },
+                      {
+                          "date": "Sunday after Corpus Christi",
+                          "title": "External Solemnity of Corpus Christi",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "Sunday after Ss Peter & Paul",
+                          "title": "External Solemnity of Ss Peter & Paul",
+                          "colors": "r"
+                      },
+                      {
+                          "date": "9 Sept",
+                          "title": "St Peter Claver",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "25 Oct",
+                          "title": "St Isidore the Farmer",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "13 Nov",
+                          "title": "St Frances Xavier Cabrini",
+                          "colors": "w"
+                      }
+                  ],
+                  "In Certain Dioceses": [
+                      {
+                          "date": "4 Jan",
+                          "title": "St Elizabeth Ann Seton (Optional)",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "26 Sept or 13 Oct",
+                          "title": "Ss Jean de Brebeuf, Isaac Jogues & Companions",
+                          "colors": "r"
+                      },
+                      {
+                          "date": "1 Feb",
+                          "title": "St Bridget of Ireland",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "26 Apr",
+                          "title": "Our Lady of Good Counsel",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "22 Mar",
+                          "title": "St Catherine Fiesca Adorna",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "16 May",
+                          "title": "St John Nepomucene",
+                          "colors": "r"
+                      },
+                      {
+                          "date": "16 May",
+                          "title": "St Brendan",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "11 Aug",
+                          "title": "St Philomena",
+                          "colors": "r"
+                      },
+                      {
+                          "date": "7 Nov",
+                          "title": "St Leonard",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "27 Nov",
+                          "title": "St Virgilius",
+                          "colors": "w"
+                      }
+                  ]
+              }
+          },
+          "Scotland": {
+              "dioceses": [
+                  "All Dioceses"
+              ],
+              "locale": {
+                  "All Dioceses": [
+                      {
+                          "date": "30 Nov",
+                          "title": "St Andrew, Patron of Scotland",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "14 Jan",
+                          "title": "St Kentigern/Mungo",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "10 Mar",
+                          "title": "St John Ogilvie",
+                          "colors": "r"
+                      },
+                      {
+                          "date": "17 Mar",
+                          "title": "St Patrick",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "9 Jun",
+                          "title": "St Columba",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "16 Sep",
+                          "title": "St Ninian",
+                          "colors": "w"
+                      },
+                      {
+                          "date": "16 Nov",
+                          "title": "St Margaret, Patroness of Scotland",
+                          "colors": "w"
+                      }
+                  ]
+              }
+          }
+      }
+  }
+}
