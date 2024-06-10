@@ -15,6 +15,7 @@ export class ProjectsComponent {
       altTag: "Trench Heating Project",
       title: "Trench Heating Specification Tool",
       description: "An online PDF specification generator which provides the best Trench Heating solution for a customer\"s large scale project.",
+      fullText: false,
       links: [
         {
           url: "https://www.turnbull-scott.co.uk/heating/perimeter-trench-heating/product-specification-selection-tool/",
@@ -27,6 +28,7 @@ export class ProjectsComponent {
       altTag: "AvediaStream",
       title: "Solution Builder",
       description: "AvediaStream is a Exterity IP Digital Media platform that includes a variety of Video Encoders; Servers; Transcoders; Gateways and more. Solution Builder generates specifications for customers based upon their setup, including compatability, price and requirements.",
+      fullText: false,
       links: []
     },
     {
@@ -34,6 +36,7 @@ export class ProjectsComponent {
       altTag: "The Hawick Paper",
       title: "The Hawick Paper",
       description: "An App on iOS and Android for my local paper.",
+      fullText: false,
       links: [
         {
           url: "https://apps.apple.com/us/app/the-hawick-paper/id1520637565",
@@ -50,6 +53,7 @@ export class ProjectsComponent {
       altTag: "1962 Ordo App",
       title: "1962 Liturgical Ordo",
       description: "An App for Traditional Catholics Sold Worldwide.",
+      fullText: false,
       links: [
         {
           url: "https://apps.apple.com/in/app/1962-liturgical-ordo/id6450934181",
@@ -65,7 +69,8 @@ export class ProjectsComponent {
       imageUrl: "project-5.png",
       altTag: "Hons Degree Dissertation",
       title: "My Dissertation",
-      description: "The purpose of this research is to develop a new prototype Learning Management System. This system is designed using a traditional distributed client server architecture model that connects multiple clients to the same server over a network connection.",
+      description: "A prototype Learning Management System I delivered as part of my Honours Dissertation. This system uses a traditional distributed client server architecture to connects multiple clients to the same server over a network connection.",
+      fullText: false,
       links: [
         {
           url: "https://github.com/m-f-1998/university/blob/master/honours_dissertation/dissertation.pdf",
@@ -78,6 +83,7 @@ export class ProjectsComponent {
       altTag: "Topic Modelling Graph",
       title: "Topic Modelling",
       description: "Topic Maps are a tool developed by the Strategic Futures Laboratory of Heriot-Watt University. They use a Latent Dirichlet Allocation (LDA) algorithm to extract topics from supplied texts, this project developed a tool which uses various metrics to investigate models that are produced.",
+      fullText: false,
       links: [
         {
           url: "https://github.com/m-f-1998/university/tree/master/topic_modelling",
@@ -86,5 +92,9 @@ export class ProjectsComponent {
       ]
     }
   ];
+
+  public readmore ( project: any ) {
+    project.fullText = !project.fullText
+  }
 
 }
