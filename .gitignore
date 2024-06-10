@@ -2,7 +2,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-src/matthew-frankland/dist
+src/matthew-frankland/dist/
+.env
 
 # Icon must end with two \r
 Icon
