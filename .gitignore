@@ -374,3 +374,6 @@ MigrationBackup/
 
 # Angular
 .angular
+
+vendor/
+composer.lock
