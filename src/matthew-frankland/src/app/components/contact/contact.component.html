@@ -10,26 +10,36 @@
                 <fa-icon [icon]="faSpinner" animation="spin" />
                 Sending...
               </div>
+            } @else if (success) {
+              <div class="alert alert-success text-center h5" role="alert">
+                <fa-icon [icon]="faCheck" />
+                Sent!
+              </div>
+            } @else if (error) {
+              <div class="alert alert-danger text-center h5" role="alert">
+                <fa-icon [icon]="faExclamationTriangle" />
+                Error!
+              </div>
             } @else {
-              <form (submit)="sendEmail($event)">
+              <form [formGroup]="contactForm" (submit)="sendEmail()">
                 <div class="row mb-3">
                   <div class="col">
                     <div class="form-group">
-                      <input class="form-control" type="text" name="subject" placeholder="Subject" required="required"/>
+                      <input class="form-control" type="text" name="subject" placeholder="Subject" formControlName="subject"/>
                     </div>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="col">
                     <div class="form-group">
-                      <textarea class="form-control" name="message" placeholder="Your Message" required="required"></textarea>
+                      <textarea class="form-control" name="message" placeholder="Your Message" formControlName="message"></textarea>
                     </div>
                   </div>
                 </div>
                 <div class="cf-turnstile" data-sitekey="0x4AAAAAAAiWn0sdYI4o7tDr"></div>
                 <div class="row">
                   <div class="col">
-                    <button class="btn btn-primary" type="submit">Send</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="!contactForm.valid || !turnstileToken">Send</button>
                   </div>
                 </div>
               </form>

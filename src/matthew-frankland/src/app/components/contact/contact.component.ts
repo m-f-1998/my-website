@@ -1,8 +1,9 @@
-import { HttpClient } from "@angular/common/http";
-import { Component } from "@angular/core";
-import { ToastrService } from "ngx-toastr";
+import { HttpClient } from "@angular/common/http"
+import { AfterViewInit, Component } from "@angular/core"
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import { ToastrService } from "ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
-import { faSpinner } from "@fortawesome/free-solid-svg-icons"
+import { faCheck, faExclamationTriangle, faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 @Component ( {
   selector: "app-contact",
@@ -10,67 +11,74 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons"
   templateUrl: "./contact.component.html",
   styleUrl: "./contact.component.scss",
   imports: [
-    FaIconComponent
+    FaIconComponent,
+    ReactiveFormsModule
   ]
 } )
-export class ContactComponent {
+export class ContactComponent implements AfterViewInit {
   public processing = false
+  public error = false
+  public success = false
+  public message = ""
+
+  public contactForm: FormGroup = this.formSvc.group ( {
+    subject: [ "", Validators.required ],
+    message: [ "", Validators.required ],
+    turnstileToken: [ null, Validators.required ]
+  } )
+  public turnstileToken: string | null = null
 
   public faSpinner = faSpinner
+  public faCheck = faCheck
+  public faExclamationTriangle = faExclamationTriangle
 
   public constructor (
     private toastrSvc: ToastrService,
-    private httpSvc: HttpClient
+    private httpSvc: HttpClient,
+    private formSvc: FormBuilder
   ) { }
 
-  // public async handlePost ( request ) {
-  //   const body = await request.formData ( )
-  //   // Turnstile injects a token in "cf-turnstile-response".
-  //   const token = body.get ( "cf-turnstile-response" )
-  //   const ip = request.headers.get ( "CF-Connecting-IP" )
+  public ngAfterViewInit ( ) {
+    this.renderAllTurnstiles ( )
+  }
 
-  //   // Validate the token by calling the
-  //   // "/siteverify" API endpoint.
-  //   let formData = new FormData ( )
-  //   formData.append ( "secret", "0x4AAAAAAAiWn5CHk99L8WAV7ePNR0AAuRA" )
-  //   formData.append ( "response", token )
-  //   formData.append ( "remoteip", ip )
+  public onTurnstileToken ( token: string ) {
+    this.turnstileToken = token
+    this.contactForm.patchValue ( { turnstileToken: token } )
+  }
 
-  //   const url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
-  //   const result = await fetch ( url, {
-  //     body: formData,
-  //     method: "POST",
-  //   } )
+  public renderAllTurnstiles ( ) {
+    const turnstileElements = document.querySelectorAll ( ".cf-turnstile" )
 
-  //   const outcome = await result.json(  )
-  //   if ( outcome.success ) {
-  //     // ...
-  //   }
-  // }
+    turnstileElements.forEach ( element => {
+      ( window as any ).turnstile.render ( element, {
+        sitekey: "0x4AAAAAAAiWn0sdYI4o7tDr",
+        callback: ( token: string ) => this.onTurnstileToken ( token )
+      } )
+    } )
+  }
 
-  public sendEmail ( event: Event ) {
-    event.preventDefault ( )
-    // Get form data from event
+  public sendEmail ( ) {
+    if ( this.contactForm.invalid ) {
+      this.toastrSvc.error ( "Please complete all fields" )
+      return
+    }
+    const formData = new FormData ( )
+    formData.append ( "subject", this.contactForm.value.subject )
+    formData.append ( "message", this.contactForm.value.message )
+    formData.append ( "cf-turnstile-response", this.contactForm.value.turnstileToken )
 
-    const form = event.target as HTMLFormElement
-    const formData = new FormData ( form )
-    console.log ( formData )
-    var subject = (<HTMLInputElement>document.getElementsByName("subject")[0]).value
-    var message = (<HTMLInputElement>document.getElementsByName("message")[0]).value
-    var email = "admin@matthewfrankland.co.uk"
     this.processing = true
-    this.httpSvc.post ( "https://matthewfrankland.co.uk/mailer/send.php", {
-      email: email,
-      subject: subject,
-      message: message,
-
-    } ).subscribe ( {
+    this.httpSvc.post ( "https://api.matthewfrankland.co.uk/mailer/", formData ).subscribe ( {
       next: ( ) => {
-        this.toastrSvc.success ( "Email sent!" )
+        this.message = "Email sent!"
+        this.success = true
         this.processing = false
       },
       error: ( e ) => {
-        this.toastrSvc.error ( e.error )
+        this.error = true
+        this.message = "An Error Occurred. Please Try Again Later."
+        console.error ( e )
         this.processing = false
       }
     } )
