@@ -41,10 +41,6 @@ export class ProjectsComponent {
         {
           url: "https://apps.apple.com/us/app/the-hawick-paper/id1520637565",
           label: "iOS App Store"
-        },
-        {
-          url: "https://play.google.com/store/apps/details?id=com.hawick_paper&hl=en&gl=GB",
-          label: "Google Play"
         }
       ]
     },
@@ -58,10 +54,6 @@ export class ProjectsComponent {
         {
           url: "https://apps.apple.com/in/app/1962-liturgical-ordo/id6450934181",
           label: "iOS App Store"
-        },
-        {
-          url: "https://play.google.com/store/apps/details?id=com.mfrankland.ordo_1962&hl=en_GB&gl=US",
-          label: "Google Play"
         }
       ]
     },
