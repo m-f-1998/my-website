@@ -3,14 +3,13 @@ import { ActivatedRoute } from "@angular/router"
 import { HeaderComponent } from "../components/header/header.component"
 
 @Component ( {
-  selector: "app-error-view",
-  standalone: true,
-  imports: [
-    HeaderComponent
-  ],
-  templateUrl: "./http-error.component.html",
-  styleUrl: "./http-error.component.scss",
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "app-error-view",
+    imports: [
+        HeaderComponent
+    ],
+    templateUrl: "./http-error.component.html",
+    styleUrl: "./http-error.component.scss",
+    changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {
 

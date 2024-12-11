@@ -1,11 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import "../node_modules/bootstrap/scss/bootstrap.scss";
-
 @import "../node_modules/devicon/devicon.min.css";
-
-@import '../node_modules/ngx-toastr/toastr';
-@import '../node_modules/ngx-toastr/toastr-bs5-alert';
 
 @import "@fontsource/montserrat/400.css"; // Specify weight
 @import "@fontsource/montserrat/700.css"; // Specify weight
@@ -27,10 +20,11 @@ body {
 	color: #fff;
 	box-shadow: none;
 }
+
 .btn:hover {
 	background-color: #28a745;
 	box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.17);
-	filter: brightness(0.9);
+	filter: brightness(0.8);
 }
 
 .title {

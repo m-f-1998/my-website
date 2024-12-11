@@ -6,15 +6,14 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { faCheck, faExclamationTriangle, faSpinner } from "@fortawesome/free-solid-svg-icons"
 
 @Component ( {
-  selector: "app-contact",
-  standalone: true,
-  templateUrl: "./contact.component.html",
-  styleUrl: "./contact.component.scss",
-  imports: [
-    FaIconComponent,
-    ReactiveFormsModule
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: "app-contact",
+    templateUrl: "./contact.component.html",
+    styleUrl: "./contact.component.scss",
+    imports: [
+      FaIconComponent,
+      ReactiveFormsModule
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ContactComponent implements AfterViewInit {
   public processing = signal ( false )
@@ -55,7 +54,6 @@ export class ContactComponent implements AfterViewInit {
       ( window as any ).turnstile.render ( element, {
         sitekey: "0x4AAAAAAAiWn0sdYI4o7tDr",
         callback: ( token: string ) => {
-          console.log ( token )
           this.onTurnstileToken ( token )
         },
         "error-callback": ( ) => {
