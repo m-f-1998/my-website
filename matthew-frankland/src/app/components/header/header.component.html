@@ -1,0 +1,23 @@
+<div class="header-component">
+  <div class="page-header page-header-small" filter-color="green">
+    <div class="page-header-image"></div>
+    <div class="container">
+      <div class="content-center">
+        <div class="profile-image">
+          <a href="/">
+            <img src="/assets/matthew.jpg" alt="Profile Image"/>
+          </a>
+        </div>
+        <div class="h2 title">Matthew Frankland</div>
+        <p>Web & Application Developer</p>
+        <div class="d-flex justify-content-center gap-2">
+          @for (link of socialLinks; track $index) {
+            <a [href]="link.url" target="_blank" [class]="link.class" rel="tooltip" [title]="link.tooltip">
+              <i [class]="link.icon"></i>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
