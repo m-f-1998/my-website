@@ -51,19 +51,17 @@
 
   $_POST [ "subject" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "subject" ] ) ) );
   $_POST [ "message" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "message" ] ) ) );
-  $_POST [ "cf-turnstile-response" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "cf-turnstile-response" ] ) ) );
+  $_POST [ "recaptcha-token" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "recaptcha-token" ] ) ) );
 
-  // Your secret key from the Cloudflare Turnstile dashboard
-  $secret = "0x4AAAAAAAiWn5CHk99L8WAV7ePNR0AAuRA";
-  // Verify the Turnstile response with Cloudflare
-  $verifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+  $secret = "6LebYqIqAAAAAID2ai9aMCECQMhB1LXurWtwolX5";
+  $verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
   $data = [
     "secret" => $secret,
-    "response" => $_POST [ "cf-turnstile-response" ],
+    "response" => $_POST [ "recaptcha-token" ],
     "remoteip" => $_SERVER [ "REMOTE_ADDR" ]
   ];
 
-  if ( empty ( $_POST [ "subject" ] ) || empty ( $_POST [ "message" ] ) || empty ( $_POST [ "cf-turnstile-response" ] ) ) {
+  if ( empty ( $_POST [ "subject" ] ) || empty ( $_POST [ "message" ] ) || empty ( $_POST [ "recaptcha-token" ] ) ) {
     echo json_encode ( "Please fill in all fields" );
     http_response_code ( 400 );
     exit ( );
@@ -85,9 +83,12 @@
   curl_close ( $ch );
 
   $responseData = json_decode ( $response, true );
-  // Check if the verification was successful
   if ( $responseData [ "success" ] ) {
-    // CAPTCHA verified, proceed with form processing
+    if ( time ( ) - strtotime ( $responseData [ "challenge_ts" ] ) > 300 || $responseData [ "hostname" ] !== "matthewfrankland.co.uk" || !empty ( $responseData [ "error-codes" ] ) ) {
+      echo json_encode ( "CAPTCHA verification failed. Please try again." );
+      http_response_code ( 400 );
+      exit ( );
+    }
 
     $mail = new PHPMailer ( true );
 
