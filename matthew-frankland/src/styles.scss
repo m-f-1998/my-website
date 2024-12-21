@@ -1,9 +1,6 @@
-@import "@fontsource/montserrat/400.css"; // Specify weight
-@import "@fontsource/montserrat/700.css"; // Specify weight
-
 body {
 	font-size: 14px;
-	font-family: Montserrat, "Helvetica Neue", Arial, sans-serif;
+	font-family: "Helvetica Neue", Arial, sans-serif;
 	font-weight: var(--bs-body-font-weight);
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
