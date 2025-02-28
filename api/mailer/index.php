@@ -4,9 +4,19 @@
   * with the specified subject and message.
   */
 
+  $allowed_origins = [
+    "https://matthewfrankland.co.uk",
+    "https://www.matthewfrankland.co.uk"
+  ];
+
+  if ( isset ( $_SERVER [ "HTTP_ORIGIN" ] ) && in_array ( $_SERVER [ "HTTP_ORIGIN" ], $allowed_origins ) ) {
+
+    header ( "Access-Control-Allow-Origin: " . $_SERVER [ "HTTP_ORIGIN" ] );
+
+  }
+
   header ( "Content-Type: application/json; charset=utf-8" );
   header ( "Access-Control-Allow-Methods: POST, OPTIONS" );
-  header ( "Access-Control-Allow-Origin: https://matthewfrankland.co.uk" );
   header ( "Access-Control-Allow-Headers: Origin, Content-Type, X-Auth" );
 
   // Handle preflight OPTIONS request
@@ -49,8 +59,8 @@
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\Exception;
 
-  $_POST [ "subject" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "subject" ] ) ) );
-  $_POST [ "message" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "message" ] ) ) );
+  $_POST [ "subject" ] = strip_tags ( trim ( $_POST [ "subject" ] ) );
+  $_POST [ "message" ] = nl2br ( strip_tags ( trim ( $_POST [ "message" ] ) ) );
   $_POST [ "recaptcha-token" ] = htmlspecialchars ( strip_tags ( trim ( $_POST [ "recaptcha-token" ] ) ) );
 
   $secret = "6LebYqIqAAAAAID2ai9aMCECQMhB1LXurWtwolX5";
