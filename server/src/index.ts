@@ -2,7 +2,8 @@ import express from "express"
 import helmet from "helmet"
 
 import cors from "cors"
-import { router as mailer } from "./routes/mailer.js"
+import { router as mailerRouter } from "./routes/mailer.js"
+import { router as staticRouter } from "./routes/static.js"
 
 const app = express ( )
 
@@ -43,7 +44,8 @@ app.use ( helmet ( {
   ieNoOpen: true
 } ) )
 
-app.use ( mailer )
+app.use ( mailerRouter )
+app.use ( staticRouter )
 
 app.listen ( 3000, ( ) => {
   console.log ( "Server running on port 3000" )

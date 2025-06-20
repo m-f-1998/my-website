@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection } from "@angular/core"
+import { ApplicationConfig, provideZonelessChangeDetection } from "@angular/core"
 import { provideRouter } from "@angular/router"
 
 import { routes } from "./app.routes"
@@ -9,7 +9,7 @@ import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection ( ),
+    provideZonelessChangeDetection ( ),
     provideRouter ( routes ),
     provideToastr ( {
       positionClass: "toast-bottom-right",
