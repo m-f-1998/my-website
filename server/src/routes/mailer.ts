@@ -6,6 +6,12 @@ import { createTransport } from "nodemailer"
 
 export const router = Router ( )
 
+import { config } from "dotenv"
+import { resolve } from "path"
+
+const envPath = resolve ( process.cwd ( ), ".env" )
+config ( { path: envPath } )
+
 router.use ( "/api/mail", rateLimit ( { // limit each IP to 5 requests per hour
   windowMs: 60 * 60 * 1000,
   max: 5,
@@ -24,12 +30,17 @@ router.post ( "/api/mail", async ( req: Request, res: Response ) => {
 
   try {
     const response = await fetch (
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env["RECAPTCHA_SECRET_KEY"]}&response=${recaptchaToken}`,
+      "https://www.google.com/recaptcha/api/siteverify",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
+        body: new URLSearchParams ( {
+          secret: process.env [ "RECAPTCHA_SECRET_KEY" ] || "",
+          response: recaptchaToken,
+          remoteip: req.ip || "",
+        } ).toString ( )
       }
     )
 
@@ -40,6 +51,7 @@ router.post ( "/api/mail", async ( req: Request, res: Response ) => {
 
     const data: any = await response.json ( )
     if ( !data.success || data.score < 0.5 ) {
+      console.warn ( "reCAPTCHA verification failed:", data )
       res.status ( 400 ).json ( { message: "reCAPTCHA failed." } )
       return
     }
@@ -52,7 +64,7 @@ router.post ( "/api/mail", async ( req: Request, res: Response ) => {
   const transporter = createTransport ( {
     host: process.env [ "SMTP_HOST" ],
     port: Number ( process.env [ "SMTP_PORT" ] ),
-    secure: true,
+    secure: false,
     auth: {
       user: process.env [ "SMTP_USER" ],
       pass: process.env [ "SMTP_PASS" ],

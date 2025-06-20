@@ -71,11 +71,6 @@ export class ContactComponent implements OnInit, OnDestroy {
       return
     }
 
-    // const formData = new FormData ( )
-    // formData.append ( "subject", this.contactForm.value.subject )
-    // formData.append ( "message", this.contactForm.value.message )
-    // formData.append ( "recaptcha-token", this.captchaToken )
-
     this.processing.set ( true )
 
     let url = "https://api.matthewfrankland.co.uk/api/mail/"
@@ -85,7 +80,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.httpSvc.post ( url, {
       subject: this.contactForm.value.subject,
       message: this.contactForm.value.message,
-      "recaptcha-token": this.captchaToken
+      recaptchaToken: this.captchaToken
     } ).subscribe ( {
       next: ( ) => {
         this.message.set ( "Email sent!" )
