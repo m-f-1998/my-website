@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http"
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from "@angular/core"
+import { ChangeDetectionStrategy, Component, isDevMode, OnDestroy, OnInit, signal } from "@angular/core"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ToastrService } from "ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
@@ -71,13 +71,22 @@ export class ContactComponent implements OnInit, OnDestroy {
       return
     }
 
-    const formData = new FormData ( )
-    formData.append ( "subject", this.contactForm.value.subject )
-    formData.append ( "message", this.contactForm.value.message )
-    formData.append ( "recaptcha-token", this.captchaToken )
+    // const formData = new FormData ( )
+    // formData.append ( "subject", this.contactForm.value.subject )
+    // formData.append ( "message", this.contactForm.value.message )
+    // formData.append ( "recaptcha-token", this.captchaToken )
 
     this.processing.set ( true )
-    this.httpSvc.post ( "https://api.matthewfrankland.co.uk/mailer/", formData ).subscribe ( {
+
+    let url = "https://api.matthewfrankland.co.uk/api/mail/"
+    if ( isDevMode ( ) ) {
+      url = "http://localhost:3000/api/mail/"
+    }
+    this.httpSvc.post ( url, {
+      subject: this.contactForm.value.subject,
+      message: this.contactForm.value.message,
+      "recaptcha-token": this.captchaToken
+    } ).subscribe ( {
       next: ( ) => {
         this.message.set ( "Email sent!" )
         this.success.set ( true )

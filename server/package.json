@@ -1,0 +1,33 @@
+{
+  "name": "my-website-server",
+  "version": "1.0.0",
+  "description": "Server for my Website",
+  "type": "module",
+  "main": "index.js",
+   "scripts": {
+    "prestart": "npm install",
+    "start": "node --env-file=.env --watch ./ index.js",
+    "dev": "npm run prestart && npx --yes nodemon -e ts --exec \"tsc && node ./dist/index.js\"",
+    "lint": "npx --yes eslint",
+    "lint:fix": "npx --yes eslint --fix",
+    "tsc-verify": "npx --yes tsc --noEmit"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "dotenv": "^16.5.0",
+    "eslint": "^9.29.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0",
+    "nodemailer": "^7.0.3",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^4.4.1",
+    "@types/express": "^5.0.3",
+    "@types/helmet": "^0.0.48",
+    "@types/nodemailer": "^6.4.17",
+    "eslint-plugin-import": "^2.31.0",
+    "typescript-eslint": "^8.34.1"
+  }
+}

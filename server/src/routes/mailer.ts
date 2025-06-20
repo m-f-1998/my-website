@@ -1,0 +1,74 @@
+import { Router } from "express"
+import type { Request, Response } from "express"
+import { rateLimit } from "express-rate-limit"
+
+import { createTransport } from "nodemailer"
+
+export const router = Router ( )
+
+router.use ( "/api/mail", rateLimit ( { // limit each IP to 5 requests per hour
+  windowMs: 60 * 60 * 1000,
+  max: 5,
+  message: "Too many requests, please try again later.",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+} ) )
+
+router.post ( "/api/mail", async ( req: Request, res: Response ) => {
+  const { subject, message, recaptchaToken } = req.body
+
+  if ( !subject || !recaptchaToken || !message ) {
+    res.status ( 400 ).json ( { message: "Invalid input." } )
+    return
+  }
+
+  try {
+    const response = await fetch (
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env["RECAPTCHA_SECRET_KEY"]}&response=${recaptchaToken}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      }
+    )
+
+    if ( !response.ok ) {
+      res.status ( 500 ).json ( { message: "reCAPTCHA verification failed." } )
+      return
+    }
+
+    const data: any = await response.json ( )
+    if ( !data.success || data.score < 0.5 ) {
+      res.status ( 400 ).json ( { message: "reCAPTCHA failed." } )
+      return
+    }
+  } catch ( err: any ) {
+    console.error ( "reCAPTCHA verification error:", err )
+    res.status ( 500 ).json ( { message: "reCAPTCHA verification error." } )
+    return
+  }
+
+  const transporter = createTransport ( {
+    host: process.env [ "SMTP_HOST" ],
+    port: Number ( process.env [ "SMTP_PORT" ] ),
+    secure: true,
+    auth: {
+      user: process.env [ "SMTP_USER" ],
+      pass: process.env [ "SMTP_PASS" ],
+    },
+  } )
+
+  try {
+    await transporter.sendMail ( {
+      from: process.env [ "SMTP_USER" ],
+      to: process.env [ "SMTP_USER" ],
+      subject,
+      html: message,
+      encoding: "utf8"
+    } )
+    res.status ( 200 ).json ( { message: "Email sent successfully" } )
+  } catch ( err: any ) {
+    res.status ( 500 ).json ( { message: "Email send failed", error: err.message } )
+  }
+} )

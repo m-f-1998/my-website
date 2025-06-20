@@ -11,6 +11,8 @@
 			"**/node_modules": true,
 			"**/bower_components": true,
 			"**/*.code-search": true
-		}
+		},
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "dbaeumer.vscode-eslint"
 	}
 }
