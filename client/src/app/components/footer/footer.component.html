@@ -1,13 +1,13 @@
-<footer class="footer" style="margin-bottom: 20px;">
+<footer class="footer margin-bottom-20">
   <div class="button-container text-center">
-    <div class="h4 title text-center" style="color: var(--bs-emphasis-color); margin-bottom: 0;">Matthew Frankland</div>
+    <div class="h4 title text-center mb-0 text-body-emphasis">Matthew Frankland</div>
     <div class="text-center text-muted">
-      <p style="margin-bottom: 10px;">&copy; {{year}}. All rights reserved.</p>
+      <p class="margin-bottom-10">&copy; {{year}}. All rights reserved.</p>
     </div>
-    <div style="display: flex; flex-direction: row; justify-content: center; gap: 10px;">
+    <div class="d-flex flex-row justify-content-center gap-10">
       @for (link of socialLinks; track $index) {
         <a [href]="link.url" target="_blank" [class]="link.class" rel="tooltip" [title]="link.tooltip">
-          <fa-icon [icon]="link.icon" style="color: white;" />
+          <fa-icon [icon]="link.icon" class="text-white" />
         </a>
       }
     </div>

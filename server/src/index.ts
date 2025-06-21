@@ -1,9 +1,12 @@
 import express from "express"
+import type { Response } from "express"
 import helmet from "helmet"
 
 import cors from "cors"
 import { router as mailerRouter } from "./routes/mailer.js"
 import { router as staticRouter } from "./routes/static.js"
+import { randomBytes } from "crypto"
+import { rateLimit } from "express-rate-limit"
 
 const app = express ( )
 
@@ -20,6 +23,12 @@ app.use ( cors ( {
   credentials: true
 } ) )
 
+app.use ( ( _req, res, next ) => {
+  const nonce = randomBytes ( 16 ).toString ( "base64" )
+  res.locals [ "cspNonce" ] = nonce
+  next ( )
+} )
+
 app.use ( helmet ( {
   frameguard: {
     action: "deny"
@@ -32,16 +41,48 @@ app.use ( helmet ( {
   },
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: [ "'self'" ],
-      scriptSrc: [ "'self'", "'unsafe-inline'", "https://www.google.com/recaptcha/api.js" ],
-      styleSrc: [ "'self'", "'unsafe-inline'" ],
-      imgSrc: [ "'self'", "data:", "https://www.google.com/recaptcha/api/image" ],
-      connectSrc: [ "'self'", "https://www.google.com/recaptcha/api/siteverify" ]
+      defaultSrc: [
+        "'none'",
+      ],
+      scriptSrc: [
+        "'self'",
+        "www.googletagmanager.com"
+      ],
+      styleSrc: [
+        "'self'",
+        ( _req, res ) => `'nonce-${( res as Response ).locals[ "cspNonce" ]}'`,
+      ],
+      scriptSrcElem: [
+        "'self'",
+        ( _req, res ) => `'nonce-${( res as Response ).locals[ "cspNonce" ]}'`
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://\*.jsdelivr.net",
+      ],
+      connectSrc: [
+        "'self'",
+        "https://\*.google-analytics.com",
+        "https://\*.google.com",
+      ],
+      frameSrc: [
+        "'self'",
+        "https://www.google.com"
+      ]
     }
   },
   noSniff: true,
   xssFilter: true,
   ieNoOpen: true
+} ) )
+
+app.use ( "/assets", rateLimit ( {
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests, please try again later.",
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 } ) )
 
 app.use ( mailerRouter )

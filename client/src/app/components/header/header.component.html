@@ -13,7 +13,7 @@
         <div class="d-flex justify-content-center gap-2">
           @for (link of socialLinks; track $index) {
             <a [href]="link.url" target="_blank" [class]="link.class" rel="tooltip" [title]="link.tooltip">
-              <fa-icon [icon]="link.icon" style="color: white;" size="2x" />
+              <fa-icon [icon]="link.icon" class="text-white" size="2x" />
             </a>
           }
         </div>

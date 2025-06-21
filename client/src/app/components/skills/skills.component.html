@@ -5,7 +5,7 @@
         @for (skill of skillGroup.skills; track $index) {
           <div [class]="skill.optional ? 'd-none d-md-block col-md-4' : 'col-md-4 col-sm-6'">
             <div class="card card-body language">
-              <div style="display: flex; justify-content: center;">
+              <div class="d-flex justify-content-center">
                 @for (icon of skill.icons; track $index) {
                   <img [src]="icon" class="icon"/>
                 }

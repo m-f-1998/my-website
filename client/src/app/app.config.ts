@@ -1,13 +1,15 @@
-import { ApplicationConfig, provideZonelessChangeDetection } from "@angular/core"
+import { ApplicationConfig, CSP_NONCE, provideZonelessChangeDetection } from "@angular/core"
 import { provideRouter } from "@angular/router"
 
 import { routes } from "./app.routes"
 import { provideToastr } from "ngx-toastr"
 import { provideHttpClient } from "@angular/common/http"
 import { provideAnimations } from "@angular/platform-browser/animations"
-import { RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
+import { RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
 
-export const appConfig: ApplicationConfig = {
+const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
+
+const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection ( ),
     provideRouter ( routes ),
@@ -28,3 +30,23 @@ export const appConfig: ApplicationConfig = {
     provideAnimations ( )
   ]
 }
+
+if ( nonce ) {
+  appConfig.providers.push ( {
+    provide: CSP_NONCE,
+    useValue: nonce
+  } )
+  appConfig.providers.push ( {
+    provide: RECAPTCHA_LOADER_OPTIONS,
+    useValue: {
+      onBeforeLoad ( _url: any ) {
+        return {
+          url: _url,
+          nonce,
+        };
+      },
+    },
+  } )
+}
+
+export { appConfig }

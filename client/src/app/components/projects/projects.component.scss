@@ -35,3 +35,16 @@
 .card:hover {
 	filter: brightness(0.9);
 }
+
+.project-card {
+	width: 23%;
+	min-width: 250px;
+	text-align: center;
+	margin: 20px;
+}
+
+.project-img {
+	height: 200px;
+	object-fit: cover;
+	object-position: top;
+}
