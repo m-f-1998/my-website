@@ -1,6 +1,5 @@
 # matthewfrankland.co.uk 🌐
-
-Personal website of [Matthew Frankland](https://www.matthewfrankland.co.uk) — built using Angular and Node.js, containerized with Docker.
+The personal website of [Matthew Frankland](https://www.matthewfrankland.co.uk) — built using Angular and Node.js, containerized with Docker.
 
 ## 🌱 Features
 - Modern Angular frontend
@@ -12,8 +11,8 @@ Personal website of [Matthew Frankland](https://www.matthewfrankland.co.uk) — 
 ## 🚀 Deployment
 
 Images are published to:
-- `ghcr.io/m-f-1998/website:dev` – Dev (`beta.*`)
-- `ghcr.io/m-f-1998/website:latest` – Production
+- `ghcr.io/m-f-1998/my-website:dev` – Dev (`beta.*`)
+- `ghcr.io/m-f-1998/my-website:latest` – Production
 
 ## 🐳 Local Development
 
@@ -26,7 +25,7 @@ cd server && npm run dev
 
 # Docker
 ./compile.sh dev
-docker run -p 3000:3000 ghcr.io/m-f-1998/website:dev
+docker run -p 3000:3000 ghcr.io/m-f-1998/my-website:dev
 
 ## 🔧 Required Environment Variables
 
