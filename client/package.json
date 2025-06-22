@@ -2,6 +2,7 @@
   "name": "matthew-frankland",
   "version": "1.0.0",
   "scripts": {
+    "prestart": "npm i",
     "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --configuration production"

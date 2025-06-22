@@ -1,4 +1,4 @@
-import express, { Router } from "express"
+import express, { Router, Request } from "express"
 import type { Response } from "express"
 import { join } from "path"
 import { existsSync } from "fs"
@@ -6,14 +6,14 @@ import { readFile } from "fs/promises"
 
 export const router = Router ( )
 
-router.use ( express.static ( join ( process.cwd ( ), "../client/dist/browser" ), {
+router.use ( express.static ( join ( process.cwd ( ), "../client" ), {
   maxAge: "1d",
   etag: true,
   index: false,
 } ) )
 
-router.get ( "*get", async ( _, res: Response ) => {
-  const indexPath = join ( process.cwd ( ), "../client/dist/browser/index.html" )
+router.get ( "*get", async ( _req: Request, res: Response ) => {
+  const indexPath = join ( process.cwd ( ), "../client/index.html" )
   if ( existsSync ( indexPath ) ) {
     const html = await readFile ( indexPath, "utf8" )
     const nonce = res.locals [ "cspNonce" ]
