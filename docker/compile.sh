@@ -3,7 +3,7 @@
 set -e
 
 USERNAME="m-f-1998"
-REPO_NAME="website"
+REPO_NAME="my-website"
 MODE="${1:-local}"
 
 if [[ "$MODE" == "prod" ]]; then
