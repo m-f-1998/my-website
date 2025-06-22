@@ -47,3 +47,5 @@ SMTP_HOST=smtp.example.com
 SMTP_USER=your@email.com
 SMTP_PASS=yourpassword
 SMTP_PORT=465
+
+
