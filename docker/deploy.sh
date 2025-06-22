@@ -1,7 +1,6 @@
 # Write a shell script for stop, start, and kill the docker container locally
 #!/bin/bash
 set -e
-CONTAINER_NAME="my-website-container"
 ACTION=$1
 
 if [ -z "$ACTION" ]; then
@@ -12,7 +11,7 @@ case $ACTION in
   start)
     echo "Starting Docker container..."
     docker-compose up -d || echo "Container already running or does not exist."
-    echo "Container started with name: $CONTAINER_NAME"
+    echo "Container started"
     ;;
   stop)
     echo "Stopping Docker container..."
