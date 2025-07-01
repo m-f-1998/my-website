@@ -43,7 +43,7 @@ if ( nonce ) {
         return {
           url: _url,
           nonce,
-        };
+        }
       },
     },
   } )

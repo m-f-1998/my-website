@@ -147,7 +147,7 @@ export default tseslint.config (
           after: true,
         },
       ],
-      "@stylistic/func-call-spacing": [
+      "@stylistic/function-call-spacing": [
         "error",
         "always"
       ],

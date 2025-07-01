@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core"
 
 @Component ( {
-    selector: "app-navbar",
-    imports: [],
-    templateUrl: "./navbar.component.html",
-    styleUrl: "./navbar.component.scss",
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-navbar",
+  imports: [],
+  templateUrl: "./navbar.component.html",
+  styleUrl: "./navbar.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class NavbarComponent {
 
@@ -15,7 +15,7 @@ export class NavbarComponent {
       element.scrollIntoView ( { behavior: "smooth" } )
       if ( document.getElementsByClassName ( "navbar-toggler" ).length > 0 ) {
         if ( !document.getElementsByClassName ( "navbar-toggler" ) [ 0 ].classList.contains ( "collapsed" ) ) {
-          (document.getElementsByClassName ( "navbar-toggler" ) [ 0 ] as HTMLButtonElement ).click ( )
+          ( document.getElementsByClassName ( "navbar-toggler" ) [ 0 ] as HTMLButtonElement ).click ( )
         }
       }
     }

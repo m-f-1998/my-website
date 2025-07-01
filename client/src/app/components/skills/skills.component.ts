@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core"
 
 @Component ( {
-    selector: "app-skills",
-    imports: [],
-    templateUrl: "./skills.component.html",
-    styleUrl: "./skills.component.scss",
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-skills",
+  imports: [],
+  templateUrl: "./skills.component.html",
+  styleUrl: "./skills.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class SkillsComponent {
 
@@ -43,7 +43,7 @@ export class SkillsComponent {
         {
           optional: true,
           name: "MongoDB",
-          icons: ["https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"]
+          icons: [ "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" ]
         },
         {
           name: "SQL",
@@ -74,7 +74,7 @@ export class SkillsComponent {
         {
           optional: true,
           name: "Git Source Control",
-          icons: ["https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"]
+          icons: [ "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" ]
         },
         {
           name: "Mobile Applications",

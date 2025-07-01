@@ -1,16 +1,15 @@
 import { Router } from "express"
 import type { Request, Response } from "express"
 import { rateLimit } from "express-rate-limit"
-
 import { createTransport } from "nodemailer"
+import { config } from "dotenv"
+import { resolve } from "path"
+import sanitizeHtml from "sanitize-html"
 
 export const router = Router ( )
 
-import { config } from "dotenv"
-import { resolve } from "path"
-
 const envPath = resolve ( process.cwd ( ), ".env" )
-config ( { path: envPath } )
+config ( { path: envPath, quiet: true } )
 
 router.use ( "/api/mail", rateLimit ( { // limit each IP to 5 requests per hour
   windowMs: 60 * 60 * 1000,
@@ -76,7 +75,10 @@ router.post ( "/api/mail", async ( req: Request, res: Response ) => {
       from: process.env [ "SMTP_USER" ],
       to: process.env [ "SMTP_USER" ],
       subject,
-      html: message,
+      html: sanitizeHtml ( message, {
+        allowedTags: sanitizeHtml.defaults.allowedTags, // customize as needed
+        allowedAttributes: sanitizeHtml.defaults.allowedAttributes
+      } ),
       encoding: "utf8"
     } )
     res.status ( 200 ).json ( { message: "Email sent successfully" } )

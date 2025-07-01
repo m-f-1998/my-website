@@ -1,24 +1,24 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core"
+import { ChangeDetectionStrategy, Component, inject, Input } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
 import { HeaderComponent } from "../components/header/header.component"
 
 @Component ( {
-    selector: "app-error-view",
-    imports: [
-        HeaderComponent
-    ],
-    templateUrl: "./http-error.component.html",
-    styleUrl: "./http-error.component.scss",
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "app-error-view",
+  imports: [
+    HeaderComponent
+  ],
+  templateUrl: "./http-error.component.html",
+  styleUrl: "./http-error.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {
 
   @Input ( ) public error = ""
   @Input ( ) public description = ""
 
-  constructor (
-    private route: ActivatedRoute
-  ) {
+  private readonly route: ActivatedRoute = inject ( ActivatedRoute )
+
+  public constructor ( ) {
     this.error = this.route.snapshot.paramMap.get ( "code" ) ?? "500"
     switch ( this.error ) {
       case "400":

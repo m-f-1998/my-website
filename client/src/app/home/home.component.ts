@@ -8,22 +8,22 @@ import { ContactComponent } from "../components/contact/contact.component"
 import { FooterComponent } from "../components/footer/footer.component"
 import { ExperienceComponent } from "../components/experience/experience.component"
 
-@Component({
-    selector: "app-home",
-    imports: [
-        NavbarComponent,
-        HeaderComponent,
-        AboutComponent,
-        SkillsComponent,
-        ProjectsComponent,
-        ExperienceComponent,
-        ContactComponent,
-        FooterComponent
-    ],
-    templateUrl: "./home.component.html",
-    styleUrl: "./home.component.scss",
-    changeDetection: ChangeDetectionStrategy.OnPush
-})
+@Component ( {
+  selector: "app-home",
+  imports: [
+    NavbarComponent,
+    HeaderComponent,
+    AboutComponent,
+    SkillsComponent,
+    ProjectsComponent,
+    ExperienceComponent,
+    ContactComponent,
+    FooterComponent
+  ],
+  templateUrl: "./home.component.html",
+  styleUrl: "./home.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush
+} )
 export class HomeComponent {
 
 }

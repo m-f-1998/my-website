@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http"
-import { ChangeDetectionStrategy, Component, isDevMode, OnDestroy, OnInit, signal } from "@angular/core"
+import { ChangeDetectionStrategy, Component, inject, isDevMode, OnDestroy, OnInit, signal } from "@angular/core"
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ToastrService } from "ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
@@ -9,13 +9,13 @@ import { Subscription } from "rxjs"
 
 @Component ( {
   selector: "app-contact",
-  templateUrl: "./contact.component.html",
-  styleUrl: "./contact.component.scss",
   imports: [
     FaIconComponent,
     ReactiveFormsModule,
     RecaptchaV3Module
   ],
+  templateUrl: "./contact.component.html",
+  styleUrl: "./contact.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ContactComponent implements OnInit, OnDestroy {
@@ -24,25 +24,25 @@ export class ContactComponent implements OnInit, OnDestroy {
   public success = signal ( false )
   public message = signal ( "" )
 
-  public contactForm: FormGroup = this.formSvc.group ( {
-    subject: [ "", Validators.required ],
-    message: [ "", Validators.required ]
-  } )
+  public contactForm: FormGroup | undefined
   public captchaToken: string | null = null
-  private subscription: Subscription | null = null
 
   public faSpinner = faSpinner
   public faCheck = faCheck
   public faExclamationTriangle = faExclamationTriangle
 
-  public constructor (
-    private toastrSvc: ToastrService,
-    private httpSvc: HttpClient,
-    private formSvc: FormBuilder,
-    private recaptchaSvc: ReCaptchaV3Service
-  ) { }
+  private readonly toastrSvc: ToastrService = inject ( ToastrService )
+  private readonly httpSvc: HttpClient = inject ( HttpClient )
+  private readonly formSvc: FormBuilder = inject ( FormBuilder )
+  private readonly recaptchaSvc: ReCaptchaV3Service = inject ( ReCaptchaV3Service )
+
+  private subscription: Subscription | null = null
 
   public ngOnInit ( ) {
+    this.formSvc.group ( {
+      subject: [ "", Validators.required ],
+      message: [ "", Validators.required ]
+    } )
     this.subscription = this.recaptchaSvc.execute ( "contactForm" ).subscribe ( {
       next: ( token: string ) => {
         this.captchaToken = token
@@ -60,7 +60,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   public sendEmail ( ) {
-    if ( this.contactForm.invalid ) {
+    if ( this.contactForm!.invalid ) {
       this.toastrSvc.error ( "Please complete all fields" )
       return
     }
@@ -78,8 +78,8 @@ export class ContactComponent implements OnInit, OnDestroy {
       url = "http://localhost:3000/api/mail/"
     }
     this.httpSvc.post ( url, {
-      subject: this.contactForm.value.subject,
-      message: this.contactForm.value.message,
+      subject: this.contactForm!.value.subject,
+      message: this.contactForm!.value.message,
       recaptchaToken: this.captchaToken
     } ).subscribe ( {
       next: ( ) => {
@@ -87,7 +87,7 @@ export class ContactComponent implements OnInit, OnDestroy {
         this.success.set ( true )
         this.processing.set ( false )
       },
-      error: ( e ) => {
+      error: e => {
         this.error.set ( true )
         this.message.set ( "An Error Occurred. Please Try Again Later." )
         console.error ( e )

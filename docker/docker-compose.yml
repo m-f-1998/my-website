@@ -3,6 +3,7 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile
+    image: my-website:local
     ports:
       - "3000:3000"
-    container_name: MyWebsite
+    container_name: my-website
