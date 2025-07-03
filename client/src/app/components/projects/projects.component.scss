@@ -1,0 +1,50 @@
+.card {
+	background-color: var(--bs-tertiary-bg);
+	border: 0;
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	margin-bottom: 20px;
+	box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+	border-width: 2px;
+	font-weight: 400;
+	font-size: 0.8571em;
+	line-height: 1.35em;
+	margin: 5px 1px;
+	border: none;
+	border-radius: 0.1875rem;
+	padding: 11px 22px;
+	cursor: pointer;
+	background-color: #888;
+	color: #fff;
+}
+
+.btn:active {
+	box-shadow: none;
+	outline: 0 !important;
+}
+
+.btn-primary {
+	background-color: #378c3f;
+	color: #fff;
+}
+
+.card:hover {
+	filter: brightness(0.9);
+}
+
+.project-card {
+	width: 23%;
+	min-width: 250px;
+	text-align: center;
+	margin: 20px;
+}
+
+.project-img {
+	height: 200px;
+	object-fit: cover;
+	object-position: top;
+}
