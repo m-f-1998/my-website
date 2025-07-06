@@ -20,6 +20,18 @@ router.use ( "/api/mail", rateLimit ( { // limit each IP to 5 requests per hour
 } ) )
 
 router.post ( "/api/mail", async ( req: Request, res: Response ) => {
+  if ( !process.env [ "SMTP_HOST" ] || !process.env [ "SMTP_PORT" ] ||
+       !process.env [ "SMTP_USER" ] || !process.env [ "SMTP_PASS" ] ||
+       !process.env [ "RECAPTCHA_SECRET_KEY" ] ) {
+    res.status ( 500 ).json ( { message: "Server configuration error." } )
+    return
+  }
+
+  if ( !req.body?.subject || !req.body?.message || !req.body?.recaptchaToken ) {
+    res.status ( 400 ).json ( { message: "Invalid input." } )
+    return
+  }
+
   const { subject, message, recaptchaToken } = req.body
 
   if ( !subject || !recaptchaToken || !message ) {
@@ -63,7 +75,7 @@ router.post ( "/api/mail", async ( req: Request, res: Response ) => {
   const transporter = createTransport ( {
     host: process.env [ "SMTP_HOST" ],
     port: Number ( process.env [ "SMTP_PORT" ] ),
-    secure: false,
+    secure: true,
     auth: {
       user: process.env [ "SMTP_USER" ],
       pass: process.env [ "SMTP_PASS" ],
