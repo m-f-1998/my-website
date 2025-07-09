@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from "@angular/core"
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ToastrService } from "ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
-import { faCheck, faExclamationTriangle, faSpinner } from "@fortawesome/free-solid-svg-icons"
 import { RecaptchaV3Module, ReCaptchaV3Service } from "ng-recaptcha-2"
 import { Subscription } from "rxjs"
-import { ApiService } from "../../services/api.service"
+import { ApiService } from "@services/api.service"
+import { IconService } from "@services/icons.service"
 
 @Component ( {
   selector: "app-contact",
@@ -30,12 +30,8 @@ export class ContactComponent implements OnInit, OnDestroy {
   } )
   public captchaToken: string | null = null
 
-  public faSpinner = faSpinner
-  public faCheck = faCheck
-  public faExclamationTriangle = faExclamationTriangle
-
+  public readonly iconSvc: IconService = inject ( IconService )
   private readonly toastrSvc: ToastrService = inject ( ToastrService )
-  private readonly formSvc: FormBuilder = inject ( FormBuilder )
   private readonly recaptchaSvc: ReCaptchaV3Service = inject ( ReCaptchaV3Service )
   private readonly apiSvc: ApiService = inject ( ApiService )
 

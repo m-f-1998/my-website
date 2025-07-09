@@ -12,7 +12,6 @@ import { HeaderComponent } from "../components/header/header.component"
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {
-
   @Input ( ) public error = ""
   @Input ( ) public description = ""
 
@@ -43,5 +42,4 @@ export class HttpErrorComponent {
         break
     }
   }
-
 }

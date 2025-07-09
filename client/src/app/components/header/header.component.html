@@ -11,11 +11,15 @@
         <div class="h2 title">Matthew Frankland</div>
         <p>Web & Application Developer</p>
         <div class="d-flex justify-content-center gap-2">
-          @for (link of socialLinks; track $index) {
-            <a [href]="link.url" target="_blank" [class]="link.class" rel="tooltip" [title]="link.tooltip">
-              <fa-icon [icon]="link.icon" class="text-white" size="2x" />
-            </a>
-          }
+          <a href="https://facebook.com/mattfrank48/" target="_blank" class="btn btn-lg btn-icon facebook-link" rel="tooltip" title="Contact me on Facebook">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'face-angry')" class="text-white" size="2x" />
+          </a>
+          <a href="https://www.linkedin.com/in/mf48/" target="_blank" class="btn btn-lg btn-icon linkedin-link" rel="tooltip" title="Connect with me on LinkedIn">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" size="2x" />
+          </a>
+          <a href="https://github.com/m-f-1998/" target="_blank" class="btn btn-lg btn-icon github-link" rel="tooltip" title="Follow me on GitHub">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" size="2x" />
+          </a>
         </div>
       </div>
     </div>

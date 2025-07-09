@@ -7,17 +7,17 @@
           <div class="card-body">
             @if (processing()) {
               <div class="alert alert-info text-center h5" role="alert">
-                <fa-icon [icon]="faSpinner" animation="spin" />
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'spinner')" animation="spin" />
                 Sending...
               </div>
             } @else if (success()) {
               <div class="alert alert-success text-center h5" role="alert">
-                <fa-icon [icon]="faCheck" />
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'check')" />
                 Sent!
               </div>
             } @else if (error()) {
               <div class="alert alert-danger text-center h5" role="alert">
-                <fa-icon [icon]="faExclamationTriangle" />
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'exclamation-triangle')" />
                 Error!
               </div>
             } @else {
