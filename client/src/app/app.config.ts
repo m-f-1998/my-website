@@ -3,7 +3,7 @@ import { provideRouter } from "@angular/router"
 
 import { routes } from "./app.routes"
 import { provideToastr } from "ngx-toastr"
-import { provideHttpClient } from "@angular/common/http"
+import { provideHttpClient, withFetch } from "@angular/common/http"
 import { provideAnimations } from "@angular/platform-browser/animations"
 import { RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
 
@@ -26,7 +26,9 @@ const appConfig: ApplicationConfig = {
       provide: RECAPTCHA_V3_SITE_KEY,
       useValue: "6LebYqIqAAAAAPIyOGWY_YD4i55xHdhpO9tOvK5r"
     },
-    provideHttpClient ( ),
+    provideHttpClient (
+      withFetch ( )
+    ),
     provideAnimations ( )
   ]
 }
