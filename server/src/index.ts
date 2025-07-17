@@ -85,6 +85,26 @@ app.use ( "/assets", rateLimit ( {
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 } ) )
 
+app.get ( "/ordo-1962/support", ( _req, res ) => {
+  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk" )
+} )
+
+app.get ( "/ordo-1962/v1.3/prayers.php", ( _req, res ) => {
+  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk/api/v1.3/prayers" )
+} )
+
+app.get ( "/ordo-1962/v1.3/locale.php", ( _req, res ) => {
+  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk/api/v1.3/locale" )
+} )
+
+app.get ( "/ordo-1962/v1.3/ordo.php", ( req, res ) => {
+  const year = req.query [ "year" ] as string | undefined
+  if ( !year ) {
+    return res.redirect ( 302, "https://matthewfrankland.co.uk/error/400" )
+  }
+  res.redirect ( 301, `https://ordo.matthewfrankland.co.uk/api/v1.3/ordo/${year}` )
+} )
+
 app.use ( mailerRouter )
 app.use ( staticRouter )
 
