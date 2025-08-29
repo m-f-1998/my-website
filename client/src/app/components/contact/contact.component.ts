@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from "@angular/core"
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
-import { ToastrService } from "ngx-toastr"
+import { ToastrService } from "@m-f-1998/ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { RecaptchaV3Module, ReCaptchaV3Service } from "ng-recaptcha-2"
 import { Subscription } from "rxjs"

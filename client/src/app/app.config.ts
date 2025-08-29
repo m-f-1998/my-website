@@ -2,9 +2,8 @@ import { ApplicationConfig, CSP_NONCE, provideZonelessChangeDetection } from "@a
 import { provideRouter } from "@angular/router"
 
 import { routes } from "./app.routes"
-import { provideToastr } from "ngx-toastr"
+import { provideToastr } from "@m-f-1998/ngx-toastr"
 import { provideHttpClient, withFetch } from "@angular/common/http"
-import { provideAnimations } from "@angular/platform-browser/animations"
 import { RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
 
 const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
@@ -28,8 +27,7 @@ const appConfig: ApplicationConfig = {
     },
     provideHttpClient (
       withFetch ( )
-    ),
-    provideAnimations ( )
+    )
   ]
 }
 
