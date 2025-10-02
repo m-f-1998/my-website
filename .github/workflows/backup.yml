@@ -33,7 +33,7 @@ jobs:
           
           # Result: my-website_2025-10-02_20-40-21Z.tar.gz
           # Update ARCHIVE and REPO_FOLDER environment variables for next steps
-          ARCHIVE="${ARCHIVE}.gz"
+          ARCHIVE="${FILENAME}.gz"
           echo "ARCHIVE=$ARCHIVE" >> $GITHUB_ENV
           echo "REPO_FOLDER=$REPO_NAME" >> $GITHUB_ENV
 
