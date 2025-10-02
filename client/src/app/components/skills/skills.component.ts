@@ -15,25 +15,25 @@ export class SkillsComponent {
         {
           name: "Vanilla Web Technologies",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+            "html5.svg",
+            "css3.svg",
+            "js.svg"
           ],
           optional: true,
         },
         {
           name: "Scripting Languages",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original-wordmark.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/powershell/powershell-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg"
+            "python.svg",
+            "shell.svg",
+            "php.svg"
           ]
         },
         {
           name: "Typed Angular",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg"
+            "angular.svg",
+            "typescript.svg"
           ]
         }
       ]
@@ -43,20 +43,22 @@ export class SkillsComponent {
         {
           optional: true,
           name: "MongoDB",
-          icons: [ "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" ]
+          icons: [
+            "mongo.svg"
+          ]
         },
         {
           name: "SQL",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-original.svg"
+            "postgres.svg",
+            "sql.svg"
           ]
         },
         {
           name: "NodeJS & Package Management",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-plain-wordmark.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/npm/npm-original-wordmark.svg"
+            "node.svg",
+            "npm.svg"
           ]
         }
       ]
@@ -66,22 +68,24 @@ export class SkillsComponent {
         {
           name: "Web Services",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/centos/centos-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-original.svg"
+            "googlecloud.svg",
+            "centos.svg",
+            "ubuntu.svg"
           ]
         },
         {
           optional: true,
           name: "Git Source Control",
-          icons: [ "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" ]
+          icons: [
+            "git.svg"
+          ]
         },
         {
           name: "Mobile Applications",
           icons: [
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swift/swift-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
-            "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ionic/ionic-original.svg"
+            "swift.svg",
+            "react.svg",
+            "ionic.svg"
           ]
         }
       ]

@@ -11,7 +11,7 @@ export const router = Router ( )
 const envPath = resolve ( process.cwd ( ), ".env" )
 config ( { path: envPath, quiet: true } )
 
-router.use ( "/api/mail", rateLimit ( { // limit each IP to 20 requests per hour
+router.use ( rateLimit ( { // limit each IP to 20 requests per hour
   windowMs: 60 * 60 * 1000,
   max: 20,
   message: "Too many requests, please try again later.",
@@ -19,7 +19,7 @@ router.use ( "/api/mail", rateLimit ( { // limit each IP to 20 requests per hour
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 } ) )
 
-router.post ( "/api/mail", async ( req: Request, res: Response ) => {
+router.post ( "/", async ( req: Request, res: Response ) => {
   if ( !process.env [ "SMTP_HOST" ] || !process.env [ "SMTP_PORT" ] ||
        !process.env [ "SMTP_USER" ] || !process.env [ "SMTP_PASS" ] ||
        !process.env [ "RECAPTCHA_SECRET_KEY" ] ) {

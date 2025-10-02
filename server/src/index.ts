@@ -1,12 +1,14 @@
 import express from "express"
 // import type { Response } from "express"
-import helmet from "helmet"
+import { rateLimit } from "express-rate-limit"
 
+import helmet from "helmet"
 import cors from "cors"
+import { randomBytes } from "crypto"
+
 import { router as mailerRouter } from "./routes/mailer.js"
 import { router as staticRouter } from "./routes/static.js"
-import { randomBytes } from "crypto"
-import { rateLimit } from "express-rate-limit"
+import { router as imagesRouter } from "./routes/images.js"
 
 const app = express ( )
 
@@ -112,7 +114,8 @@ app.get ( "/ordo-1962/v1.3/ordo.php", ( req, res ) => {
   res.redirect ( 301, `https://ordo.matthewfrankland.co.uk/api/v1.3/ordo/${year}` )
 } )
 
-app.use ( mailerRouter )
+app.use ( "/api/img", imagesRouter )
+app.use ( "/api/mail", mailerRouter )
 app.use ( staticRouter )
 
 app.listen ( 3000, ( ) => {
