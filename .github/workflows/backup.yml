@@ -23,10 +23,12 @@ jobs:
           DATE_STR=$(date -u +'%Y-%m-%d_%H-%M-%SZ')
           FILENAME="${REPO_NAME}_${DATE_STR}.tar.gz"
 
-          echo "Creating archive $FILENAME"
-          tar -czf "$FILENAME" .
+          # Export the latest working tree only
+          git archive --format=tar HEAD | gzip > "$FILENAME"
 
-          # expose to later steps
+          # Optionally include .git for full history
+          tar --append --file="$FILENAME" .git
+
           echo "ARCHIVE=$FILENAME" >> $GITHUB_ENV
           echo "REPO_FOLDER=$REPO_NAME" >> $GITHUB_ENV
 
