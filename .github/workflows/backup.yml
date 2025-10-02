@@ -18,19 +18,20 @@ jobs:
       - name: Create backup archive
         run: |
           # derive repo name (strip owner/)
-          REPO_FULL="${{ github.repository }}"
-          REPO_NAME="${REPO_FULL#*/}"
+          REPO_NAME="my-website"
           DATE_STR=$(date -u +'%Y-%m-%d_%H-%M-%SZ')
-          FILENAME="${REPO_NAME}_${DATE_STR}.tar.gz"
-
-          # Export the latest working tree only
-          git archive --format=tar HEAD | gzip > "$FILENAME"
-
-          # Optionally include .git for full history
+          FILENAME="${REPO_NAME}_${DATE_STR}.tar"
+          
+          # Step 1: Create archive of repo contents
+          git archive --format=tar HEAD -o "$FILENAME"
+          
+          # Step 2: Append .git folder (full history)
           tar --append --file="$FILENAME" .git
-
-          echo "ARCHIVE=$FILENAME" >> $GITHUB_ENV
-          echo "REPO_FOLDER=$REPO_NAME" >> $GITHUB_ENV
+          
+          # Step 3: Compress final archive
+          gzip "$FILENAME"
+          
+          # Result: my-website_2025-10-02_20-40-21Z.tar.gz
 
       - name: Install AWS CLI
         run: |
