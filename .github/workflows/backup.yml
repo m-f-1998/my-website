@@ -24,16 +24,16 @@ jobs:
           REPO_NAME="my-website"
           DATE_STR=$(date -u +'%Y-%m-%d_%H-%M-%SZ')
           FILENAME="${REPO_NAME}_${DATE_STR}.tar"
-          
+
           # Step 1: Create archive of repo contents
           git archive --format=tar HEAD -o "$FILENAME"
-          
-          # Step 2: Append .git folder (full history)
+
+          # Step 2: Append .git folder (full history) - optional
           tar --append --file="$FILENAME" .git
-          
+
           # Step 3: Compress final archive
           gzip "$FILENAME"
-          
+
           # Result: my-website_2025-10-02_20-40-21Z.tar.gz
           # Update ARCHIVE and REPO_FOLDER environment variables for next steps
           ARCHIVE="${FILENAME}.gz"
