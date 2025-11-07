@@ -58,8 +58,8 @@ jobs:
           REPO_FOLDER: ${{ env.REPO_FOLDER }}
         run: |
           ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
-          echo "Uploading $ARCHIVE -> s3://${BUCKET}/${REPO_FOLDER}/"
-          aws --endpoint-url "$ENDPOINT" s3 cp "$ARCHIVE" "s3://${BUCKET}/${REPO_FOLDER}/${ARCHIVE}"
+          echo "Uploading $ARCHIVE -> s3://${BUCKET}/${ARCHIVE} to Cloudflare R2..."
+          aws --endpoint-url "$ENDPOINT" s3 cp "$ARCHIVE" "s3://${BUCKET}/${ARCHIVE}"
           echo "Upload finished."
 
       - name: Cleanup local archive
