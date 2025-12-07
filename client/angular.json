@@ -62,9 +62,21 @@
                   "minify": true,
                   "inlineCritical": false
                 }
-              }
+              },
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environments.ts",
+                  "with": "src/environments/environments.ts"
+                }
+              ]
             },
             "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environments.ts",
+                  "with": "src/environments/environments.ts"
+                }
+              ],
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
@@ -79,6 +91,7 @@
               "buildTarget": "matthew-frankland:build:production"
             },
             "development": {
+              "proxyConfig": "./proxy/proxy.dev.json",
               "buildTarget": "matthew-frankland:build:development"
             }
           },

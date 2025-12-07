@@ -22,7 +22,7 @@ fi
 
 if [ -z "$CR_PAT" ]; then
   echo "❌ CR_PAT (GitHub Container Registry Personal Access Token) not provided."
-  echo "Example: CR_PAT=your_token_here ./deploy.sh dev"
+  echo "Example: CR_PAT=your_token_here ./deploy.sh $MODE"
   exit 1
 fi
 

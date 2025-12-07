@@ -37,8 +37,6 @@ router.get ( "/*filename", ( req: Request, res: Response ) => {
       return
     }
 
-    console.log ( filename )
-
     const { w, h, f, q } = req.query
 
     const width = w ? parseInt ( w as string, 10 ) : null

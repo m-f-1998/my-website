@@ -27,7 +27,9 @@ The backend server requires the following environment variables to function prop
 
 | Variable              | Description                         |
 |-----------------------|-------------------------------------|
-| `RECAPTCHA_SECRET_KEY` | Your Google reCAPTCHA v2/3 secret key for form verification |
+| `RECAPTCHA_SITE`           | Google reCAPTCHA site key for client-side verification             |
+| `RECAPTCHA_API_KEY`        | Google reCAPTCHA API key for server-side requests                  |
+| `PUBLIC_DOMAIN`            | Public domain for the application (e.g., `http://localhost:3000`)  |
 | `SMTP_HOST`           | SMTP server hostname (e.g., `smtp.gmail.com`) |
 | `SMTP_USER`           | SMTP login username (usually your email address) |
 | `SMTP_PASS`           | SMTP login password or app-specific password |
@@ -36,10 +38,12 @@ The backend server requires the following environment variables to function prop
 ## 📁 Example `.env` (for local dev)
 
 ```env
-RECAPTCHA_SECRET_KEY=your-secret-key
-SMTP_HOST=smtp.example.com
-SMTP_USER=your@email.com
-SMTP_PASS=yourpassword
+RECAPTCHA_SITE=
+RECAPTCHA_API_KEY=
+PUBLIC_DOMAIN=
+SMTP_HOST=
+SMTP_USER=
+SMTP_PASS=
 SMTP_PORT=465
 
 

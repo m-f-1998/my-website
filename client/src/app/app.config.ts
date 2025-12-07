@@ -5,6 +5,7 @@ import { routes } from "./app.routes"
 import { provideToastr } from "@m-f-1998/ngx-toastr"
 import { provideHttpClient, withFetch } from "@angular/common/http"
 import { RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
+import { environment } from "environments/environments"
 
 const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
 
@@ -23,7 +24,7 @@ const appConfig: ApplicationConfig = {
     } ),
     {
       provide: RECAPTCHA_V3_SITE_KEY,
-      useValue: "6LebYqIqAAAAAPIyOGWY_YD4i55xHdhpO9tOvK5r"
+      useValue: environment.recaptcha.siteKey
     },
     provideHttpClient (
       withFetch ( )
