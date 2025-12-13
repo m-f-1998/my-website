@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 /// <reference types="@angular/localize" />
 
 import { bootstrapApplication } from "@angular/platform-browser"
@@ -16,6 +17,6 @@ window.matchMedia ( "(prefers-color-scheme: dark)" ).addEventListener ( "change"
 updateTheme ( )
 
 bootstrapApplication ( AppComponent, {
-  providers: appConfig.providers
+  providers: [provideZoneChangeDetection(), ...appConfig.providers]
 } )
   .catch ( err => console.error ( err ) )
