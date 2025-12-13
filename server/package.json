@@ -16,7 +16,7 @@
     "body-parser": "^2.2.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "helmet": "^8.1.0",
@@ -33,6 +33,6 @@
     "@types/nodemailer": "^7.0.4",
     "@types/sanitize-html": "^2.16.0",
     "eslint-plugin-import": "^2.32.0",
-    "typescript-eslint": "^8.48.1"
+    "typescript-eslint": "^8.49.0"
   }
 }
