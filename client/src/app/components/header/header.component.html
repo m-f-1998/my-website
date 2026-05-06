@@ -1,9 +1,9 @@
 <div class="header-component">
-  <div class="page-header page-header-small" filter-color="green">
+  <div class="page-header">
     <div class="page-header-image"></div>
-    <div class="container">
+    <div class="w-full h-full relative z-10 text-center">
       <div class="content-center">
-        <div class="profile-image d-flex justify-content-center align-items-center">
+        <div class="profile-image flex justify-center items-center">
           <a href="/">
             <img src="/api/img/matthew.jpg?w=640&f=webp"
               srcset="
@@ -19,17 +19,23 @@
             />
           </a>
         </div>
-        <div class="h2 title">Matthew Frankland</div>
-        <p>Web & Application Developer</p>
-        <div class="d-flex justify-content-center gap-2 flex-wrap">
-          <a href="https://facebook.com/mattfrank48/" target="_blank" class="btn btn-lg btn-icon facebook-link" rel="tooltip" title="Contact me on Facebook">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" size="2x" />
+        <div class="text-2xl font-bold text-white">Matthew Frankland</div>
+        <p class="text-gray-200 mt-1">Web & Application Developer</p>
+        <div class="flex justify-center gap-2.5 flex-wrap mt-4">
+          <a href="https://facebook.com/mattfrank48/" target="_blank"
+            class="facebook-link h-12 w-12 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+            rel="tooltip" title="Contact me on Facebook">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" size="lg" />
           </a>
-          <a href="https://www.linkedin.com/in/mf48/" target="_blank" class="btn btn-lg btn-icon linkedin-link" rel="tooltip" title="Connect with me on LinkedIn">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" size="2x" />
+          <a href="https://www.linkedin.com/in/mf48/" target="_blank"
+            class="linkedin-link h-12 w-12 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+            rel="tooltip" title="Connect with me on LinkedIn">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" size="lg" />
           </a>
-          <a href="https://github.com/m-f-1998/" target="_blank" class="btn btn-lg btn-icon github-link" rel="tooltip" title="Follow me on GitHub">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" size="2x" />
+          <a href="https://github.com/m-f-1998/" target="_blank"
+            class="github-link h-12 w-12 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+            rel="tooltip" title="Follow me on GitHub">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" size="lg" />
           </a>
         </div>
       </div>

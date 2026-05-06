@@ -8,7 +8,6 @@ import { HeaderComponent } from "../components/header/header.component"
     HeaderComponent
   ],
   templateUrl: "./http-error.component.html",
-  styleUrl: "./http-error.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {

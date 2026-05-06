@@ -32,14 +32,11 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
+              "src/styles.css",
               "@fortawesome/fontawesome-svg-core/styles.css",
-              "bootstrap/dist/css/bootstrap.min.css",
               "node_modules/@m-f-1998/ngx-toastr/toastr.css"
             ],
-            "scripts": [
-              "bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -128,5 +125,8 @@
     "@schematics/angular:resolver": {
       "typeSeparator": "."
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

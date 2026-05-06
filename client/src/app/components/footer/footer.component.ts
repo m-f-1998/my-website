@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { IconService } from "@services/icons.service"
+import { ScrollService } from "@services/scroll.service"
 
 @Component ( {
   selector: "app-footer",
@@ -14,4 +15,5 @@ import { IconService } from "@services/icons.service"
 export class FooterComponent {
   public year = new Date ( ).getFullYear ( )
   public readonly iconSvc: IconService = inject ( IconService )
+  public readonly scrollSvc: ScrollService = inject ( ScrollService )
 }

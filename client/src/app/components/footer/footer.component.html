@@ -1,19 +1,55 @@
-<footer class="footer margin-bottom-20">
-  <div class="button-container text-center">
-    <div class="h4 title text-center mb-0 text-body-emphasis">Matthew Frankland</div>
-    <div class="text-center text-muted">
-      <p class="margin-bottom-10">&copy; {{year}}. All rights reserved.</p>
+<footer class="border-t border-gray-800">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+    <div class="flex flex-col md:flex-row justify-between gap-10">
+
+      <div class="flex-1">
+        <div class="text-lg font-bold text-gray-100 mb-1">Matthew Frankland</div>
+        <div class="text-sm font-medium text-brand mb-3">Full Stack Web Engineer</div>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">TypeScript</span>
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">NodeJS</span>
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">Angular</span>
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">Docker</span>
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">PostgreSQL</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Navigation</div>
+        <ul class="space-y-2 text-sm">
+          <li><button (click)="scrollSvc.scrollTo('about')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">About</button></li>
+          <li><button (click)="scrollSvc.scrollTo('skill')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Skills</button></li>
+          <li><button (click)="scrollSvc.scrollTo('projects')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Projects</button></li>
+          <li><button (click)="scrollSvc.scrollTo('experience')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Experience</button></li>
+          <li><button (click)="scrollSvc.scrollTo('contact')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Contact</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Connect</div>
+        <div class="flex gap-2.5">
+          <a href="https://facebook.com/mattfrank48/" target="_blank"
+            class="facebook-link h-10 w-10 rounded-full inline-flex items-center justify-center border border-white/20 hover:border-white/50 hover:scale-110 transition-all duration-200"
+            title="Contact me on Facebook">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" size="lg" />
+          </a>
+          <a href="https://www.linkedin.com/in/mf48/" target="_blank"
+            class="linkedin-link h-10 w-10 rounded-full inline-flex items-center justify-center border border-white/20 hover:border-white/50 hover:scale-110 transition-all duration-200"
+            title="Connect with me on LinkedIn">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" size="lg" />
+          </a>
+          <a href="https://github.com/m-f-1998/" target="_blank"
+            class="github-link h-10 w-10 rounded-full inline-flex items-center justify-center border border-white/20 hover:border-white/50 hover:scale-110 transition-all duration-200"
+            title="Follow me on GitHub">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" size="lg" />
+          </a>
+        </div>
+      </div>
+
     </div>
-    <div class="d-flex flex-row justify-content-center gap-10 flex-wrap">
-      <a href="https://facebook.com/mattfrank48/" target="_blank" class="btn btn-lg btn-icon facebook-link" rel="tooltip" title="Contact me on Facebook">
-        <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" />
-      </a>
-      <a href="https://www.linkedin.com/in/mf48/" target="_blank" class="btn btn-lg btn-icon linkedin-link" rel="tooltip" title="Connect with me on LinkedIn">
-        <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" />
-      </a>
-      <a href="https://github.com/m-f-1998/" target="_blank" class="btn btn-lg btn-icon github-link" rel="tooltip" title="Follow me on GitHub">
-        <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" />
-      </a>
+
+    <div class="border-t border-gray-800/60 mt-8 pt-5 text-center text-gray-500 text-xs">
+      &copy; {{year}} Matthew Frankland &mdash; All rights reserved.
     </div>
   </div>
 </footer>

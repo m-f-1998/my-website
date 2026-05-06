@@ -15,7 +15,6 @@ import { IconService } from "@services/icons.service"
     RecaptchaV3Module
   ],
   templateUrl: "./contact.component.html",
-  styleUrl: "./contact.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ContactComponent implements OnInit, OnDestroy {

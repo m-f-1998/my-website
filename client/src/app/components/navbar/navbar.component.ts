@@ -1,24 +1,22 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core"
+import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core"
+import { ScrollService } from "@services/scroll.service"
 
 @Component ( {
   selector: "app-navbar",
   imports: [],
   templateUrl: "./navbar.component.html",
-  styleUrl: "./navbar.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class NavbarComponent {
+  private readonly scrollSvc = inject ( ScrollService )
+  public menuOpen = signal ( false )
 
-  public scrollto ( id: string ) {
-    const element = document.getElementById ( id )
-    if ( element ) {
-      element.scrollIntoView ( { behavior: "smooth" } )
-      if ( document.getElementsByClassName ( "navbar-toggler" ).length > 0 ) {
-        if ( !document.getElementsByClassName ( "navbar-toggler" ) [ 0 ].classList.contains ( "collapsed" ) ) {
-          ( document.getElementsByClassName ( "navbar-toggler" ) [ 0 ] as HTMLButtonElement ).click ( )
-        }
-      }
-    }
+  public toggleMenu ( ) {
+    this.menuOpen.update ( open => !open )
   }
 
+  public scrollTo ( id: string ) {
+    this.scrollSvc.scrollTo ( id )
+    this.menuOpen.set ( false )
+  }
 }

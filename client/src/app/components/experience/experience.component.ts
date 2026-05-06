@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component } from "@angular/core"
   selector: "app-experience",
   imports: [],
   templateUrl: "./experience.component.html",
-  styleUrl: "./experience.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ExperienceComponent {
@@ -14,6 +13,7 @@ export class ExperienceComponent {
       company: "IQX",
       period: "September 2023 - Present",
       roles: [
+        "Senior Web Developer",
         "Web Developer"
       ]
     },

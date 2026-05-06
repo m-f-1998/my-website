@@ -21,7 +21,6 @@ import { ExperienceComponent } from "../components/experience/experience.compone
     FooterComponent
   ],
   templateUrl: "./home.component.html",
-  styleUrl: "./home.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HomeComponent {

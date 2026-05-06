@@ -1,33 +1,24 @@
-<div id="skill">
-  <div class="container-fluid language-desktop-card">
+<div id="skill" class="px-4 py-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
     @for (skillGroup of skillGroups; track $index) {
-      <div class="row mb-2">
-        @for (skill of skillGroup.skills; track $index) {
-          <div [class]="skill.optional ? 'd-none d-md-block col-md-4' : 'col-md-4 col-sm-6'">
-            <div class="card card-body language">
-              <div class="d-flex justify-content-center flex-wrap">
-                @for (icon of skill.icons; track $index) {
-                  <img src="/api/img/skills/{{ icon }}?w=640&f=webp"
-                    srcset="
-                      /api/img/skills/{{ icon }}?w=320&f=webp 320w,
-                      /api/img/skills/{{ icon }}?w=640&f=webp 640w,
-                      /api/img/skills/{{ icon }}?w=1024&f=webp 1024w
-                    "
-                    sizes="(max-width: 600px) 100vw, 600px"
-                    alt="{{ skill.name }}"
-                    loading="lazy"
-                    decoding="async"
-                    class="icon"
-                  />
-                }
-              </div>
-              <p id="skillName">
-                {{skill.name}}<br/>
-              </p>
+      @for (skill of skillGroup.skills; track $index) {
+        <div [class]="skill.optional ? 'hidden sm:flex' : 'flex'">
+          <div class="flex items-center gap-3.5 w-full bg-gray-800/70 border border-gray-700/40 border-l-[3px] border-l-brand rounded-lg px-4 py-3 hover:bg-gray-700/50 hover:-translate-y-px transition-all duration-200 cursor-default">
+            <div class="flex items-center gap-1.5 shrink-0">
+              @for (icon of skill.icons; track $index) {
+                <img
+                  src="/api/img/skills/{{ icon }}?w=64&f=webp"
+                  alt="{{ skill.name }}"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-7 w-7 object-contain"
+                />
+              }
             </div>
+            <span class="text-sm font-semibold text-gray-200 leading-snug">{{skill.name}}</span>
           </div>
-        }
-      </div>
+        </div>
+      }
     }
   </div>
 </div>
