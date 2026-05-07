@@ -26,7 +26,7 @@ const IMAGE_DIR = join ( process.cwd ( ), "../", "assets", "img", )
 // ✅ Supported formats
 const SUPPORTED_FORMATS = [ "webp", "avif", "jpeg", "png" ]
 
-sharp.cache ( false ) // Disable sharp cache
+sharp.cache ( { memory: 50, files: 20 } ) // Cache up to 50MB in memory
 
 router.get ( "/*filename", ( req: Request, res: Response ) => {
   try {
@@ -71,6 +71,7 @@ router.get ( "/*filename", ( req: Request, res: Response ) => {
     }
 
     res.type ( format )
+    res.set ( "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400" )
     transformer.pipe ( res )
   } catch ( err ) {
     console.error ( err )

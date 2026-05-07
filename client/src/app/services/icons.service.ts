@@ -2,8 +2,11 @@ import { Injectable, inject } from "@angular/core"
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome"
 import { MockFaIconLibrary } from "@fortawesome/angular-fontawesome/testing"
 import { IconName, IconPrefix, IconProp } from "@fortawesome/fontawesome-svg-core"
-import { fab } from "@fortawesome/free-brands-svg-icons"
-import { fas } from "@fortawesome/free-solid-svg-icons"
+import { faFacebook, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"
+import {
+  faSpinner, faCheck, faExclamationTriangle,
+  faCode, faFolderOpen, faBriefcase, faEnvelope
+} from "@fortawesome/free-solid-svg-icons"
 
 @Injectable ( {
   providedIn: "root"
@@ -15,8 +18,11 @@ export class IconService {
     const faLibrary = this.faLibrary
 
     if ( !( faLibrary instanceof MockFaIconLibrary ) ) {
-      faLibrary.addIconPacks ( fab )
-      faLibrary.addIconPacks ( fas )
+      faLibrary.addIcons (
+        faFacebook, faLinkedin, faGithub,
+        faSpinner, faCheck, faExclamationTriangle,
+        faCode, faFolderOpen, faBriefcase, faEnvelope
+      )
     }
   }
 

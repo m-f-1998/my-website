@@ -5,18 +5,28 @@
       <div class="content-center">
         <div class="profile-image flex justify-center items-center">
           <a href="/">
-            <img src="/api/img/matthew-2.jpg?w=640&f=webp"
-              srcset="
-                /api/img/matthew-2.jpg?w=320&f=webp 320w,
-                /api/img/matthew-2.jpg?w=640&f=webp 640w,
-                /api/img/matthew-2.jpg?w=1024&f=webp 1024w
-              "
-              sizes="(max-width: 600px) 100vw, 600px"
-              alt="Profile Image"
-              loading="lazy"
-              decoding="async"
-              class=""
-            />
+            <picture>
+              <source
+                type="image/avif"
+                srcset="
+                  /api/img/matthew-2.jpg?w=320&f=avif 320w,
+                  /api/img/matthew-2.jpg?w=640&f=avif 640w
+                "
+                sizes="(max-width: 600px) 180px, 180px"
+              />
+              <img src="/api/img/matthew-2.jpg?w=640&f=webp"
+                srcset="
+                  /api/img/matthew-2.jpg?w=320&f=webp 320w,
+                  /api/img/matthew-2.jpg?w=640&f=webp 640w
+                "
+                sizes="(max-width: 600px) 180px, 180px"
+                alt="Profile Image"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+                class=""
+              />
+            </picture>
           </a>
         </div>
         <div class="text-2xl font-bold text-white">Matthew Frankland</div>

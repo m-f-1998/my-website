@@ -1,6 +1,7 @@
 import express from "express"
 // import type { Response } from "express"
 import { rateLimit } from "express-rate-limit"
+import compression from "compression"
 
 import helmet from "helmet"
 import cors from "cors"
@@ -12,6 +13,7 @@ import { router as imagesRouter } from "./routes/images.js"
 
 const app = express ( )
 
+app.use ( compression ( ) )
 app.use ( express.json ( ) )
 app.use ( express.urlencoded ( { extended: true } ) )
 

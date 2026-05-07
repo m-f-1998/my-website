@@ -1,94 +1,87 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core"
+import {
+  siHtml5, siCss, siJavascript,
+  siPython, siGnubash, siPhp,
+  siAngular, siTypescript,
+  siMongodb, siPostgresql,
+  siNodedotjs, siNpm,
+  siDocker, siUbuntu, siCloudflare,
+  siGit, siSwift, siReact, siIonic
+} from "simple-icons"
+import type { SimpleIcon } from "simple-icons"
+
+interface Skill {
+  name: string
+  icons: SimpleIcon [ ]
+  optional?: boolean
+}
 
 @Component ( {
   selector: "app-skills",
-  imports: [],
+  imports: [ ],
   templateUrl: "./skills.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class SkillsComponent {
-
-  public skillGroups = [
+  public skillGroups: { skills: Skill [ ] } [ ] = [
     {
       skills: [
         {
           name: "Vanilla Web Technologies",
-          icons: [
-            "html5.svg",
-            "css3.svg",
-            "js.svg"
-          ],
-          optional: true,
+          icons: [ siHtml5, siCss, siJavascript ],
+          optional: true
         },
         {
           name: "Scripting Languages",
-          icons: [
-            "python.svg",
-            "shell.svg",
-            "php.svg"
-          ]
+          icons: [ siPython, siGnubash, siPhp ]
         },
         {
           name: "Typed Angular",
-          icons: [
-            "angular.svg",
-            "typescript.svg"
-          ]
+          icons: [ siAngular, siTypescript ]
         }
       ]
     },
     {
       skills: [
         {
-          optional: true,
           name: "MongoDB",
-          icons: [
-            "mongo.svg"
-          ]
+          icons: [ siMongodb ],
+          optional: true
         },
         {
           name: "SQL",
-          icons: [
-            "postgres.svg",
-            "sql.svg"
-          ]
+          icons: [ siPostgresql ]
         },
         {
-          name: "NodeJS & Package Management",
-          icons: [
-            "node.svg",
-            "npm.svg"
-          ]
+          name: "Node.js & Package Management",
+          icons: [ siNodedotjs, siNpm ]
         }
       ]
     },
     {
       skills: [
         {
-          name: "Web Services",
-          icons: [
-            "googlecloud.svg",
-            "centos.svg",
-            "ubuntu.svg"
-          ]
+          name: "Cloud & DevOps",
+          icons: [ siDocker, siUbuntu, siCloudflare ]
         },
         {
-          optional: true,
           name: "Git Source Control",
-          icons: [
-            "git.svg"
-          ]
+          icons: [ siGit ],
+          optional: true
         },
         {
           name: "Mobile Applications",
-          icons: [
-            "swift.svg",
-            "react.svg",
-            "ionic.svg"
-          ]
+          icons: [ siSwift, siReact, siIonic ]
         }
       ]
     }
   ]
 
+  public iconColor ( hex: string ): string {
+    const r = parseInt ( hex.slice ( 0, 2 ), 16 )
+    const g = parseInt ( hex.slice ( 2, 4 ), 16 )
+    const b = parseInt ( hex.slice ( 4, 6 ), 16 )
+    const luminance = ( 0.299 * r + 0.587 * g + 0.114 * b ) / 255
+    return "#" + ( luminance < 0.25 ? "e2e8f0" : hex )
+  }
 }

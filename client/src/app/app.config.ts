@@ -9,8 +9,6 @@ import { environment } from "../environments/environments"
 
 const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
 
-console.log ( environment.recaptcha.siteKey )
-
 const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection ( ),

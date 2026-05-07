@@ -13,7 +13,9 @@
     "tsc-verify": "npx --yes tsc --noEmit"
   },
   "dependencies": {
+    "@types/compression": "^1.8.1",
     "body-parser": "^2.2.2",
+    "compression": "^1.8.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
@@ -31,7 +33,7 @@
     "@types/nodemailer": "^8.0.0",
     "@types/sanitize-html": "^2.16.1",
     "eslint-plugin-import": "^2.32.0",
-    "typescript-eslint": "^8.59.2",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2"
   }
 }
