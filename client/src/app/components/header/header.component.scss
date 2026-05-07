@@ -10,31 +10,30 @@
   background-color: #4267B2;
 }
 
+.profile-image {
+  padding-bottom: 12px;
+}
+
 .profile-image a {
   position: relative;
   display: block;
-}
-
-.profile-image a::before {
-  content: "";
-  border: 15px solid rgba(55, 140, 63, 0.6);
   border-radius: 50%;
-  position: absolute;
-  inset: 0;
-  animation: pulsate 1.6s ease-out infinite;
-  opacity: 0;
-  z-index: 99;
 }
 
 .profile-image img {
   position: relative;
   border-radius: 50%;
   max-width: 180px;
+  max-height: 180px;
   width: min(80vw, 80vh);
+  height: min(80vw, 80vh);
+  object-fit: cover;
+  object-position: top center;
   padding: 0;
   margin: 0;
-  border: 15px solid transparent;
+  border: 3px solid rgba(55, 140, 63, 0.5);
   z-index: 9999;
+  animation: glowPulse 3s ease-in-out infinite;
   transition: all 0.3s ease-out;
 }
 
@@ -81,16 +80,11 @@
   max-width: 880px;
 }
 
-@keyframes pulsate {
-  0% {
-    transform: scale(0.6, 0.6);
-    opacity: 0;
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(55, 140, 63, 0.2), 0 0 0 0px rgba(55, 140, 63, 0.0);
   }
   50% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.2, 1.2);
-    opacity: 0;
+    box-shadow: 0 0 28px rgba(55, 140, 63, 0.4), 0 0 0 6px rgba(55, 140, 63, 0.12);
   }
 }

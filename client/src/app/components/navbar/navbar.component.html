@@ -1,35 +1,87 @@
 <header>
-  <nav class="bg-brand w-full sticky top-0 z-50 shadow-lg">
-    <div class="px-4">
-      <div class="flex items-center justify-end py-2 sm:hidden">
-        <button (click)="toggleMenu()" class="p-2 text-white focus:outline-none" aria-label="Toggle Navigation">
+  <nav class="bg-gray-900/90 backdrop-blur-md border-b border-gray-800/60 w-full sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-14">
+        <!-- Brand / photo -->
+        <button (click)="scrollTo('about')" class="flex items-center gap-2.5 group cursor-pointer">
+          <img src="/api/img/matthew.jpg?w=64&f=webp" alt="Matthew Frankland"
+            class="w-8 h-8 rounded-full object-cover border border-brand/40 group-hover:border-brand/70 transition-colors duration-200" />
+          <span class="hidden sm:block text-gray-100 font-semibold text-sm tracking-wide group-hover:text-white transition-colors duration-200">Matthew Frankland</span>
+        </button>
+
+        <!-- Desktop nav links -->
+        <ul class="hidden sm:flex items-center gap-1">
+          <li>
+            <button (click)="scrollTo('skill')" class="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'code')" class="text-xs opacity-70" />
+              Skills
+            </button>
+          </li>
+          <li>
+            <button (click)="scrollTo('projects')" class="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'folder-open')" class="text-xs opacity-70" />
+              Projects
+            </button>
+          </li>
+          <li>
+            <button (click)="scrollTo('experience')" class="flex items-center gap-1.5 px-4 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'briefcase')" class="text-xs opacity-70" />
+              Experience
+            </button>
+          </li>
+          <li>
+            <button (click)="scrollTo('contact')" class="flex items-center gap-1.5 ml-2 px-4 py-2 text-sm font-medium text-brand hover:text-white border border-brand/40 hover:bg-brand hover:border-brand rounded-lg transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'envelope')" class="text-xs" />
+              Contact
+            </button>
+          </li>
+        </ul>
+
+        <!-- Mobile hamburger -->
+        <button (click)="toggleMenu()" class="sm:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/60 transition-all duration-200 focus:outline-none" aria-label="Toggle Navigation">
           @if (menuOpen()) {
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           } @else {
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           }
         </button>
       </div>
-      <div [class]="menuOpen() ? 'block' : 'hidden sm:block'">
-        <ul class="flex flex-col sm:flex-row sm:h-12">
-          <li class="transition-colors duration-200 hover:bg-brand-hover" (click)="scrollTo('skill')">
-            <a class="block px-4 py-3 text-white cursor-pointer">Skills</a>
-          </li>
-          <li class="transition-colors duration-200 hover:bg-brand-hover" (click)="scrollTo('projects')">
-            <a class="block px-4 py-3 text-white cursor-pointer">Projects</a>
-          </li>
-          <li class="transition-colors duration-200 hover:bg-brand-hover" (click)="scrollTo('experience')">
-            <a class="block px-4 py-3 text-white cursor-pointer">Experience</a>
-          </li>
-          <li class="transition-colors duration-200 hover:bg-brand-hover" (click)="scrollTo('contact')">
-            <a class="block px-4 py-3 text-white cursor-pointer">Contact</a>
-          </li>
-        </ul>
-      </div>
+
+      <!-- Mobile dropdown -->
+      @if (menuOpen()) {
+        <div class="sm:hidden border-t border-gray-800/60 py-2">
+          <ul class="flex flex-col gap-1">
+            <li>
+              <button (click)="scrollTo('skill')" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 rounded-lg transition-all duration-200 cursor-pointer">
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'code')" class="w-4 text-gray-500" />
+                Skills
+              </button>
+            </li>
+            <li>
+              <button (click)="scrollTo('projects')" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 rounded-lg transition-all duration-200 cursor-pointer">
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'folder-open')" class="w-4 text-gray-500" />
+                Projects
+              </button>
+            </li>
+            <li>
+              <button (click)="scrollTo('experience')" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 rounded-lg transition-all duration-200 cursor-pointer">
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'briefcase')" class="w-4 text-gray-500" />
+                Experience
+              </button>
+            </li>
+            <li>
+              <button (click)="scrollTo('contact')" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-brand hover:text-white hover:bg-brand/20 rounded-lg transition-all duration-200 cursor-pointer">
+                <fa-icon [icon]="iconSvc.getIcon('fas', 'envelope')" class="w-4" />
+                Contact
+              </button>
+            </li>
+          </ul>
+        </div>
+      }
     </div>
   </nav>
 </header>

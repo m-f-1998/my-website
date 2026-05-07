@@ -1,15 +1,18 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/core"
+import { FaIconComponent } from "@fortawesome/angular-fontawesome"
+import { IconService } from "@services/icons.service"
 import { ScrollService } from "@services/scroll.service"
 
 @Component ( {
   selector: "app-navbar",
-  imports: [],
+  imports: [ FaIconComponent ],
   templateUrl: "./navbar.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class NavbarComponent {
-  private readonly scrollSvc = inject ( ScrollService )
   public menuOpen = signal ( false )
+  public readonly iconSvc = inject ( IconService )
+  private readonly scrollSvc = inject ( ScrollService )
 
   public toggleMenu ( ) {
     this.menuOpen.update ( open => !open )

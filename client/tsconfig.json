@@ -1,13 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist",
-    "baseUrl": "./src",
     "paths": {
       "@services/*": [
-        "app/services/*"
+        "./src/app/services/*"
       ],
     },
+    "rootDir": "./src",
+    "outDir": "./dist",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
