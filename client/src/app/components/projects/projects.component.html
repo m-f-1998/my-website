@@ -3,7 +3,7 @@
     @for (project of projects; track $index) {
       <div class="bg-gray-800/70 border border-gray-700/40 rounded-xl overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-2xl hover:border-gray-600/60 transition-all duration-200">
         <div class="overflow-hidden">
-          <img
+          <img appImgShimmer
             src="/api/img/projects/{{ project.imageUrl }}?w=640&f=webp"
             srcset="
               /api/img/projects/{{ project.imageUrl }}?w=320&f=webp 320w,

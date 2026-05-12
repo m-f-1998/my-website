@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, inject, OnInit, Renderer2 } from "@angular/core"
+import { Directive, ElementRef, inject, OnInit, Renderer2 } from "@angular/core"
 
 /**
  * Applies a shimmering skeleton effect to images while they load.
@@ -12,8 +12,12 @@ import { Directive, ElementRef, HostListener, inject, OnInit, Renderer2 } from "
  *   image content covers it.
  */
 @Directive ( {
-  selector: "img",
-  standalone: true
+  selector: "[appImgShimmer]",
+  standalone: true,
+  host: {
+    "(load)": "onLoad()",
+    "(error)": "onError()"
+  }
 } )
 export class ImgShimmerDirective implements OnInit {
   private readonly el = inject ( ElementRef<HTMLImageElement> )
@@ -22,7 +26,7 @@ export class ImgShimmerDirective implements OnInit {
   private shimmerTarget: HTMLElement | null = null
   private usesParent = false
 
-  ngOnInit (): void {
+  public ngOnInit ( ): void {
     const img = this.el.nativeElement as HTMLImageElement
     const container = this.findCleanContainer ( img )
 
@@ -38,18 +42,16 @@ export class ImgShimmerDirective implements OnInit {
     }
 
     if ( img.complete && img.naturalHeight !== 0 ) {
-      this.markLoaded ()
+      this.markLoaded ( )
     }
   }
 
-  @HostListener ( "load" )
-  onLoad (): void {
-    this.markLoaded ()
+  public onLoad ( ): void {
+    this.markLoaded ( )
   }
 
-  @HostListener ( "error" )
-  onError (): void {
-    this.markLoaded ()
+  public onError ( ): void {
+    this.markLoaded ( )
   }
 
   /**
@@ -68,7 +70,7 @@ export class ImgShimmerDirective implements OnInit {
     return onlyWrapsImage ? el : null
   }
 
-  private markLoaded (): void {
+  private markLoaded ( ): void {
     const img = this.el.nativeElement as HTMLImageElement
     if ( this.shimmerTarget ) {
       this.renderer.removeClass ( this.shimmerTarget, "img-shimmer" )
