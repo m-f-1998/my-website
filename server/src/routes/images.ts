@@ -28,7 +28,10 @@ const SUPPORTED_FORMATS = [ "webp", "avif", "jpeg", "png" ]
 
 sharp.cache ( { memory: 50, files: 20 } ) // Cache up to 50MB in memory
 
-router.get ( "/*filename", ( req: Request, res: Response ) => {
+// In-memory cache for processed image buffers keyed by request URL
+const responseCache = new Map<string, { buffer: Buffer; contentType: string }> ( )
+
+router.get ( "/*filename", async ( req: Request, res: Response ) => {
   try {
     const filename = ( req.params [ "filename" ] as unknown as string [ ] ).join ( "/" ) // Support subdirectories
 
@@ -53,6 +56,15 @@ router.get ( "/*filename", ( req: Request, res: Response ) => {
       return
     }
 
+    const cacheKey = req.url
+    const cached = responseCache.get ( cacheKey )
+    if ( cached ) {
+      res.type ( cached.contentType )
+      res.set ( "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400" )
+      res.send ( cached.buffer )
+      return
+    }
+
     let transformer = sharp ( inputPath )
       .resize ( width, height, { fit: "inside", withoutEnlargement: true } )
 
@@ -70,9 +82,12 @@ router.get ( "/*filename", ( req: Request, res: Response ) => {
         transformer = transformer.webp ( { quality } )
     }
 
+    const buffer = await transformer.toBuffer ( )
+    responseCache.set ( cacheKey, { buffer, contentType: format } )
+
     res.type ( format )
     res.set ( "Cache-Control", "public, max-age=604800, stale-while-revalidate=86400" )
-    transformer.pipe ( res )
+    res.send ( buffer )
   } catch ( err ) {
     console.error ( err )
     res.status ( 500 ).send ( "Error processing image" )

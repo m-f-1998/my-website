@@ -8,6 +8,22 @@
   --animate-pulsate: pulsate 1.6s ease-out infinite;
 }
 
+@keyframes imgShimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+.img-shimmer {
+  background: linear-gradient(
+    90deg,
+    #111827 25%,
+    #1e293b 50%,
+    #111827 75%
+  );
+  background-size: 200% 100%;
+  animation: imgShimmer 1.5s ease-in-out infinite;
+}
+
 @keyframes pulsate {
   0% { transform: scale(0.6); opacity: 0; }
   50% { opacity: 0.8; }

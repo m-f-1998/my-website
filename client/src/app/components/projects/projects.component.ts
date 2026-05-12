@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core"
+import { ImgShimmerDirective } from "@app/directives/img-shimmer.directive"
 
 @Component ( {
   selector: "app-projects",
-  imports: [],
+  imports: [ ImgShimmerDirective ],
   templateUrl: "./projects.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )

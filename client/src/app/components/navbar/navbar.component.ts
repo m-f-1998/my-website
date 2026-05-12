@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, signal } from "@angular/cor
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { IconService } from "@services/icons.service"
 import { ScrollService } from "@services/scroll.service"
+import { ImgShimmerDirective } from "@app/directives/img-shimmer.directive"
 
 @Component ( {
   selector: "app-navbar",
-  imports: [ FaIconComponent ],
+  imports: [ FaIconComponent, ImgShimmerDirective ],
   templateUrl: "./navbar.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )

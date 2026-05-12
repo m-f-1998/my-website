@@ -11,7 +11,10 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <!-- Preload LCP image so browser fetches it before parsing the template -->
-    <link rel="preload" as="image" href="/api/img/matthew-2.jpg?w=640&f=webp" fetchpriority="high">
+    <link rel="preload" as="image"
+      imagesrcset="/api/img/matthew-2.jpg?w=320&f=webp 320w, /api/img/matthew-2.jpg?w=640&f=webp 640w"
+      imagesizes="180px"
+      fetchpriority="high">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
     <link rel="dns-prefetch" href="https://static.cloudflareinsights.com">
