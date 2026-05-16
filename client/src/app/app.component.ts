@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from "@angular/core"
 import { RouterOutlet } from "@angular/router"
 import { FaConfig } from "@fortawesome/angular-fontawesome"
+import { NavbarComponent } from "./components/navbar/navbar.component"
 
 @Component ( {
   selector: "app-root",
   imports: [
-    RouterOutlet
+    RouterOutlet,
+    NavbarComponent
   ],
   templateUrl: "./app.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,42 +1,48 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from "@angular/core"
+import { ChangeDetectionStrategy, Component, inject } from "@angular/core"
 import { ActivatedRoute } from "@angular/router"
-import { HeaderComponent } from "../components/header/header.component"
+import { FaIconComponent } from "@fortawesome/angular-fontawesome"
+import { IconService } from "@services/icons.service"
+import { FooterComponent } from "../components/footer/footer.component"
 
 @Component ( {
   selector: "app-error-view",
   imports: [
-    HeaderComponent
+    FaIconComponent,
+    FooterComponent
   ],
   templateUrl: "./http-error.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {
-  @Input ( ) public error = ""
-  @Input ( ) public description = ""
+  public code = ""
+  public title = ""
+  public description = ""
 
   private readonly route: ActivatedRoute = inject ( ActivatedRoute )
+  public readonly iconSvc = inject ( IconService )
 
   public constructor ( ) {
-    this.error = this.route.snapshot.paramMap.get ( "code" ) ?? "500"
-    switch ( this.error ) {
+    this.code = this.route.snapshot.paramMap.get ( "code" ) ?? "500"
+    switch ( this.code ) {
       case "400":
-        this.error = "400 Bad Request"
+        this.title = "Bad Request"
         this.description = "The server cannot process the request."
         break
       case "401":
-        this.error = "401 Unauthorized"
+        this.title = "Unauthorized"
         this.description = "You are not allowed to do that."
         break
       case "403":
-        this.error = "403 Forbidden"
+        this.title = "Forbidden"
         this.description = "Dinnae even think aboot it."
         break
       case "404":
-        this.error = "404 Not Found"
+        this.title = "Not Found"
         this.description = "It ain't here pal."
         break
       default:
-        this.error = "500 Internal Server Error"
+        this.code = "500"
+        this.title = "Internal Server Error"
         this.description = "Something went wrong."
         break
     }

@@ -1,5 +1,5 @@
 import { ApplicationConfig, CSP_NONCE, provideZonelessChangeDetection } from "@angular/core"
-import { provideRouter } from "@angular/router"
+import { provideRouter, withInMemoryScrolling } from "@angular/router"
 
 import { routes } from "./app.routes"
 import { provideToastr } from "@m-f-1998/ngx-toastr"
@@ -12,7 +12,7 @@ const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute 
 const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection ( ),
-    provideRouter ( routes ),
+    provideRouter ( routes, withInMemoryScrolling ( { anchorScrolling: "enabled", scrollPositionRestoration: "enabled" } ) ),
     provideToastr ( {
       positionClass: "toast-bottom-right",
       preventDuplicates: true,

@@ -5,7 +5,7 @@ import { IconName, IconPrefix, IconProp } from "@fortawesome/fontawesome-svg-cor
 import { faFacebook, faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons"
 import {
   faSpinner, faCheck, faExclamationTriangle,
-  faCode, faFolderOpen, faBriefcase, faEnvelope
+  faCode, faFolderOpen, faBriefcase, faEnvelope, faHome, faUser
 } from "@fortawesome/free-solid-svg-icons"
 
 @Injectable ( {
@@ -21,7 +21,7 @@ export class IconService {
       faLibrary.addIcons (
         faFacebook, faLinkedin, faGithub,
         faSpinner, faCheck, faExclamationTriangle,
-        faCode, faFolderOpen, faBriefcase, faEnvelope
+        faCode, faFolderOpen, faBriefcase, faEnvelope, faHome, faUser
       )
     }
   }

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core"
-import { NavbarComponent } from "../components/navbar/navbar.component"
 import { HeaderComponent } from "../components/header/header.component"
 import { AboutComponent } from "../components/about/about.component"
 import { SkillsComponent } from "../components/skills/skills.component"
@@ -11,7 +10,6 @@ import { ExperienceComponent } from "../components/experience/experience.compone
 @Component ( {
   selector: "app-home",
   imports: [
-    NavbarComponent,
     HeaderComponent,
     AboutComponent,
     SkillsComponent,
