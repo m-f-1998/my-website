@@ -18,8 +18,8 @@ export class HttpErrorComponent {
   public title = ""
   public description = ""
 
-  private readonly route: ActivatedRoute = inject ( ActivatedRoute )
   public readonly iconSvc = inject ( IconService )
+  private readonly route: ActivatedRoute = inject ( ActivatedRoute )
 
   public constructor ( ) {
     this.code = this.route.snapshot.paramMap.get ( "code" ) ?? "500"
