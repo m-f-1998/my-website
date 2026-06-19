@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core"
 import {
   siHtml5, siCss, siJavascript,
-  siPython, siGnubash, siPhp,
-  siAngular, siTypescript,
-  siMongodb, siPostgresql,
-  siNodedotjs, siNpm,
-  siDocker, siUbuntu, siCloudflare,
-  siGit, siSwift, siReact, siIonic
+  siPython, siAngular, siTypescript,
+  siPostgresql, siMysql,
+  siNodedotjs, siFastify,
+  siDocker, siGithubactions,
+  siReact, siCapacitor, siTailwindcss
 } from "simple-icons"
 import type { SimpleIcon } from "simple-icons"
 
@@ -27,51 +26,34 @@ export class SkillsComponent {
     {
       skills: [
         {
-          name: "Vanilla Web Technologies",
-          icons: [ siHtml5, siCss, siJavascript ],
+          name: "Languages",
+          icons: [ siTypescript, siJavascript, siPython ],
           optional: true
         },
         {
-          name: "Scripting Languages",
-          icons: [ siPython, siGnubash, siPhp ]
+          name: "Frontend & UI",
+          icons: [ siAngular, siTailwindcss, siHtml5, siCss ]
         },
         {
-          name: "Typed Angular",
-          icons: [ siAngular, siTypescript ]
+          name: "Backend Engineering",
+          icons: [ siNodedotjs, siFastify ]
         }
       ]
     },
     {
       skills: [
         {
-          name: "MongoDB",
-          icons: [ siMongodb ],
+          name: "Databases",
+          icons: [ siPostgresql, siMysql ],
           optional: true
         },
         {
-          name: "SQL",
-          icons: [ siPostgresql ]
+          name: "Cross-Platform Mobile",
+          icons: [ siCapacitor, siReact ]
         },
-        {
-          name: "Node.js & Package Management",
-          icons: [ siNodedotjs, siNpm ]
-        }
-      ]
-    },
-    {
-      skills: [
         {
           name: "Cloud & DevOps",
-          icons: [ siDocker, siUbuntu, siCloudflare ]
-        },
-        {
-          name: "Git Source Control",
-          icons: [ siGit ],
-          optional: true
-        },
-        {
-          name: "Mobile Applications",
-          icons: [ siSwift, siReact, siIonic ]
+          icons: [ siDocker, siGithubactions ]
         }
       ]
     }

@@ -1,8 +1,13 @@
-<div id="projects" class="px-4 py-5">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div id="projects" class="px-4 py-8">
+  <div class="mb-8 pl-1">
+    <h2 class="text-3xl font-extrabold text-white mb-2">Selected Projects</h2>
+    <div class="w-16 h-1 bg-green-500 rounded"></div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @for (project of projects; track $index) {
-      <div class="bg-gray-800/70 border border-gray-700/40 rounded-xl overflow-hidden flex flex-col group hover:-translate-y-1 hover:shadow-2xl hover:border-gray-600/60 transition-all duration-200">
-        <div class="overflow-hidden">
+      <div class="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden flex flex-col group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-green-500/30 transition-all duration-300">
+        <div class="relative overflow-hidden h-56">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-90 z-10"></div>
           <img appImgShimmer
             src="/api/img/projects/{{ project.imageUrl }}?w=640&f=webp"
             srcset="
@@ -14,16 +19,30 @@
             alt="{{ project.altTag }}"
             loading="lazy"
             decoding="async"
-            class="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-300"
+            class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out"
           />
+          <div class="absolute bottom-0 left-0 p-5 z-20 w-full">
+            <h5 class="font-bold text-white text-xl translate-y-1 group-hover:translate-y-0 transition-transform duration-300">{{ project.title }}</h5>
+          </div>
         </div>
-        <div class="px-4 py-4 flex flex-col flex-1 border-t border-gray-700/40">
-          <h5 class="font-bold text-gray-100 mb-2">{{ project.title }}</h5>
-          <p class="text-gray-400 text-sm leading-relaxed mb-3 flex-1">{{ project.description }}</p>
+        <div class="p-5 flex flex-col flex-1">
+          <div class="text-gray-300 text-sm leading-relaxed mb-4 flex-1">
+            @if (project.description.length > 300 && !project.fullText) {
+              <p>{{ project.description.slice(0, 300) }}...</p>
+              <button (click)="readmore(project)" class="text-green-400 hover:text-green-300 text-xs font-semibold mt-2 transition-colors inline-block">Read more</button>
+            } @else {
+              <p>{{ project.description }}</p>
+              @if (project.description.length > 300) {
+                <button (click)="readmore(project)" class="text-green-400 hover:text-green-300 text-xs font-semibold mt-2 transition-colors inline-block">Show less</button>
+              }
+            }
+          </div>
           @if (project.links.length) {
-            <div class="flex flex-wrap gap-2 mt-auto pt-1">
+            <div class="flex flex-wrap gap-3 mt-auto pt-4 border-t border-gray-700/50">
               @for (link of project.links; track $index) {
-                <a target="_blank" href="{{ link.url }}" class="btn-primary text-xs py-1.5 px-3">{{ link.label }}</a>
+                <a target="_blank" href="{{ link.url }}" class="inline-flex items-center justify-center bg-gray-700/40 hover:bg-green-500/20 text-gray-200 hover:text-green-400 border border-gray-600/50 hover:border-green-500/50 text-xs font-semibold py-2 px-4 rounded-lg transition-all duration-200">
+                  {{ link.label }}
+                </a>
               }
             </div>
           }

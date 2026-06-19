@@ -15,7 +15,8 @@ export class ExperienceComponent {
       roles: [
         "Senior Web Developer",
         "Web Developer"
-      ]
+      ],
+      description: "Leading the development of complex full-stack web and cross-platform mobile applications. I am responsible for designing modern user interfaces utilizing TypeScript, Angular, and Capacitor, while architecting and maintaining robust backend RESTful APIs using Node.js and Fastify. My work involves deep integration with enterprise databases and implementing secure authentication flows, driving the modernization of the company's application stack to ensure high performance and scalability."
     },
     {
       company: "Exterity",
