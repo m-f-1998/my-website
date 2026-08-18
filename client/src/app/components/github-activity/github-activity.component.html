@@ -1,0 +1,100 @@
+<div id="github-activity" class="section-block px-4">
+  <app-section-heading
+    eyebrow="Activity"
+    title="GitHub"
+    subtitle="Contribution graph from my personal and work accounts."
+  />
+  <div class="flex flex-wrap gap-2 mb-5">
+    @for (user of users(); track user) {
+      <a [href]="'https://github.com/' + user" target="_blank" rel="noopener"
+        class="link-chip text-xs font-semibold text-gray-300 hover:text-green-400 border border-gray-600/50 hover:border-green-500/50 px-3 py-1.5 rounded-lg transition-colors">
+        @{{ user }}
+      </a>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="contrib-card animate-pulse">
+      <div class="h-5 w-48 bg-gray-700/60 rounded mb-6"></div>
+      <div class="h-28 bg-gray-800/60 rounded-xl"></div>
+    </div>
+  } @else if (error()) {
+    <div class="contrib-card text-center px-4 py-6">
+      <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-3xl text-gray-500 mb-3" />
+      <p class="text-gray-300 text-sm mb-2">Couldn't load the contribution graph right now.</p>
+      <p class="text-gray-500 text-xs mb-4">Set <code class="text-green-400/80">GITHUB_TOKEN</code> in server/.env for reliable loading.</p>
+      <div class="flex flex-col sm:flex-row justify-center gap-2">
+        <a href="https://github.com/m-f-1998" target="_blank" rel="noopener" class="btn-secondary text-xs py-2 px-4">@m-f-1998</a>
+        <a href="https://github.com/mattfrank48" target="_blank" rel="noopener" class="btn-secondary text-xs py-2 px-4">@mattfrank48</a>
+      </div>
+    </div>
+  } @else {
+    <div class="contrib-card">
+      <div class="flex flex-col sm:flex-row sm:flex-wrap sm:items-baseline gap-2 sm:gap-3 mb-5">
+        <p class="text-sm text-gray-300">
+          <span class="text-2xl font-extrabold text-white mr-1.5">
+            <span [appCountUp]="totalContributions()"></span>
+          </span>
+          <span class="block sm:inline mt-0.5 sm:mt-0">contributions in the last year</span>
+        </p>
+        @if (source() === 'events') {
+          <span class="text-[10px] uppercase tracking-wide text-amber-300/80 bg-amber-900/25 border border-amber-700/30 px-2 py-1 rounded-full self-start">
+            Approximate (public events)
+          </span>
+        }
+      </div>
+
+      <div class="contrib-scroll">
+        <div class="contrib-layout">
+          <div class="contrib-weekdays hidden sm:grid" aria-hidden="true">
+            @for (label of weekdayLabels; track $index) {
+              <span>{{ label }}</span>
+            }
+          </div>
+          <div class="contrib-graph-wrap">
+            <div class="contrib-months" aria-hidden="true">
+              @for (marker of monthMarkers(); track marker.index) {
+                <span class="contrib-month" [style.gridColumnStart]="marker.index + 1">{{ marker.label }}</span>
+              }
+            </div>
+            <div class="contrib-grid" role="img" [attr.aria-label]="totalContributions() + ' GitHub contributions in the last year'">
+              @for (week of weeks(); track $index) {
+                <div class="contrib-week">
+                  @for (day of week; track day.date) {
+                    <div
+                      class="contrib-day"
+                      [class]="'contrib-day level-' + day.level"
+                      (mouseenter)="showTooltip(day, $event)"
+                      (mouseleave)="hideTooltip()"
+                      (focus)="showTooltip(day, $event)"
+                      (blur)="hideTooltip()"
+                      tabindex="0"
+                      [attr.aria-label]="dayTooltip(day)"
+                    ></div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contrib-footer">
+        <a href="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/viewing-contributions-on-your-profile" target="_blank" rel="noopener" class="text-xs text-gray-500 hover:text-green-400 transition-colors contrib-footer-link">
+          How GitHub counts contributions
+        </a>
+        <div class="contrib-legend" aria-hidden="true">
+          <span class="text-xs text-gray-500 mr-1">Less</span>
+          @for (level of [0, 1, 2, 3, 4]; track level) {
+            <span class="contrib-day level-{{ level }}"></span>
+          }
+          <span class="text-xs text-gray-500 ml-1">More</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (tooltip(); as tip) {
+    <div class="contrib-tooltip" [style.left.px]="tip.x" [style.top.px]="tip.y">{{ tip.text }}</div>
+  }
+</div>

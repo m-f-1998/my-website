@@ -1,13 +1,21 @@
-<div id="projects" class="px-4 py-8">
-  <div class="mb-8 pl-1">
-    <h2 class="text-3xl font-extrabold text-white mb-2">Selected Projects</h2>
-    <div class="w-16 h-1 bg-green-500 rounded"></div>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for (project of projects; track $index) {
-      <div class="bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden flex flex-col group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-green-500/30 transition-all duration-300">
-        <div class="relative overflow-hidden h-56">
+<div id="projects" class="section-block px-4">
+  <app-section-heading
+    eyebrow="Portfolio"
+    title="Work"
+    subtitle="Client projects, apps, and open source — the things I've shipped."
+  />
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 reveal-stagger">
+    @for (project of visibleProjects(); track project.title) {
+      <div class="project-card relative bg-gray-800/40 backdrop-blur-sm border border-gray-700/50 rounded-2xl overflow-hidden flex flex-col group hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-green-500/30 transition-all duration-300"
+        [class.project-card-featured]="project.featured">
+        <div class="relative overflow-hidden h-48 sm:h-52">
           <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/20 to-transparent opacity-90 z-10"></div>
+          @if (project.featured) {
+            <span class="absolute top-3 right-3 z-20 inline-flex items-center gap-1 text-[10px] uppercase tracking-wide font-semibold text-green-200 bg-green-900/70 border border-green-600/50 px-2 py-1 rounded-full backdrop-blur-sm">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'star')" class="text-[9px]" />
+              Featured
+            </span>
+          }
           <img appImgShimmer
             src="/api/img/projects/{{ project.imageUrl }}?w=640&f=webp"
             srcset="
@@ -21,27 +29,40 @@
             decoding="async"
             class="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out"
           />
-          <div class="absolute bottom-0 left-0 p-5 z-20 w-full">
-            <h5 class="font-bold text-white text-xl translate-y-1 group-hover:translate-y-0 transition-transform duration-300">{{ project.title }}</h5>
+          <div class="absolute bottom-0 left-0 p-4 z-20 w-full">
+            <div class="flex items-center gap-2 flex-wrap">
+              <h5 class="font-bold text-white text-lg">{{ project.title }}</h5>
+              @if (project.nda) {
+                <span class="text-[10px] uppercase tracking-wide font-semibold text-amber-300/90 bg-amber-900/40 border border-amber-700/50 px-2 py-0.5 rounded">Enterprise</span>
+              }
+            </div>
           </div>
         </div>
-        <div class="p-5 flex flex-col flex-1">
-          <div class="text-gray-300 text-sm leading-relaxed mb-4 flex-1">
-            @if (project.description.length > 300 && !project.fullText) {
-              <p>{{ project.description.slice(0, 300) }}...</p>
+        <div class="p-4 flex flex-col flex-1">
+          @if (project.tags?.length) {
+            <div class="flex flex-wrap gap-1.5 mb-2">
+              @for (tag of project.tags; track tag) {
+                <span class="text-[10px] font-medium text-green-300/80 bg-green-900/30 border border-green-700/30 px-2 py-0.5 rounded-full">{{ tag }}</span>
+              }
+            </div>
+          }
+          <div class="text-gray-300 text-sm leading-relaxed mb-3 flex-1">
+            @if (project.description.length > 220 && !project.fullText) {
+              <p>{{ project.description.slice(0, 220) }}...</p>
               <button (click)="readmore(project)" class="text-green-400 hover:text-green-300 text-xs font-semibold mt-2 transition-colors inline-block">Read more</button>
             } @else {
               <p>{{ project.description }}</p>
-              @if (project.description.length > 300) {
+              @if (project.description.length > 220) {
                 <button (click)="readmore(project)" class="text-green-400 hover:text-green-300 text-xs font-semibold mt-2 transition-colors inline-block">Show less</button>
               }
             }
           </div>
           @if (project.links.length) {
-            <div class="flex flex-wrap gap-3 mt-auto pt-4 border-t border-gray-700/50">
-              @for (link of project.links; track $index) {
-                <a target="_blank" href="{{ link.url }}" class="inline-flex items-center justify-center bg-gray-700/40 hover:bg-green-500/20 text-gray-200 hover:text-green-400 border border-gray-600/50 hover:border-green-500/50 text-xs font-semibold py-2 px-4 rounded-lg transition-all duration-200">
+            <div class="flex flex-wrap gap-2 mt-auto pt-3 border-t border-gray-700/50">
+              @for (link of project.links; track link.url) {
+                <a target="_blank" rel="noopener" href="{{ link.url }}" class="link-chip inline-flex items-center gap-1.5 justify-center bg-gray-700/40 hover:bg-green-500/20 text-gray-200 hover:text-green-400 border border-gray-600/50 hover:border-green-500/50 text-xs font-semibold py-1.5 px-3 rounded-lg transition-all duration-200">
                   {{ link.label }}
+                  <fa-icon [icon]="iconSvc.getIcon('fas', 'arrow-up-right-from-square')" class="text-[10px] opacity-70" />
                 </a>
               }
             </div>
@@ -49,5 +70,42 @@
         </div>
       </div>
     }
+  </div>
+
+  @if (hiddenCount() > 0) {
+    <div class="flex justify-center mt-6">
+      <button (click)="toggleShowAll()" class="btn-secondary text-sm py-2.5 px-6 rounded-lg w-full sm:w-auto">
+        @if (showAll()) {
+          Show less
+        } @else {
+          Show {{ hiddenCount() }} more projects
+        }
+      </button>
+    </div>
+  }
+
+  <div class="mt-8 pt-6 border-t border-gray-800/70">
+    <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-4">Open source</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      @for (repo of openSource; track repo.name) {
+        <div class="oss-row flex flex-col gap-3 bg-gray-800/30 border border-gray-700/45 rounded-xl px-4 py-3.5">
+          <div class="flex items-start gap-3 min-w-0">
+            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-green-400 shrink-0 mt-0.5" />
+            <div class="min-w-0">
+              <div class="font-semibold text-gray-100 text-sm break-all sm:truncate">{{ repo.name }}</div>
+              <div class="text-gray-400 text-xs mt-0.5 leading-relaxed">{{ repo.description }}</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            @for (link of repo.links; track link.url) {
+              <a target="_blank" rel="noopener" href="{{ link.url }}"
+                class="link-chip text-xs font-semibold py-1.5 px-3 rounded-lg border border-gray-600/50 text-gray-300 hover:text-green-400 hover:border-green-500/50 transition-colors">
+                {{ link.label }}
+              </a>
+            }
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>

@@ -1,12 +1,9 @@
 <app-header />
-<div class="page-content">
-  <app-about />
-  <app-skills />
-  <app-projects />
-  <div class="bg-gray-900/50 backdrop-blur-sm">
-    <app-experience />
-    <app-contact />
-  </div>
-  <div class="h-10 bg-gradient-to-b from-gray-900/50 to-transparent"></div>
-  <app-footer />
-</div>
+<main class="page-content max-w-6xl mx-auto">
+  <div appSectionReveal><app-about /></div>
+  <div appSectionReveal><app-projects /></div>
+  <div appSectionReveal><app-experience /></div>
+  <div appSectionReveal><app-github-activity /></div>
+  <div appSectionReveal><app-contact /></div>
+</main>
+<app-footer />

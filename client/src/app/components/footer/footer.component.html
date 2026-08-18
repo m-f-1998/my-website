@@ -1,14 +1,26 @@
-<footer class="border-t border-gray-800">
+<footer class="border-t border-gray-800 relative">
+  <button (click)="scrollSvc.scrollToTop()" class="back-to-top" aria-label="Back to top">
+    <fa-icon [icon]="iconSvc.getIcon('fas', 'chevron-down')" class="rotate-180 text-sm" />
+  </button>
   <div class="max-w-5xl mx-auto px-6 py-10">
     <div class="flex flex-col md:flex-row justify-between gap-10">
 
       <div class="flex-1">
-        <div class="text-lg font-bold text-gray-100 mb-1">Matthew Frankland</div>
-        <div class="text-sm font-medium text-green-400 mb-3">Full Stack Web Engineer</div>
+        <div class="flex items-center gap-2 mb-3">
+          <div class="text-lg font-bold text-gray-100">Matthew Frankland</div>
+          <span class="availability-badge availability-badge-sm">
+            <span class="live-dot"></span>
+            Available
+          </span>
+        </div>
+        <div class="text-sm font-medium text-green-400 mb-3">Senior Full-Stack Software Engineer</div>
+        <p class="text-gray-400 text-sm leading-relaxed max-w-sm mb-4">
+          Based in the Scottish Borders. Building web and mobile products with TypeScript, Angular, and Fastify.
+        </p>
         <div class="flex flex-wrap gap-1.5">
           <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">TypeScript</span>
-          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">NodeJS</span>
           <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">Angular</span>
+          <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">Fastify</span>
           <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">Docker</span>
           <span class="text-xs bg-gray-800 text-gray-400 border border-gray-700/60 rounded px-2 py-0.5">PostgreSQL</span>
         </div>
@@ -18,8 +30,7 @@
         <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Navigation</div>
         <ul class="space-y-2 text-sm">
           <li><button (click)="scrollSvc.scrollTo('about')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">About</button></li>
-          <li><button (click)="scrollSvc.scrollTo('skill')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Skills</button></li>
-          <li><button (click)="scrollSvc.scrollTo('projects')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Projects</button></li>
+          <li><button (click)="scrollSvc.scrollTo('projects')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Work</button></li>
           <li><button (click)="scrollSvc.scrollTo('experience')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Experience</button></li>
           <li><button (click)="scrollSvc.scrollTo('contact')" class="text-gray-400 hover:text-green-400 transition-colors cursor-pointer bg-transparent border-0 p-0">Contact</button></li>
         </ul>
@@ -27,7 +38,7 @@
 
       <div>
         <div class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-3">Connect</div>
-        <div class="flex gap-2.5">
+        <div class="flex gap-2.5 mb-4">
           <a href="https://facebook.com/mattfrank48/" target="_blank"
             class="facebook-link h-10 w-10 rounded-full inline-flex items-center justify-center border border-white/20 hover:border-white/50 hover:scale-110 transition-all duration-200"
             title="Contact me on Facebook">
@@ -44,12 +55,16 @@
             <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" size="lg" />
           </a>
         </div>
+        <a href="mailto:admin@matthewfrankland.co.uk" class="text-sm text-gray-400 hover:text-green-400 transition-colors">
+          admin&#64;matthewfrankland.co.uk
+        </a>
       </div>
 
     </div>
 
-    <div class="border-t border-gray-800/60 mt-8 pt-5 text-center text-gray-500 text-xs">
-      &copy; {{year}} Matthew Frankland &mdash; All rights reserved.
+    <div class="border-t border-gray-800/60 mt-8 pt-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-gray-500 text-xs">
+      <span>&copy; {{year}} Matthew Frankland &mdash; All rights reserved.</span>
+      <span class="text-gray-600">Built with Angular 22 · Fastify · Docker</span>
     </div>
   </div>
 </footer>

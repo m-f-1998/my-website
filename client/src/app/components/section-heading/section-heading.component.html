@@ -1,0 +1,10 @@
+<div class="section-heading" [class.section-heading-compact]="compact()">
+  @if (eyebrow()) {
+    <p class="section-eyebrow">{{ eyebrow() }}</p>
+  }
+  <h2 class="section-title">{{ title() }}</h2>
+  <div class="section-accent" aria-hidden="true"></div>
+  @if (subtitle()) {
+    <p class="section-subtitle">{{ subtitle() }}</p>
+  }
+</div>

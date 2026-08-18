@@ -1,22 +1,25 @@
-<div id="contact" class="px-4 sm:px-8 pt-3 pb-5">
-  <div class="card mb-0">
-    <h4 class="text-xl font-bold text-center text-gray-100 pt-6 pb-2">Contact Me</h4>
-    <p class="text-gray-400 text-sm text-center px-8 pb-4">Whether you'd like to discuss a potential opportunity, collaborate on a project, or simply request a full copy of my CV — feel free to get in touch.</p>
-    <div class="px-8 pb-8">
+<div id="contact" class="section-block px-4 pb-8">
+  <app-section-heading
+    eyebrow="Get in touch"
+    title="Contact"
+    subtitle="Opportunities, collaborations, or a copy of my CV — I'd love to hear from you."
+  />
+  <div class="card mb-0 contact-card">
+    <div class="px-6 sm:px-8 py-6">
       @if (processing()) {
-        <div class="bg-blue-500/20 border border-blue-500 text-blue-300 rounded-lg p-4 text-center text-lg flex items-center justify-center gap-3">
+        <div class="status-banner status-banner-info">
           <fa-icon [icon]="iconSvc.getIcon('fas', 'spinner')" animation="spin" />
           Sending...
         </div>
       } @else if (success()) {
-        <div class="bg-green-500/20 border border-green-500 text-green-300 rounded-lg p-4 text-center text-lg flex items-center justify-center gap-3">
+        <div class="status-banner status-banner-success">
           <fa-icon [icon]="iconSvc.getIcon('fas', 'check')" />
-          Sent!
+          {{ message() }}
         </div>
       } @else if (error()) {
-        <div class="bg-red-500/20 border border-red-500 text-red-300 rounded-lg p-4 text-center text-lg flex items-center justify-center gap-3">
+        <div class="status-banner status-banner-error">
           <fa-icon [icon]="iconSvc.getIcon('fas', 'exclamation-triangle')" />
-          Error! Please try again later.
+          {{ message() }}
         </div>
       } @else {
         <form [formGroup]="contactForm!" (submit)="sendEmail()">
@@ -29,12 +32,20 @@
           <div class="mb-4">
             <textarea
               class="w-full px-4 py-2.5 bg-gray-700 rounded-lg border border-gray-600 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all min-h-[120px] resize-y"
-              name="message" placeholder="Your Message" formControlName="message"
+              name="message" placeholder="Your message" formControlName="message"
             ></textarea>
           </div>
           <div>
-            <button class="btn-primary" type="submit" [disabled]="!contactForm!.valid">Send</button>
+            <button class="btn-primary w-full sm:w-auto" type="submit" [disabled]="!contactForm!.valid">Send message</button>
           </div>
+          @if (showRecaptchaNotice) {
+            <p class="text-xs text-gray-500 mt-4 leading-relaxed">
+              Protected by reCAPTCHA —
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-400">Privacy</a>
+              &middot;
+              <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="text-gray-400 hover:text-green-400">Terms</a>
+            </p>
+          }
         </form>
       }
     </div>

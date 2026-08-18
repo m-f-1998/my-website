@@ -1,46 +1,56 @@
-import express from "express"
-// import type { Response } from "express"
-import { rateLimit } from "express-rate-limit"
-import compression from "compression"
+import Fastify from "fastify"
+import zlib from "zlib"
 
-import helmet from "helmet"
-import cors from "cors"
-import { randomBytes } from "crypto"
+import helmet from "@fastify/helmet"
+import compress from "@fastify/compress"
+import sensible from "@fastify/sensible"
+import formbody from "@fastify/formbody"
+import cors from "@fastify/cors"
 
-import { router as mailerRouter } from "./routes/mailer.js"
-import { router as staticRouter } from "./routes/static.js"
+import { isDevMode, router as staticRouter } from "./routes/static.js"
 import { router as imagesRouter } from "./routes/images.js"
+import { router as mailerRouter } from "./routes/mailer.js"
+import { router as githubRouter } from "./routes/github.js"
 
-const app = express ( )
+const trustProxyEnv = process.env [ "TRUST_PROXY" ]?.trim ( )
+const app = Fastify ( {
+  logger: false,
+  trustProxy: trustProxyEnv && trustProxyEnv.length > 0
+    ? ( /^\d+$/.test ( trustProxyEnv ) ? Number ( trustProxyEnv ) : trustProxyEnv )
+    : "loopback",
+} )
 
-app.use ( compression ( ) )
-app.use ( express.json ( ) )
-app.use ( express.urlencoded ( { extended: true } ) )
+await app.register ( sensible )
+await app.register ( formbody )
 
-app.use ( express.json ( { limit: "1mb" } ) )
-app.use ( express.urlencoded ( { limit: "1mb", extended: true } ) )
+await app.register ( compress, {
+  threshold: 1024,
+  zlibOptions: {
+    flush: zlib.constants.Z_SYNC_FLUSH
+  }
+} )
 
-app.use ( cors ( {
-  origin: [
-    "http://localhost:4200",
-    "http://localhost:3000",
-    "https://matthewfrankland.co.uk"
-  ],
+await app.register ( cors, {
+  origin: ( origin, callback ) => {
+    const corsEnv = process.env [ "CORS_ORIGINS" ]
+    const allowedOrigins = corsEnv
+      ? corsEnv.split ( "," ).map ( s => s.trim ( ) )
+      : [ "http://localhost:4200", "http://localhost:3000", "https://matthewfrankland.co.uk" ]
+    if ( !origin || allowedOrigins.includes ( origin ) ) {
+      callback ( null, true )
+    } else {
+      callback ( null, false )
+    }
+  },
   methods: [ "GET", "POST" ],
   allowedHeaders: [ "Content-Type", "Authorization" ],
   credentials: true
-} ) )
-
-app.use ( ( _req, res, next ) => {
-  const nonce = randomBytes ( 16 ).toString ( "base64" )
-  res.locals [ "cspNonce" ] = nonce
-  next ( )
 } )
 
-app.use ( helmet ( {
-  frameguard: {
-    action: "deny"
-  },
+await app.register ( helmet, {
+  enableCSPNonces: true,
+  crossOriginOpenerPolicy: false,
+  frameguard: { action: "deny" },
   hidePoweredBy: true,
   hsts: {
     maxAge: 31536000,
@@ -49,37 +59,30 @@ app.use ( helmet ( {
   },
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: [
-        "'none'",
-      ],
+      defaultSrc: [ "'none'" ],
       scriptSrc: [
         "'self'",
         "www.googletagmanager.com"
       ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        // ( _req, res ) => `'nonce-${( res as Response ).locals[ "cspNonce" ]}'`,
-      ],
+      styleSrc: [ "'self'" ],
+      styleSrcAttr: [ "'unsafe-inline'" ],
       scriptSrcElem: [
         "'self'",
-        "'unsafe-inline'",
         "https://www.youtube.com",
         "https://www.googletagmanager.com",
         "https://static.cloudflareinsights.com",
         "https://www.google.com",
-        "https://www.gstatic.com",
-        // ( _req, res ) => `'nonce-${( res as Response ).locals[ "cspNonce" ]}'`
+        "https://www.gstatic.com"
       ],
       imgSrc: [
         "'self'",
         "data:",
-        "https://\*.jsdelivr.net",
+        "https://*.jsdelivr.net"
       ],
       connectSrc: [
         "'self'",
-        "https://\*.google-analytics.com",
-        "https://\*.google.com",
+        "https://*.google-analytics.com",
+        "https://*.google.com"
       ],
       frameSrc: [
         "'self'",
@@ -90,40 +93,42 @@ app.use ( helmet ( {
   noSniff: true,
   xssFilter: true,
   ieNoOpen: true
-} ) )
-
-app.use ( "/assets", rateLimit ( {
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: "Too many requests, please try again later.",
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-} ) )
-
-app.get ( "/ordo-1962/support", ( _req, res ) => {
-  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk" )
 } )
 
-app.get ( "/ordo-1962/v1.3/prayers.php", ( _req, res ) => {
-  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk/api/v1.3/prayers" )
+app.get ( "/api/health", async ( _req, rep ) => {
+  return rep.send ( { status: "ok", stack: "fastify" } )
 } )
 
-app.get ( "/ordo-1962/v1.3/locale.php", ( _req, res ) => {
-  res.redirect ( 301, "https://ordo.matthewfrankland.co.uk/api/v1.3/locale" )
+app.get ( "/ordo-1962/support", async ( _req, rep ) => {
+  return rep.redirect ( "https://ordo.matthewfrankland.co.uk", 301 )
 } )
 
-app.get ( "/ordo-1962/v1.3/ordo.php", ( req, res ) => {
-  const year = req.query [ "year" ] as string | undefined
+app.get ( "/ordo-1962/v1.3/prayers.php", async ( _req, rep ) => {
+  return rep.redirect ( "https://ordo.matthewfrankland.co.uk/api/v1.3/prayers", 301 )
+} )
+
+app.get ( "/ordo-1962/v1.3/locale.php", async ( _req, rep ) => {
+  return rep.redirect ( "https://ordo.matthewfrankland.co.uk/api/v1.3/locale", 301 )
+} )
+
+app.get ( "/ordo-1962/v1.3/ordo.php", async ( req, rep ) => {
+  const year = ( req.query as { year?: string } ).year
   if ( !year ) {
-    return res.redirect ( 302, "https://matthewfrankland.co.uk/error/400" )
+    return rep.redirect ( "https://matthewfrankland.co.uk/error/400", 302 )
   }
-  res.redirect ( 301, `https://ordo.matthewfrankland.co.uk/api/v1.3/ordo/${year}` )
+  return rep.redirect ( `https://ordo.matthewfrankland.co.uk/api/v1.3/ordo/${year}`, 301 )
 } )
 
-app.use ( "/api/img", imagesRouter )
-app.use ( "/api/mail", mailerRouter )
-app.use ( staticRouter )
+await app.register ( imagesRouter, { prefix: "/api/img" } )
+await app.register ( mailerRouter, { prefix: "/api/mail" } )
+await app.register ( githubRouter, { prefix: "/api/github" } )
+await app.register ( staticRouter, { prefix: "/" } )
 
-app.listen ( 3000, ( ) => {
-  console.log ( "Server running on port 3000" )
+console.log ( `Server starting (${isDevMode ( ) ? "dev" : "production"} mode)...` )
+
+await app.listen ( {
+  port: 3000,
+  host: "0.0.0.0"
 } )
+
+console.log ( "Server running on port 3000" )

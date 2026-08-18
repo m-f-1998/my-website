@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from "@angular/core"
+import { ChangeDetectionStrategy, Component, inject, isDevMode, OnDestroy, OnInit, signal } from "@angular/core"
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import { ToastrService } from "@m-f-1998/ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
@@ -6,13 +6,20 @@ import { RecaptchaV3Module, ReCaptchaV3Service } from "ng-recaptcha-2"
 import { Subscription } from "rxjs"
 import { ApiService } from "@services/api.service"
 import { IconService } from "@services/icons.service"
+import { SectionHeadingComponent } from "../section-heading/section-heading.component"
+
+type MailResponse = {
+  message?: string
+  dev?: boolean
+}
 
 @Component ( {
   selector: "app-contact",
   imports: [
     FaIconComponent,
     ReactiveFormsModule,
-    RecaptchaV3Module
+    RecaptchaV3Module,
+    SectionHeadingComponent
   ],
   templateUrl: "./contact.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,6 +29,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   public error = signal ( false )
   public success = signal ( false )
   public message = signal ( "" )
+  public readonly showRecaptchaNotice = !isDevMode ( )
 
   public contactForm: FormGroup = new FormGroup ( {
     subject: new FormControl ( "", Validators.required ),
@@ -37,12 +45,18 @@ export class ContactComponent implements OnInit, OnDestroy {
   private subscription: Subscription | null = null
 
   public ngOnInit ( ) {
+    if ( isDevMode ( ) ) {
+      this.captchaToken = "dev-bypass"
+      return
+    }
+
     this.subscription = this.recaptchaSvc.execute ( "contactForm" ).subscribe ( {
       next: ( token: string ) => {
         this.captchaToken = token
       },
       error: ( ) => {
         this.error.set ( true )
+        this.message.set ( "reCAPTCHA failed to load." )
       }
     } )
   }
@@ -66,18 +80,20 @@ export class ContactComponent implements OnInit, OnDestroy {
     }
 
     this.processing.set ( true )
+    this.error.set ( false )
 
-    this.apiSvc.post ( "/api/mail", {
+    this.apiSvc.post<MailResponse> ( "/api/mail", {
       subject: this.contactForm.value.subject,
       message: this.contactForm.value.message,
       recaptchaToken: this.captchaToken
-    } ).then ( ( ) => {
-      this.message.set ( "Email sent!" )
+    } ).then ( ( response ) => {
+      this.message.set ( response?.message || "Email sent!" )
       this.success.set ( true )
       this.processing.set ( false )
-    } ).catch ( ( e: any ) => {
+    } ).catch ( ( e: unknown ) => {
       this.error.set ( true )
-      this.message.set ( "An Error Occurred. Please Try Again Later." )
+      const body = ( e as { error?: { message?: string } } )?.error
+      this.message.set ( body?.message || "An error occurred. Please try again later." )
       console.error ( e )
       this.processing.set ( false )
     } )

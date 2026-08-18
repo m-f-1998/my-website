@@ -23,10 +23,13 @@ Images are published to:
 
 ## 🔧 Required Environment Variables
 
-The backend server requires the following environment variables to function properly:
+For **local development**, copy `server/.env.example` to `server/.env` and set `DEV_MODE=true`. In dev mode the contact form logs emails to the server console (no SMTP required) and skips reCAPTCHA verification.
+
+The backend server requires the following environment variables in **production**:
 
 | Variable              | Description                         |
 |-----------------------|-------------------------------------|
+| `DEV_MODE`            | Set to `true` for local dev (relaxed mail + reCAPTCHA) |
 | `RECAPTCHA_SITE`           | Google reCAPTCHA site key for client-side verification             |
 | `RECAPTCHA_API_KEY`        | Google reCAPTCHA API key for server-side requests                  |
 | `PUBLIC_DOMAIN`            | Public domain for the application (e.g., `http://localhost:3000`)  |
@@ -38,6 +41,18 @@ The backend server requires the following environment variables to function prop
 ## 📁 Example `.env` (for local dev)
 
 ```env
+DEV_MODE=true
+
+# Optional in dev — emails are logged to the server console instead
+# SMTP_HOST=
+# SMTP_USER=
+# SMTP_PASS=
+# SMTP_PORT=465
+```
+
+## 📁 Example `.env` (for production)
+
+```env
 RECAPTCHA_SITE=
 RECAPTCHA_API_KEY=
 PUBLIC_DOMAIN=
@@ -45,5 +60,4 @@ SMTP_HOST=
 SMTP_USER=
 SMTP_PASS=
 SMTP_PORT=465
-
-
+```

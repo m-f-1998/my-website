@@ -6,7 +6,7 @@ import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { IconService } from "@services/icons.service"
 import { ImgShimmerDirective } from "@app/directives/img-shimmer.directive"
 
-const SECTION_ORDER = [ "home", "about", "skill", "projects", "experience", "contact" ] as const
+const SECTION_ORDER = [ "home", "about", "projects", "experience", "github-activity", "contact" ] as const
 type SectionId = typeof SECTION_ORDER[number]
 
 @Component ( {
@@ -19,11 +19,17 @@ type SectionId = typeof SECTION_ORDER[number]
 export class NavbarComponent implements OnDestroy {
   public menuOpen = signal ( false )
   public activeSection = signal<SectionId | null> ( null )
+  public scrollProgress = signal ( 0 )
   public readonly iconSvc = inject ( IconService )
   private readonly router = inject ( Router )
   private readonly doc: Document = inject ( DOCUMENT )
   private observer: IntersectionObserver | null = null
   private readonly visible = new Set<SectionId> ()
+  private readonly scrollHandler = ( ): void => {
+    const root = this.doc.documentElement
+    const max = root.scrollHeight - root.clientHeight
+    this.scrollProgress.set ( max > 0 ? ( root.scrollTop / max ) * 100 : 0 )
+  }
   private routerSub = this.router.events.pipe (
     filter ( e => e instanceof NavigationEnd )
   ).subscribe ( ( ) => {
@@ -34,7 +40,11 @@ export class NavbarComponent implements OnDestroy {
   } )
 
   public constructor ( ) {
-    afterNextRender ( ( ) => this.initScrollSpy ( ) )
+    afterNextRender ( ( ) => {
+      this.initScrollSpy ( )
+      this.doc.defaultView?.addEventListener ( "scroll", this.scrollHandler, { passive: true } )
+      this.scrollHandler ( )
+    } )
   }
 
   public toggleMenu ( ) {
@@ -60,6 +70,7 @@ export class NavbarComponent implements OnDestroy {
   public ngOnDestroy ( ) {
     this.observer?.disconnect ( )
     this.routerSub.unsubscribe ( )
+    this.doc.defaultView?.removeEventListener ( "scroll", this.scrollHandler )
   }
 
   private initScrollSpy ( ) {

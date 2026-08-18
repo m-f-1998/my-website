@@ -23,10 +23,10 @@
 .profile-image img {
   position: relative;
   border-radius: 50%;
-  max-width: 180px;
-  max-height: 180px;
-  width: min(80vw, 80vh);
-  height: min(80vw, 80vh);
+  max-width: 140px;
+  max-height: 140px;
+  width: min(42vw, 140px);
+  height: min(42vw, 140px);
   object-fit: cover;
   object-position: top center;
   padding: 0;
@@ -37,13 +37,23 @@
   transition: all 0.3s ease-out;
 }
 
+@media (min-width: 640px) {
+  .profile-image img {
+    max-width: 180px;
+    max-height: 180px;
+    width: min(80vw, 80vh);
+    height: min(80vw, 80vh);
+  }
+}
+
 .page-header {
-  height: 60vh;
-  min-height: 550px;
-  max-height: 440px;
-  padding: 0;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  padding: 5.5rem 0 1.5rem;
   color: #fff;
   position: relative;
+  overflow: hidden;
   background: linear-gradient(
     0deg,
     rgba(44, 44, 44, 0.2),
@@ -51,11 +61,59 @@
   );
 }
 
+@media (min-width: 640px) {
+  .page-header {
+    height: 68vh;
+    min-height: 580px;
+    max-height: 720px;
+    padding: 0;
+  }
+}
+
+.page-header-inner {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .page-header-inner {
+    height: 100%;
+    position: relative;
+  }
+}
+
+.page-header-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
+}
+
+.page-header-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(55, 140, 63, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, transparent 55%, rgba(3, 7, 18, 0.85) 100%);
+  pointer-events: none;
+}
+
 .page-header::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.48);
   z-index: 0;
 }
 
@@ -66,18 +124,47 @@
   background-size: cover;
   background-position: center;
   z-index: -1;
+  transform: scale(1.02);
 }
 
 .content-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   text-align: center;
   padding: 0 15px;
   color: #fff;
   width: 100%;
   max-width: 880px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .content-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+}
+
+.role-line {
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.role-line-fade {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.hero-cta {
+  min-width: 0;
+  box-shadow: 0 10px 30px -12px rgba(55, 140, 63, 0.45);
+}
+
+@media (min-width: 640px) {
+  .hero-cta {
+    min-width: 9.5rem;
+  }
 }
 
 @keyframes glowPulse {
@@ -86,5 +173,67 @@
   }
   50% {
     box-shadow: 0 0 28px rgba(55, 140, 63, 0.4), 0 0 0 6px rgba(55, 140, 63, 0.12);
+  }
+}
+
+.hero-pill {
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  color: rgba(243, 244, 246, 0.92);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+}
+
+.scroll-hint {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  color: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  animation: scrollBounceMobile 2.2s ease-in-out infinite;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+@media (min-width: 640px) {
+  .scroll-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    transform: translateX(-50%);
+    animation: scrollBounce 2.2s ease-in-out infinite;
+  }
+}
+
+.scroll-hint:hover {
+  color: #fff;
+  border-color: rgba(55, 140, 63, 0.55);
+  background: rgba(55, 140, 63, 0.15);
+}
+
+@keyframes scrollBounceMobile {
+  0%, 100% { transform: translateY(0); opacity: 0.65; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.65; }
+  50% { transform: translate(-50%, 6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-image img,
+  .scroll-hint,
+  .role-line {
+    animation: none;
+    transition: none;
   }
 }

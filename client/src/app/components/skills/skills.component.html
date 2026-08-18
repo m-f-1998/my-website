@@ -1,9 +1,10 @@
-<div id="skill" class="px-4 py-6">
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+<div id="skill" class="pt-6">
+  <h3 class="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-3">Skills</h3>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 reveal-stagger">
     @for (skillGroup of skillGroups; track $index) {
       @for (skill of skillGroup.skills; track $index) {
         <div [class]="skill.optional ? 'hidden sm:flex' : 'flex'">
-          <div class="flex items-center gap-3.5 w-full bg-gray-800/70 border border-gray-700/40 border-l-[3px] border-l-brand rounded-lg px-4 py-3 hover:bg-gray-700/50 hover:-translate-y-px transition-all duration-200 cursor-default">
+          <div class="skill-card flex items-center gap-3.5 w-full bg-gray-800/70 border border-gray-700/40 border-l-[3px] border-l-brand rounded-lg px-4 py-3 hover:bg-gray-700/50 hover:-translate-y-px transition-all duration-200 cursor-default">
             <div class="flex items-center gap-2 shrink-0">
               @for (icon of skill.icons; track $index) {
                 <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" [style.fill]="iconColor(icon.hex)" role="img" [attr.aria-label]="icon.title">

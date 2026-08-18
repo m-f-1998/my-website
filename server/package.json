@@ -6,37 +6,35 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm i",
-    "start": "node --env-file=.env --watch ./ index.js",
-    "dev": "npm run prestart && npx --yes nodemon -e ts --exec \"tsc && node ./dist/index.js\"",
+    "start": "node --env-file=.env --watch ./dist/index.js",
+    "dev": "npm run prestart && npx --yes nodemon -e ts --exec \"tsc && DEV_MODE=true node ./dist/index.js\"",
     "lint": "npx --yes eslint",
     "lint:fix": "npx --yes eslint --fix",
     "tsc-verify": "npx --yes tsc --noEmit"
   },
   "dependencies": {
-    "@types/compression": "^1.8.1",
-    "body-parser": "^2.3.0",
-    "compression": "^1.8.1",
-    "cors": "^2.8.6",
+    "@fastify/compress": "^9.2.0",
+    "@fastify/cors": "^11.3.0",
+    "@fastify/formbody": "^8.0.2",
+    "@fastify/helmet": "^13.1.0",
+    "@fastify/rate-limit": "^11.2.0",
+    "@fastify/sensible": "^6.0.4",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "express-rate-limit": "^8.5.2",
-    "helmet": "^8.2.0",
-    "nodemailer": "^9.0.1",
-    "sanitize-html": "^2.17.5",
-    "sharp": "^0.35.2"
+    "fastify": "^5.11.3",
+    "mime": "^4.1.0",
+    "nodemailer": "^9.0.5",
+    "sanitize-html": "^2.17.7",
+    "sharp": "^0.35.3"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/helmet": "^0.0.48",
     "@types/nodemailer": "^8.0.1",
     "@types/sanitize-html": "^2.16.1",
     "eslint-plugin-import": "^2.32.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.61.1"
+    "typescript-eslint": "^8.67.0"
   },
   "volta": {
-    "node": "24.17.0"
+    "node": "24.19.0"
   }
 }

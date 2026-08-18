@@ -9,4 +9,8 @@ export class ScrollService {
     document.getElementById ( id )?.scrollIntoView ( { behavior: "smooth", block: "start" } )
   }
 
+  public scrollToTop ( ): void {
+    document.documentElement.scrollTo ( { top: 0, behavior: "smooth" } )
+  }
+
 }

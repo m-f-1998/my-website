@@ -1,31 +1,47 @@
-<div class="pt-5 px-4 pb-0" id="about">
-  <div class="card">
-    <div class="flex flex-wrap mt-4">
-      <div class="w-full lg:w-1/2 px-5 py-4">
-        <h4 class="text-xl font-bold mb-3 text-gray-100">About</h4>
-        <p class="text-gray-300 leading-relaxed mb-3">I am a full-stack Software Engineer with a 1st Class MEng in Software Engineering and a passion for building robust, scalable applications. Specializing in modern web and mobile architectures, I have extensive experience working with TypeScript, Angular, and Node.js to deliver complete end-to-end solutions.</p>
-        <p class="text-gray-300 leading-relaxed">My professional background ranges from developing high-quality IPTV and video products to creating cross-platform mobile applications and complex backend systems with intricate database and API integrations. I thrive in agile environments, motivated by opportunities to innovate and create performant, user-centric software.</p>
+<div class="section-block px-4" id="about">
+  <app-section-heading
+    eyebrow="Introduction"
+    title="About"
+    subtitle="Full-stack engineer based in the Scottish Borders — TypeScript, Angular, and Node from UI through to deployment."
+  />
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 mb-5 reveal-stagger">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card">
+        <div class="stat-value">
+          @if (stat.animate && stat.count !== undefined) {
+            <span [appCountUp]="stat.count" [suffix]="stat.suffix || ''"></span>
+          } @else {
+            {{ stat.staticValue }}
+          }
+        </div>
+        <div class="stat-label">{{ stat.label }}</div>
       </div>
-      <div class="w-full lg:w-1/2 px-5 py-4 flex flex-col">
-        <div class="flex mt-3">
-          <div class="w-1/3">
-            <strong class="uppercase text-sm text-gray-400">Email:</strong>
+    }
+  </div>
+  <div class="card card-glow mb-0">
+    <div class="flex flex-col lg:flex-row">
+      <div class="w-full lg:w-1/2 px-4 sm:px-5 py-4">
+        <p class="text-gray-300 leading-relaxed mb-3 text-sm sm:text-base">I'm a full-stack Software Engineer with a 1st Class MEng in Software Engineering. I build end-to-end products — from Angular frontends and mobile apps to Fastify APIs, databases, and Docker deployments.</p>
+        <p class="text-gray-300 leading-relaxed text-sm sm:text-base">My background spans IPTV and video platforms, enterprise specification tools, cross-platform mobile apps, and the kind of full-stack sites you see in my portfolio below.</p>
+      </div>
+      <div class="w-full lg:w-1/2 px-4 sm:px-5 py-4 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-gray-700/40">
+        <dl class="space-y-3 text-sm">
+          <div>
+            <dt class="uppercase text-xs text-gray-400 mb-1">Email</dt>
+            <dd><a href="mailto:admin@matthewfrankland.co.uk" class="break-all">admin&#64;matthewfrankland.co.uk</a></dd>
           </div>
-          <div class="w-2/3">
-            <a href="mailto:admin@matthewfrankland.co.uk">admin&#64;matthewfrankland.co.uk</a>
+          <div>
+            <dt class="uppercase text-xs text-gray-400 mb-1">Location</dt>
+            <dd class="text-gray-300">The Scottish Borders</dd>
           </div>
-        </div>
-        <div class="flex mt-3">
-          <div class="w-1/3">
-            <strong class="uppercase text-sm text-gray-400">Location:</strong>
-          </div>
-          <div class="w-2/3 text-gray-300">The Scottish Borders</div>
-        </div>
-        <div class="flex gap-2 mt-6">
-          <a class="btn-primary" href="/docs/cv.pdf" rel="tooltip" title="CV partially redacted for privacy. Full copy available on request.">CV</a>
-          <a class="btn-primary" href="/docs/transcript.pdf">Transcript</a>
+        </dl>
+        <div class="flex gap-2 mt-5">
+          <a class="btn-primary w-full sm:w-auto text-center" href="mailto:admin@matthewfrankland.co.uk?subject=CV%20Request">Request CV</a>
         </div>
       </div>
+    </div>
+    <div class="px-4 sm:px-5 pb-4 sm:pb-5">
+      <app-skills />
     </div>
   </div>
 </div>
