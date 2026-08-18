@@ -32,10 +32,31 @@ interface GraphQLCalendar {
 
 let contributionsCache: { expiresAt: number; payload: Omit<ContributionsResponse, "cached"> } | null = null
 
-const CONTRIBUTIONS_QUERY = `
+const USER_CONTRIBUTIONS_QUERY = `
 query($login: String!) {
   user(login: $login) {
     contributionsCollection {
+      restrictedContributionsCount
+      contributionCalendar {
+        totalContributions
+        weeks {
+          contributionDays {
+            contributionCount
+            date
+            weekday
+          }
+        }
+      }
+    }
+  }
+}`
+
+const VIEWER_CONTRIBUTIONS_QUERY = `
+query {
+  viewer {
+    login
+    contributionsCollection {
+      restrictedContributionsCount
       contributionCalendar {
         totalContributions
         weeks {
@@ -109,15 +130,51 @@ const applyLevels = ( weeks: ContributionDay [ ] [ ] ): ContributionDay [ ] [ ] 
   )
 }
 
-const fetchContributionsGraphQL = async ( login: string ): Promise<GraphQLCalendar | null> => {
+const fetchTokenLogin = async ( ): Promise<string | null> => {
+  if ( !process.env [ "GITHUB_TOKEN" ]?.trim ( ) ) {
+    return null
+  }
+
+  const profile = await fetchJson<{ login?: string }> ( "https://api.github.com/user" )
+  return profile?.login?.toLowerCase ( ) ?? null
+}
+
+const parseContributionsResponse = (
+  login: string,
+  collection?: {
+    restrictedContributionsCount?: number
+    contributionCalendar?: GraphQLCalendar
+  } | null
+): GraphQLCalendar | null => {
+  const calendar = collection?.contributionCalendar
+  if ( !calendar ) {
+    return null
+  }
+
+  const restricted = collection?.restrictedContributionsCount ?? 0
+  console.info (
+    `GitHub contributions for ${login}: ${calendar.totalContributions} total` +
+    ( restricted > 0 ? ` (${restricted} restricted/private hidden from viewer)` : "" )
+  )
+
+  return calendar
+}
+
+const fetchContributionsGraphQL = async (
+  login: string,
+  tokenOwnerLogin: string | null
+): Promise<GraphQLCalendar | null> => {
+  const useViewer = tokenOwnerLogin !== null && login.toLowerCase ( ) === tokenOwnerLogin
+
   try {
     const response = await fetch ( "https://api.github.com/graphql", {
       method: "POST",
       headers: githubHeaders ( ),
-      body: JSON.stringify ( {
-        query: CONTRIBUTIONS_QUERY,
-        variables: { login }
-      } )
+      body: JSON.stringify (
+        useViewer
+          ? { query: VIEWER_CONTRIBUTIONS_QUERY }
+          : { query: USER_CONTRIBUTIONS_QUERY, variables: { login } }
+      )
     } )
 
     if ( !response.ok ) {
@@ -129,6 +186,14 @@ const fetchContributionsGraphQL = async ( login: string ): Promise<GraphQLCalend
       data?: {
         user?: {
           contributionsCollection?: {
+            restrictedContributionsCount?: number
+            contributionCalendar?: GraphQLCalendar
+          }
+        }
+        viewer?: {
+          login?: string
+          contributionsCollection?: {
+            restrictedContributionsCount?: number
             contributionCalendar?: GraphQLCalendar
           }
         }
@@ -141,7 +206,18 @@ const fetchContributionsGraphQL = async ( login: string ): Promise<GraphQLCalend
       return null
     }
 
-    return body.data?.user?.contributionsCollection?.contributionCalendar ?? null
+    if ( useViewer ) {
+      const viewerLogin = body.data?.viewer?.login ?? login
+      return parseContributionsResponse (
+        viewerLogin,
+        body.data?.viewer?.contributionsCollection
+      )
+    }
+
+    return parseContributionsResponse (
+      login,
+      body.data?.user?.contributionsCollection
+    )
   } catch ( err ) {
     console.error ( "GitHub GraphQL error:", err )
     return null
@@ -237,11 +313,20 @@ const buildWeeksFromCounts = ( counts: Map<string, number> ): ContributionDay [ 
 const loadContributions = async ( ): Promise<Omit<ContributionsResponse, "cached">> => {
   const users = githubUsers ( )
   const graphCalendars: GraphQLCalendar [ ] = [ ]
+  const tokenOwnerLogin = await fetchTokenLogin ( )
+
+  if ( tokenOwnerLogin ) {
+    console.info ( `GitHub token authenticated as ${tokenOwnerLogin}` )
+  }
 
   for ( const login of users ) {
-    const calendar = await fetchContributionsGraphQL ( login )
+    const calendar = await fetchContributionsGraphQL ( login, tokenOwnerLogin )
     if ( calendar ) {
       graphCalendars.push ( calendar )
+    } else if ( tokenOwnerLogin !== login.toLowerCase ( ) ) {
+      console.warn (
+        `GitHub contributions for ${login} are public-only (token belongs to ${tokenOwnerLogin ?? "no account"})`
+      )
     }
   }
 

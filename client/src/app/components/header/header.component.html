@@ -1,69 +1,74 @@
 <div id="home" class="header-component">
   <div class="page-header">
-    <div class="page-header-grid" aria-hidden="true"></div>
-    <div class="page-header-image"></div>
-    <div class="page-header-vignette" aria-hidden="true"></div>
+    <div class="page-header-backdrop" aria-hidden="true">
+      <div class="page-header-image"></div>
+      <div class="page-header-shade"></div>
+      <div class="page-header-grid"></div>
+      <div class="page-header-vignette"></div>
+    </div>
     <div class="page-header-inner">
       <div class="content-center">
-        <div class="availability-badge mx-auto mb-3 sm:mb-4">
-          <span class="live-dot"></span>
-          <span class="hidden sm:inline">Open to new opportunities</span>
-          <span class="sm:hidden">Open to work</span>
+        <div class="hero-body">
+          <div class="availability-badge mx-auto mb-3 sm:mb-4">
+            <span class="live-dot"></span>
+            <span class="hidden sm:inline">Open to new opportunities</span>
+            <span class="sm:hidden">Open to work</span>
+          </div>
+          <div class="profile-image flex justify-center items-center">
+            <a href="/">
+              <picture>
+                <img appImgShimmer src="/api/img/matthew-2.jpg?w=640&f=webp"
+                  srcset="
+                    /api/img/matthew-2.jpg?w=320&f=webp 320w,
+                    /api/img/matthew-2.jpg?w=640&f=webp 640w
+                  "
+                  sizes="(max-width: 600px) 180px, 180px"
+                  alt="Profile Image"
+                  loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+            </a>
+          </div>
+          <div class="text-3xl sm:text-4xl font-extrabold text-gradient tracking-tight">Matthew Frankland</div>
+          <p class="role-line text-gray-200 mt-2 text-base sm:text-lg" [class.role-line-fade]="roleFading()">
+            {{ roles[roleIndex()] }}
+          </p>
+          <p class="text-gray-300 text-sm mt-2 sm:mt-3 max-w-xl mx-auto leading-relaxed px-1 hidden sm:block">
+            Building performant web apps — from Angular frontends to Fastify APIs, Docker deployments, and everything in between.
+          </p>
+          <div class="hero-pills hidden sm:flex justify-center gap-2 flex-wrap mt-4">
+            @for (pill of highlights; track pill) {
+              <span class="hero-pill">{{ pill }}</span>
+            }
+          </div>
+          <div class="flex flex-col sm:flex-row justify-center gap-2.5 sm:gap-3 w-full max-w-xs sm:max-w-none mx-auto mt-5 sm:mt-6 px-4 sm:px-0">
+            <a href="#projects" class="btn-primary hero-cta w-full sm:w-auto text-center">View work</a>
+            <a href="#contact" class="btn-secondary hero-cta w-full sm:w-auto text-center">Get in touch</a>
+          </div>
+          <div class="flex justify-center gap-2.5 flex-wrap mt-5 sm:mt-6">
+            <a href="https://facebook.com/mattfrank48/" target="_blank"
+              class="facebook-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+              rel="tooltip" title="Contact me on Facebook">
+              <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" />
+            </a>
+            <a href="https://www.linkedin.com/in/mf48/" target="_blank"
+              class="linkedin-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+              rel="tooltip" title="Connect with me on LinkedIn">
+              <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" />
+            </a>
+            <a href="https://github.com/m-f-1998/" target="_blank"
+              class="github-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
+              rel="tooltip" title="Follow me on GitHub">
+              <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" />
+            </a>
+          </div>
         </div>
-        <div class="profile-image flex justify-center items-center">
-          <a href="/">
-            <picture>
-              <img appImgShimmer src="/api/img/matthew-2.jpg?w=640&f=webp"
-                srcset="
-                  /api/img/matthew-2.jpg?w=320&f=webp 320w,
-                  /api/img/matthew-2.jpg?w=640&f=webp 640w
-                "
-                sizes="(max-width: 600px) 180px, 180px"
-                alt="Profile Image"
-                loading="eager"
-                fetchpriority="high"
-                decoding="async"
-              />
-            </picture>
-          </a>
-        </div>
-        <div class="text-3xl sm:text-4xl font-extrabold text-gradient tracking-tight">Matthew Frankland</div>
-        <p class="role-line text-gray-200 mt-2 text-base sm:text-lg" [class.role-line-fade]="roleFading()">
-          {{ roles[roleIndex()] }}
-        </p>
-        <p class="text-gray-300 text-sm mt-2 sm:mt-3 max-w-xl mx-auto leading-relaxed px-1 hidden sm:block">
-          Building performant web apps — from Angular frontends to Fastify APIs, Docker deployments, and everything in between.
-        </p>
-        <div class="hero-pills hidden sm:flex justify-center gap-2 flex-wrap mt-4">
-          @for (pill of highlights; track pill) {
-            <span class="hero-pill">{{ pill }}</span>
-          }
-        </div>
-        <div class="flex flex-col sm:flex-row justify-center gap-2.5 sm:gap-3 w-full max-w-xs sm:max-w-none mx-auto mt-5 sm:mt-6 px-4 sm:px-0">
-          <a href="#projects" class="btn-primary hero-cta w-full sm:w-auto text-center">View work</a>
-          <a href="#contact" class="btn-secondary hero-cta w-full sm:w-auto text-center">Get in touch</a>
-        </div>
-        <div class="flex justify-center gap-2.5 flex-wrap mt-5 sm:mt-6">
-          <a href="https://facebook.com/mattfrank48/" target="_blank"
-            class="facebook-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
-            rel="tooltip" title="Contact me on Facebook">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'facebook')" class="text-white" />
-          </a>
-          <a href="https://www.linkedin.com/in/mf48/" target="_blank"
-            class="linkedin-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
-            rel="tooltip" title="Connect with me on LinkedIn">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'linkedin')" class="text-white" />
-          </a>
-          <a href="https://github.com/m-f-1998/" target="_blank"
-            class="github-link h-11 w-11 rounded-full inline-flex items-center justify-center border border-white/25 hover:border-white/55 hover:scale-110 transition-all duration-200 shadow-md"
-            rel="tooltip" title="Follow me on GitHub">
-            <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-white" />
-          </a>
-        </div>
+        <a href="#about" class="scroll-hint" aria-label="Scroll to about section">
+          <fa-icon [icon]="iconSvc.getIcon('fas', 'chevron-down')" />
+        </a>
       </div>
-      <a href="#about" class="scroll-hint" aria-label="Scroll to about section">
-        <fa-icon [icon]="iconSvc.getIcon('fas', 'chevron-down')" />
-      </a>
     </div>
   </div>
 </div>

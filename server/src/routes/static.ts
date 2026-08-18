@@ -74,23 +74,31 @@ export const router: FastifyPluginAsync = async app => {
     }
 
     try {
-      const nonce = rep.cspNonce?.script ?? ""
-      const indexContent = await fetchIndex ( clientFolder, nonce )
+      const scriptNonce = rep.cspNonce?.script ?? ""
+      const styleNonce = rep.cspNonce?.style ?? scriptNonce
+      const indexContent = await fetchIndex ( clientFolder, scriptNonce, styleNonce )
       return rep.type ( "text/html" ).header ( "cache-control", "no-cache, no-store, must-revalidate" ).send ( indexContent )
     } catch {
       return rep.status ( 500 ).send ( "Internal Server Error" )
     }
   } )
 
-  const fetchIndex = async ( clientFolder: string, nonce: string ) => {
+  const fetchIndex = async ( clientFolder: string, scriptNonce: string, styleNonce: string ) => {
     if ( !indexHtmlBase ) {
       indexHtmlBase = await readFile ( join ( clientFolder, "index.html" ), "utf8" )
     }
 
     let html = indexHtmlBase
-    if ( nonce ) {
-      const metaTag = `<meta name="csp-nonce" content="${nonce}">`
-      html = html.replace ( "</head>", `${metaTag}</head>` )
+    if ( scriptNonce ) {
+      const metaTags = [
+        `<meta name="csp-nonce" content="${scriptNonce}">`,
+        `<meta name="csp-style-nonce" content="${styleNonce}">`
+      ].join ( "\n    " )
+      html = html.replace ( "</head>", `${metaTags}\n  </head>` )
+      html = html.replace (
+        /<script type="application\/ld\+json">/g,
+        `<script type="application/ld+json" nonce="${scriptNonce}">`
+      )
     }
 
     html = html.replace (
@@ -98,24 +106,24 @@ export const router: FastifyPluginAsync = async app => {
       '<link rel="modulepreload" crossorigin'
     )
 
-    return injectAnalytics ( html, nonce )
+    return injectAnalytics ( html, scriptNonce )
   }
 
-  const injectAnalytics = ( html: string, nonce: string ): string => {
+  const injectAnalytics = ( html: string, scriptNonce: string ): string => {
     const cfToken = process.env [ "CF_BEACON_TOKEN" ] ?? "7ca567f04cf7468caa2237e6f7f31d3d"
     const gaId = process.env [ "GA_TRACKING_ID" ] ?? "G-BKXJTC9XPM"
     const scripts: string [ ] = [ ]
 
     if ( cfToken ) {
       scripts.push (
-        `<script data-cfasync="false" nonce="${nonce}" async src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "${cfToken}"}'></script>`
+        `<script data-cfasync="false" nonce="${scriptNonce}" async src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "${cfToken}"}'></script>`
       )
     }
 
     if ( gaId ) {
       scripts.push (
-        `<script data-cfasync="false" nonce="${nonce}" async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
-      <script data-cfasync="false" nonce="${nonce}">
+        `<script data-cfasync="false" nonce="${scriptNonce}" async src="https://www.googletagmanager.com/gtag/js?id=${gaId}"></script>
+      <script data-cfasync="false" nonce="${scriptNonce}">
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());

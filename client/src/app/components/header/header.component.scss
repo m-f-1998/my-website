@@ -50,10 +50,10 @@
   height: auto;
   min-height: 0;
   max-height: none;
-  padding: 5.5rem 0 1.5rem;
+  padding: 0;
   color: #fff;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   background: linear-gradient(
     0deg,
     rgba(44, 44, 44, 0.2),
@@ -63,34 +63,51 @@
 
 @media (min-width: 640px) {
   .page-header {
-    height: 68vh;
-    min-height: 580px;
-    max-height: 720px;
-    padding: 0;
+    min-height: max(580px, 68vh);
   }
 }
 
 .page-header-inner {
+  --hero-nav-offset: calc(3.5rem + 2px + 1.25rem);
+  --hero-bottom-inset: 2rem;
+
   position: relative;
   z-index: 10;
   width: 100%;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  padding-top: var(--hero-nav-offset);
+  padding-bottom: var(--hero-bottom-inset);
 }
 
 @media (min-width: 640px) {
   .page-header-inner {
-    height: 100%;
-    position: relative;
+    min-height: max(580px, 68vh);
   }
+}
+
+.page-header-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.page-header-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.48);
 }
 
 .page-header-grid {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   opacity: 0.35;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
@@ -102,7 +119,7 @@
 .page-header-vignette {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   background:
     radial-gradient(ellipse 90% 60% at 50% 0%, rgba(55, 140, 63, 0.12) 0%, transparent 55%),
     linear-gradient(180deg, transparent 55%, rgba(3, 7, 18, 0.85) 100%);
@@ -123,28 +140,29 @@
   background-image: url("/api/img/bg-1.jpg");
   background-size: cover;
   background-position: center;
-  z-index: -1;
+  z-index: 0;
   transform: scale(1.02);
 }
 
 .content-center {
   position: relative;
-  text-align: center;
-  padding: 0 15px;
-  color: #fff;
   width: 100%;
   max-width: 880px;
   margin: 0 auto;
+  padding: 0 15px;
+  color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
 }
 
-@media (min-width: 640px) {
-  .content-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-  }
+.hero-body {
+  width: 100%;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .role-line {
@@ -189,7 +207,10 @@
 
 .scroll-hint {
   position: relative;
+  z-index: 11;
   flex-shrink: 0;
+  align-self: center;
+  margin-top: 1.5rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -199,17 +220,13 @@
   color: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(0, 0, 0, 0.25);
-  animation: scrollBounceMobile 2.2s ease-in-out infinite;
+  animation: scrollBounce 2.2s ease-in-out infinite;
   transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-@media (min-width: 640px) {
+@media (max-height: 520px) {
   .scroll-hint {
-    position: absolute;
-    left: 50%;
-    bottom: 1.25rem;
-    transform: translateX(-50%);
-    animation: scrollBounce 2.2s ease-in-out infinite;
+    display: none;
   }
 }
 
@@ -219,14 +236,9 @@
   background: rgba(55, 140, 63, 0.15);
 }
 
-@keyframes scrollBounceMobile {
+@keyframes scrollBounce {
   0%, 100% { transform: translateY(0); opacity: 0.65; }
   50% { transform: translateY(6px); opacity: 1; }
-}
-
-@keyframes scrollBounce {
-  0%, 100% { transform: translate(-50%, 0); opacity: 0.65; }
-  50% { transform: translate(-50%, 6px); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {

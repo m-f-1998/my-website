@@ -7,7 +7,8 @@ import { provideHttpClient, withFetch } from "@angular/common/http"
 import { RECAPTCHA_LOADER_OPTIONS, RECAPTCHA_V3_SITE_KEY } from "ng-recaptcha-2"
 import { environment } from "../environments/environments"
 
-const nonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
+const scriptNonce = document.querySelector ( 'meta[name="csp-nonce"]' )?.getAttribute ( "content" )
+const styleNonce = document.querySelector ( 'meta[name="csp-style-nonce"]' )?.getAttribute ( "content" )
 
 const appConfig: ApplicationConfig = {
   providers: [
@@ -32,18 +33,21 @@ const appConfig: ApplicationConfig = {
   ]
 }
 
-if ( nonce ) {
+if ( styleNonce ) {
   appConfig.providers.push ( {
     provide: CSP_NONCE,
-    useValue: nonce
+    useValue: styleNonce
   } )
+}
+
+if ( scriptNonce ) {
   appConfig.providers.push ( {
     provide: RECAPTCHA_LOADER_OPTIONS,
     useValue: {
       onBeforeLoad ( _url: any ) {
         return {
           url: _url,
-          nonce,
+          nonce: scriptNonce,
         }
       },
     },

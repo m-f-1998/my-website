@@ -62,18 +62,14 @@ await app.register ( helmet, {
       defaultSrc: [ "'none'" ],
       scriptSrc: [
         "'self'",
-        "www.googletagmanager.com"
-      ],
-      styleSrc: [ "'self'" ],
-      styleSrcAttr: [ "'unsafe-inline'" ],
-      scriptSrcElem: [
-        "'self'",
-        "https://www.youtube.com",
         "https://www.googletagmanager.com",
         "https://static.cloudflareinsights.com",
         "https://www.google.com",
-        "https://www.gstatic.com"
+        "https://www.gstatic.com",
+        "https://www.youtube.com"
       ],
+      styleSrc: [ "'self'" ],
+      styleSrcAttr: [ "'unsafe-inline'" ],
       imgSrc: [
         "'self'",
         "data:",
