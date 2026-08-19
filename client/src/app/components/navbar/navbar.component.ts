@@ -21,15 +21,11 @@ export class NavbarComponent implements OnDestroy {
   public activeSection = signal<SectionId | null> ( null )
   public scrollProgress = signal ( 0 )
   public readonly iconSvc = inject ( IconService )
+
   private readonly router = inject ( Router )
   private readonly doc: Document = inject ( DOCUMENT )
   private observer: IntersectionObserver | null = null
   private readonly visible = new Set<SectionId> ()
-  private readonly scrollHandler = ( ): void => {
-    const root = this.doc.documentElement
-    const max = root.scrollHeight - root.clientHeight
-    this.scrollProgress.set ( max > 0 ? ( root.scrollTop / max ) * 100 : 0 )
-  }
   private routerSub = this.router.events.pipe (
     filter ( e => e instanceof NavigationEnd )
   ).subscribe ( ( ) => {
@@ -38,12 +34,19 @@ export class NavbarComponent implements OnDestroy {
     this.observer?.disconnect ( )
     setTimeout ( ( ) => this.initScrollSpy ( ), 50 )
   } )
+  private scrollListener!: ( ) => void
 
   public constructor ( ) {
+    this.scrollListener = ( ) => {
+      const root = this.doc.documentElement
+      const max = root.scrollHeight - root.clientHeight
+      this.scrollProgress.set ( max > 0 ? ( root.scrollTop / max ) * 100 : 0 )
+    }
+
     afterNextRender ( ( ) => {
       this.initScrollSpy ( )
-      this.doc.defaultView?.addEventListener ( "scroll", this.scrollHandler, { passive: true } )
-      this.scrollHandler ( )
+      this.doc.defaultView?.addEventListener ( "scroll", this.scrollListener, { passive: true } )
+      this.scrollListener ( )
     } )
   }
 
@@ -70,7 +73,7 @@ export class NavbarComponent implements OnDestroy {
   public ngOnDestroy ( ) {
     this.observer?.disconnect ( )
     this.routerSub.unsubscribe ( )
-    this.doc.defaultView?.removeEventListener ( "scroll", this.scrollHandler )
+    this.doc.defaultView?.removeEventListener ( "scroll", this.scrollListener )
   }
 
   private initScrollSpy ( ) {

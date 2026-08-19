@@ -32,10 +32,6 @@ interface Project {
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class ProjectsComponent {
-  public readonly iconSvc = inject ( IconService )
-
-  private readonly initialVisible = 4
-
   public showAll = signal ( false )
 
   public projects: Project [ ] = [
@@ -136,29 +132,6 @@ export class ProjectsComponent {
     }
   ]
 
-  public readonly visibleProjects = computed ( ( ) => {
-    return this.showAll ( )
-      ? this.projects
-      : this.projects.slice ( 0, this.initialVisible )
-  } )
-
-  public readonly hiddenCount = computed ( ( ) => {
-    return Math.max ( 0, this.projects.length - this.initialVisible )
-  } )
-
-  public toggleShowAll ( ) {
-    const expanding = !this.showAll ( )
-    this.showAll.set ( expanding )
-
-    if ( !expanding ) {
-      document.getElementById ( "projects" )?.scrollIntoView ( { behavior: "smooth", block: "start" } )
-    }
-  }
-
-  public readmore ( project: Project ) {
-    project.fullText = !project.fullText
-  }
-
   public openSource = [
     {
       name: "@m-f-1998/ngx-toastr",
@@ -177,4 +150,30 @@ export class ProjectsComponent {
     }
   ]
 
+  public readonly visibleProjects = computed ( ( ) => {
+    return this.showAll ( )
+      ? this.projects
+      : this.projects.slice ( 0, this.initialVisible )
+  } )
+
+  public readonly hiddenCount = computed ( ( ) => {
+    return Math.max ( 0, this.projects.length - this.initialVisible )
+  } )
+
+  public readonly iconSvc = inject ( IconService )
+
+  private readonly initialVisible = 4
+
+  public toggleShowAll ( ) {
+    const expanding = !this.showAll ( )
+    this.showAll.set ( expanding )
+
+    if ( !expanding ) {
+      document.getElementById ( "projects" )?.scrollIntoView ( { behavior: "smooth", block: "start" } )
+    }
+  }
+
+  public readmore ( project: Project ) {
+    project.fullText = !project.fullText
+  }
 }

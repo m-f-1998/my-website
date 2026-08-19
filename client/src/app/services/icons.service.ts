@@ -1,4 +1,4 @@
-import { Injectable, inject } from "@angular/core"
+import { Service, inject } from "@angular/core"
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome"
 import { MockFaIconLibrary } from "@fortawesome/angular-fontawesome/testing"
 import { IconName, IconPrefix, IconProp } from "@fortawesome/fontawesome-svg-core"
@@ -9,9 +9,7 @@ import {
   faStar, faArrowUpRightFromSquare
 } from "@fortawesome/free-solid-svg-icons"
 
-@Injectable ( {
-  providedIn: "root"
-} )
+@Service ( { } )
 export class IconService {
   public readonly faLibrary = inject ( FaIconLibrary )
 

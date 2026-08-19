@@ -1,12 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http"
-import { inject, Injectable } from "@angular/core"
+import { inject, Service } from "@angular/core"
 import { firstValueFrom, timeout, catchError, throwError } from "rxjs"
 
 const REQUEST_TIMEOUT_MS = 30_000
 
-@Injectable ( {
-  providedIn: "root"
-} )
+@Service ( { } )
 export class ApiService {
   private readonly httpClient = inject ( HttpClient )
 

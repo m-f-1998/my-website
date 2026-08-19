@@ -32,7 +32,6 @@ interface ContributionsResponse {
 } )
 export class GithubActivityComponent implements OnInit {
   public readonly iconSvc = inject ( IconService )
-  private readonly apiSvc = inject ( ApiService )
 
   public weeks = signal<ContributionDay [ ] [ ]> ( [ ] )
   public totalContributions = signal ( 0 )
@@ -43,6 +42,8 @@ export class GithubActivityComponent implements OnInit {
 
   public readonly monthLabels = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
   public readonly weekdayLabels = [ "", "Mon", "", "Wed", "", "Fri", "" ]
+
+  private readonly apiSvc = inject ( ApiService )
 
   public ngOnInit ( ) {
     this.apiSvc.get<ContributionsResponse> ( "/api/github/contributions" )
