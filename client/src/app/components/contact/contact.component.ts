@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { ToastrService } from "@m-f-1998/ngx-toastr"
 import { FaIconComponent } from "@fortawesome/angular-fontawesome"
 import { RecaptchaV3Module, ReCaptchaV3Service } from "ng-recaptcha-2"
-import { Subscription } from "rxjs"
+import { Subscription, firstValueFrom } from "rxjs"
 import { ApiService } from "@services/api.service"
 import { IconService } from "@services/icons.service"
 import { SectionHeadingComponent } from "../section-heading/section-heading.component"
@@ -73,30 +73,44 @@ export class ContactComponent implements OnInit, OnDestroy {
       return
     }
 
-    if ( !this.captchaToken ) {
-      this.toastrSvc.error ( "reCAPTCHA invalid" )
-      this.error.set ( true )
-      return
-    }
-
     this.processing.set ( true )
     this.error.set ( false )
 
-    this.apiSvc.post<MailResponse> ( "/api/mail", {
-      subject: this.contactForm.value.subject,
-      message: this.contactForm.value.message,
-      recaptchaToken: this.captchaToken
-    } ).then ( ( response ) => {
+    void this.submitEmail ( )
+  }
+
+  private async submitEmail ( ) {
+    try {
+      let token = this.captchaToken
+
+      if ( !isDevMode ( ) ) {
+        token = await firstValueFrom ( this.recaptchaSvc.execute ( "contactForm" ) )
+        this.captchaToken = token
+      }
+
+      if ( !token ) {
+        this.toastrSvc.error ( "reCAPTCHA invalid" )
+        this.error.set ( true )
+        this.message.set ( "reCAPTCHA invalid." )
+        return
+      }
+
+      const response = await this.apiSvc.post<MailResponse> ( "/api/mail", {
+        subject: this.contactForm.value.subject,
+        message: this.contactForm.value.message,
+        recaptchaToken: token
+      } )
+
       this.message.set ( response?.message || "Email sent!" )
       this.success.set ( true )
-      this.processing.set ( false )
-    } ).catch ( ( e: unknown ) => {
+    } catch ( e: unknown ) {
       this.error.set ( true )
       const body = ( e as { error?: { message?: string } } )?.error
       this.message.set ( body?.message || "An error occurred. Please try again later." )
       console.error ( e )
+    } finally {
       this.processing.set ( false )
-    } )
+    }
   }
 
 }

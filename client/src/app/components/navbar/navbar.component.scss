@@ -8,6 +8,17 @@
   }
 }
 
+.nav-link-label {
+  display: none;
+  white-space: nowrap;
+}
+
+@media (min-width: 1280px) {
+  .nav-link-label {
+    display: inline;
+  }
+}
+
 .scroll-progress-track {
   height: 2px;
   width: 100%;
@@ -15,8 +26,26 @@
 }
 
 .scroll-progress-bar {
+  appearance: none;
+  border: none;
+  display: block;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #378c3f 0%, #86efac 100%);
-  box-shadow: 0 0 12px rgba(55, 140, 63, 0.55);
-  transition: width 0.08s linear;
+  background: transparent;
+  transition: none;
+
+  &::-webkit-progress-bar {
+    background: transparent;
+  }
+
+  &::-webkit-progress-value {
+    background: linear-gradient(90deg, #378c3f 0%, #86efac 100%);
+    box-shadow: 0 0 12px rgba(55, 140, 63, 0.55);
+    transition: width 0.08s linear;
+  }
+
+  &::-moz-progress-bar {
+    background: linear-gradient(90deg, #378c3f 0%, #86efac 100%);
+    box-shadow: 0 0 12px rgba(55, 140, 63, 0.55);
+  }
 }

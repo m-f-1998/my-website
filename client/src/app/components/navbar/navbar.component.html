@@ -1,60 +1,68 @@
 <header class="sticky top-0 z-50">
   <div class="scroll-progress-track">
-    <div class="scroll-progress-bar" [style.width.%]="scrollProgress()"></div>
+    <progress class="scroll-progress-bar" max="100" [value]="scrollProgress()" aria-hidden="true"></progress>
   </div>
   <nav class="bg-gray-900/90 backdrop-blur-md border-b border-gray-800/60 w-full">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="flex items-center justify-between h-14">
-        <button (click)="goHome()" class="flex items-center gap-2.5 group cursor-pointer">
+      <div class="flex items-center justify-between h-14 gap-3 min-w-0">
+        <button (click)="goHome()" class="flex items-center gap-2 sm:gap-2.5 min-w-0 shrink group cursor-pointer">
           <img appImgShimmer src="/api/img/matthew.jpg?w=64&f=webp" alt="Matthew Frankland"
-            class="w-8 h-8 rounded-full object-cover border border-brand/40 group-hover:border-brand/70 transition-colors duration-200" />
-          <span class="hidden sm:block text-gray-100 font-semibold text-sm tracking-wide group-hover:text-white transition-colors duration-200">Matthew Frankland</span>
+            class="w-8 h-8 shrink-0 rounded-full object-cover border border-brand/40 group-hover:border-brand/70 transition-colors duration-200" />
+          <span class="hidden sm:block truncate text-gray-100 font-semibold text-sm tracking-wide group-hover:text-white transition-colors duration-200 max-w-[9.5rem] md:max-w-[11rem] lg:max-w-none">
+            Matthew Frankland
+          </span>
         </button>
 
-        <ul class="hidden md:flex items-center gap-1">
+        <ul class="hidden lg:flex items-center gap-0.5 xl:gap-1 min-w-0">
           <li>
-            <button (click)="goHome()" [class.active]="activeSection() === 'home'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fas', 'home')" class="text-xs opacity-70" />
-              Home
+            <button (click)="goHome()" [class.active]="activeSection() === 'home'" aria-label="Home" title="Home"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'home')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">Home</span>
             </button>
           </li>
           <li>
-            <button (click)="scrollTo('about')" [class.active]="activeSection() === 'about'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fas', 'user')" class="text-xs opacity-70" />
-              About
+            <button (click)="scrollTo('about')" [class.active]="activeSection() === 'about'" aria-label="About" title="About"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'user')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">About</span>
             </button>
           </li>
           <li>
-            <button (click)="scrollTo('projects')" [class.active]="activeSection() === 'projects'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fas', 'folder-open')" class="text-xs opacity-70" />
-              Work
+            <button (click)="scrollTo('projects')" [class.active]="activeSection() === 'projects'" aria-label="Work" title="Work"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'folder-open')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">Work</span>
             </button>
           </li>
           <li>
-            <button (click)="scrollTo('experience')" [class.active]="activeSection() === 'experience'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fas', 'briefcase')" class="text-xs opacity-70" />
-              Experience
+            <button (click)="scrollTo('experience')" [class.active]="activeSection() === 'experience'" aria-label="Experience" title="Experience"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'briefcase')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">Experience</span>
             </button>
           </li>
           <li>
-            <button (click)="scrollTo('github-activity')" [class.active]="activeSection() === 'github-activity'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-xs opacity-70" />
-              GitHub
+            <button (click)="scrollTo('github-activity')" [class.active]="activeSection() === 'github-activity'" aria-label="GitHub" title="GitHub"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fab', 'github')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">GitHub</span>
             </button>
           </li>
           <li>
-            <button (click)="scrollTo('contact')" [class.active]="activeSection() === 'contact'" class="nav-link flex items-center gap-1.5 px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
-              <fa-icon [icon]="iconSvc.getIcon('fas', 'envelope')" class="text-xs opacity-70" />
-              Contact
+            <button (click)="scrollTo('contact')" [class.active]="activeSection() === 'contact'" aria-label="Contact" title="Contact"
+              class="nav-link flex items-center gap-1.5 px-2 xl:px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-gray-800/60 transition-all duration-200 cursor-pointer">
+              <fa-icon [icon]="iconSvc.getIcon('fas', 'envelope')" class="text-xs opacity-70 shrink-0" />
+              <span class="nav-link-label">Contact</span>
             </button>
           </li>
         </ul>
 
-        <div class="flex items-center gap-2">
-          <button (click)="scrollTo('contact')" class="hidden md:inline-flex btn-primary text-xs py-2 px-4 rounded-lg shadow-[0_0_20px_-6px_rgba(55,140,63,0.55)]">
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button (click)="scrollTo('contact')" class="hidden lg:inline-flex btn-primary text-xs py-2 px-3 xl:px-4 rounded-lg shadow-[0_0_20px_-6px_rgba(55,140,63,0.55)] whitespace-nowrap">
             Let's talk
           </button>
-          <button (click)="toggleMenu()" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/60 transition-all duration-200 focus:outline-none" aria-label="Toggle Navigation">
+          <button (click)="toggleMenu()" class="lg:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/60 transition-all duration-200 focus:outline-none" aria-label="Toggle Navigation" [attr.aria-expanded]="menuOpen()">
             @if (menuOpen()) {
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -69,7 +77,7 @@
       </div>
 
       @if (menuOpen()) {
-        <div class="md:hidden border-t border-gray-800/60 py-2">
+        <div class="lg:hidden border-t border-gray-800/60 py-2">
           <ul class="flex flex-col gap-1">
             <li>
               <button (click)="goHome()" class="nav-link w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-gray-800/60 rounded-lg transition-all duration-200 cursor-pointer">

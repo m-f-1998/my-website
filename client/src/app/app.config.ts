@@ -17,7 +17,7 @@ const appConfig: ApplicationConfig = {
     provideToastr ( {
       positionClass: "toast-bottom-right",
       preventDuplicates: true,
-      progressBar: true,
+      progressBar: false,
       tapToDismiss: true,
       autoDismiss: true,
       timeOut: 4000,

@@ -7,8 +7,8 @@
           <div class="skill-card flex items-center gap-3.5 w-full bg-gray-800/70 border border-gray-700/40 border-l-[3px] border-l-brand rounded-lg px-4 py-3 hover:bg-gray-700/50 hover:-translate-y-px transition-all duration-200 cursor-default">
             <div class="flex items-center gap-2 shrink-0">
               @for (icon of skill.icons; track $index) {
-                <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" [style.fill]="iconColor(icon.hex)" role="img" [attr.aria-label]="icon.title">
-                  <path [attr.d]="icon.path" />
+                <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" role="img" [attr.aria-label]="icon.title">
+                  <path [attr.d]="icon.path" [attr.fill]="iconColor(icon.hex)" />
                 </svg>
               }
             </div>

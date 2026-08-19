@@ -25,7 +25,7 @@ export class AboutComponent {
   public readonly stats: Stat [ ] = [
     { label: "Years experience", animate: true, count: 8, suffix: "+" },
     { label: "Class MEng", staticValue: "1st" },
-    { label: "Shipped projects", animate: true, count: 7, suffix: "+" },
-    { label: "npm packages", animate: true, count: 2 }
+    { label: "Shipped projects", animate: true, count: 8, suffix: "+" },
+    { label: "npm packages", animate: true, count: 4 }
   ]
 }

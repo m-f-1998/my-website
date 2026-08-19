@@ -8,24 +8,29 @@ import { isDevMode } from "./static.js"
 
 config ( { path: resolve ( process.cwd ( ), ".env" ), quiet: true } )
 
+const mailFrom = ( ): string => {
+  return process.env [ "MAIL_FROM" ] || process.env [ "SMTP_USER" ] || "dev@localhost"
+}
+
+const mailTo = ( ): string => {
+  return process.env [ "MAIL_TO" ] || process.env [ "SMTP_USER" ] || "dev@localhost"
+}
+
 const hasSmtpConfig = ( ): boolean => {
   return Boolean (
-    process.env [ "SMTP_HOST" ] &&
-    process.env [ "SMTP_PORT" ] &&
+    process.env [ "SMTP_SERVICE" ] &&
     process.env [ "SMTP_USER" ] &&
     process.env [ "SMTP_PASS" ]
   )
 }
 
-const createMailTransporter = ( ): Transporter => {
+export const createMailTransporter = ( ): Transporter => {
   if ( hasSmtpConfig ( ) ) {
     return createTransport ( {
-      host: process.env [ "SMTP_HOST" ],
-      port: Number ( process.env [ "SMTP_PORT" ] ),
-      secure: Number ( process.env [ "SMTP_PORT" ] ) === 465,
+      service: process.env [ "SMTP_SERVICE" ],
       auth: {
-        user: process.env [ "SMTP_USER" ],
-        pass: process.env [ "SMTP_PASS" ],
+        user: process.env [ "SMTP_USER" ]!,
+        pass: process.env [ "SMTP_PASS" ]!,
       },
     } )
   }
@@ -35,6 +40,24 @@ const createMailTransporter = ( ): Transporter => {
   }
 
   throw new Error ( "SMTP not configured" )
+}
+
+export const verifyMailTransport = async ( ): Promise<void> => {
+  if ( isDevMode ( ) || !hasSmtpConfig ( ) ) {
+    return
+  }
+
+  const transporter = createMailTransporter ( )
+  const service = process.env [ "SMTP_SERVICE" ]
+
+  try {
+    await transporter.verify ( )
+    console.log ( `SMTP ready (service:${service})` )
+  } catch ( err ) {
+    const message = err instanceof Error ? err.message : String ( err )
+    console.error ( `SMTP verify failed (service:${service}):`, message )
+    console.error ( "Mail tips: iCloud uses SMTP_SERVICE=icloud with an app-specific password." )
+  }
 }
 
 const verifyRecaptcha = async ( recaptchaToken: string ): Promise<{ ok: true } | { ok: false; status: number; message: string }> => {
@@ -61,7 +84,8 @@ const verifyRecaptcha = async ( recaptchaToken: string ): Promise<{ ok: true } |
             siteKey: process.env [ "RECAPTCHA_SITE" ],
             expectedAction: "contactForm"
           }
-        } )
+        } ),
+        signal: AbortSignal.timeout ( 15_000 )
       }
     )
 
@@ -81,6 +105,10 @@ const verifyRecaptcha = async ( recaptchaToken: string ): Promise<{ ok: true } |
 
     return { ok: true }
   } catch ( err ) {
+    if ( err instanceof Error && err.name === "TimeoutError" ) {
+      return { ok: false, status: 504, message: "reCAPTCHA verification timed out." }
+    }
+
     console.error ( "reCAPTCHA verification error:", err )
     return { ok: false, status: 500, message: "reCAPTCHA verification error." }
   }
@@ -118,31 +146,31 @@ export const router: FastifyPluginAsync = async app => {
       return rep.status ( recaptcha.status ).send ( { message: recaptcha.message } )
     }
 
-    let transporter: Transporter
-    try {
-      transporter = createMailTransporter ( )
-    } catch {
-      return rep.status ( 500 ).send ( {
-        message: "Server configuration error. Set DEV_MODE=true for local testing, or configure SMTP in .env."
-      } )
-    }
-
     const sanitized = sanitizeHtml ( message, {
       allowedTags: sanitizeHtml.defaults.allowedTags,
       allowedAttributes: sanitizeHtml.defaults.allowedAttributes
     } )
 
     try {
-      const result = await transporter.sendMail ( {
-        from: process.env [ "SMTP_USER" ] || "dev@localhost",
-        to: process.env [ "SMTP_USER" ] || "dev@localhost",
-        subject,
-        html: sanitized,
-        encoding: "utf8"
-      } )
+      if ( hasSmtpConfig ( ) ) {
+        const transporter = createMailTransporter ( )
+        const result = await transporter.sendMail ( {
+          from: mailFrom ( ),
+          to: mailTo ( ),
+          subject,
+          html: sanitized,
+          encoding: "utf8",
+        } )
 
-      if ( isDevMode ( ) && !hasSmtpConfig ( ) ) {
-        console.log ( "[dev mail]", { subject, message: sanitized, result } )
+        if ( isDevMode ( ) ) {
+          console.log ( "[dev mail]", { subject, message: sanitized, result } )
+          return rep.status ( 200 ).send ( {
+            message: "Email captured in dev mode (check server console).",
+            dev: true
+          } )
+        }
+      } else if ( isDevMode ( ) ) {
+        console.log ( "[dev mail]", { subject, message: sanitized } )
         return rep.status ( 200 ).send ( {
           message: "Email captured in dev mode (check server console).",
           dev: true
@@ -152,7 +180,10 @@ export const router: FastifyPluginAsync = async app => {
       return rep.status ( 200 ).send ( { message: "Email sent successfully" } )
     } catch ( err ) {
       const errMessage = err instanceof Error ? err.message : "Unknown error"
-      return rep.status ( 500 ).send ( { message: "Email send failed", error: errMessage } )
+      console.error ( "Email send failed:", errMessage, err )
+      return rep.status ( 500 ).send ( {
+        message: "Email send failed. Please try again later or email admin@matthewfrankland.co.uk directly."
+      } )
     }
   } )
 }

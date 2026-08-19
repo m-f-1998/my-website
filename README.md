@@ -33,10 +33,11 @@ The backend server requires the following environment variables in **production*
 | `RECAPTCHA_SITE`           | Google reCAPTCHA site key for client-side verification             |
 | `RECAPTCHA_API_KEY`        | Google reCAPTCHA API key for server-side requests                  |
 | `PUBLIC_DOMAIN`            | Public domain for the application (e.g., `http://localhost:3000`)  |
-| `SMTP_HOST`           | SMTP server hostname (e.g., `smtp.gmail.com`) |
+| `SMTP_SERVICE`        | Nodemailer preset — iCloud: `icloud` |
 | `SMTP_USER`           | SMTP login username (usually your email address) |
-| `SMTP_PASS`           | SMTP login password or app-specific password |
-| `SMTP_PORT`           | SMTP server port (typically `465` for SSL or `587` for TLS) |
+| `SMTP_PASS`           | SMTP app-specific password |
+| `MAIL_FROM`           | Optional sender address (defaults to `SMTP_USER`) |
+| `MAIL_TO`             | Optional inbox for contact form submissions (defaults to `SMTP_USER`) |
 
 ## 📁 Example `.env` (for local dev)
 
@@ -44,10 +45,9 @@ The backend server requires the following environment variables in **production*
 DEV_MODE=true
 
 # Optional in dev — emails are logged to the server console instead
-# SMTP_HOST=
+# SMTP_SERVICE=icloud
 # SMTP_USER=
 # SMTP_PASS=
-# SMTP_PORT=465
 ```
 
 ## 📁 Example `.env` (for production)
@@ -56,8 +56,9 @@ DEV_MODE=true
 RECAPTCHA_SITE=
 RECAPTCHA_API_KEY=
 PUBLIC_DOMAIN=
-SMTP_HOST=
-SMTP_USER=
-SMTP_PASS=
-SMTP_PORT=465
+
+# iCloud Mail
+SMTP_SERVICE=icloud
+SMTP_USER=admin@matthewfrankland.co.uk
+SMTP_PASS=<app-specific-password-from-appleid.apple.com>
 ```

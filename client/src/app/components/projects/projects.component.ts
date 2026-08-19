@@ -66,14 +66,17 @@ export class ProjectsComponent {
       ]
     },
     {
-      imageUrl: "project-4.png",
-      altTag: "1962 Ordo App",
-      title: "1962 Liturgical Ordo",
-      description: "An App for Traditional Catholics sold worldwide on iOS.",
+      imageUrl: "project-iqx-npm.png",
+      altTag: "quick-pdf and ngx-toastr npm packages",
+      title: "quick-pdf & ngx-toastr",
+      description: "Open-source npm packages — @iqx-limited/quick-pdf converts PDFs to images in Node.js, and @m-f-1998/ngx-toastr brings toast notifications to Angular apps.",
       fullText: false,
-      tags: [ "Swift", "iOS" ],
+      tags: [ "npm", "Open Source", "TypeScript" ],
       links: [
-        { url: "https://apps.apple.com/in/app/1962-liturgical-ordo/id6450934181", label: "iOS App Store" }
+        { url: "https://www.npmjs.com/package/@iqx-limited/quick-pdf", label: "quick-pdf" },
+        { url: "https://www.npmjs.com/package/@m-f-1998/ngx-toastr", label: "ngx-toastr" },
+        { url: "https://github.com/IQXLimited/quickpdf", label: "quick-pdf GitHub" },
+        { url: "https://github.com/m-f-1998/ngx-toastr", label: "ngx-toastr GitHub" }
       ]
     },
     {
@@ -94,7 +97,7 @@ export class ProjectsComponent {
       description: "An online PDF specification generator which provides the best Trench Heating solution for a customer's large scale project.",
       fullText: false,
       nda: true,
-      tags: [ "Angular", "Enterprise" ],
+      tags: [ "PHP", "Enterprise" ],
       links: [
         { url: "https://www.turnbull-scott.co.uk/heating/perimeter-trench-heating/product-specification-selection-tool/", label: "View the Website" }
       ]
@@ -106,18 +109,29 @@ export class ProjectsComponent {
       description: "AvediaStream is an Exterity IP Digital Media platform. Solution Builder generates specifications for customers based upon their setup, including compatibility, price and requirements.",
       fullText: false,
       nda: true,
-      tags: [ "Angular", "Enterprise" ],
+      tags: [ "JavaScript", "Enterprise" ],
       links: []
     },
     {
       imageUrl: "project-5.png",
-      altTag: "Hons Degree Dissertation",
+      altTag: "Honours Degree Dissertation",
       title: "Honours Dissertation",
       description: "A prototype Learning Management System delivered as part of my Honours Dissertation, using a distributed client-server architecture.",
       fullText: false,
       tags: [ "Academic" ],
       links: [
         { url: "https://github.com/m-f-1998/university/blob/master/honours_dissertation/dissertation.pdf", label: "Read My Paper" }
+      ]
+    },
+    {
+      imageUrl: "project-4.png",
+      altTag: "1962 Ordo App",
+      title: "1962 Liturgical Ordo",
+      description: "An App for Traditional Catholics sold worldwide on iOS.",
+      fullText: false,
+      tags: [ "Swift", "iOS" ],
+      links: [
+        { url: "https://apps.apple.com/in/app/1962-liturgical-ordo/id6450934181", label: "iOS App Store" }
       ]
     }
   ]

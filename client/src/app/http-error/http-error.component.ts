@@ -11,6 +11,7 @@ import { FooterComponent } from "../components/footer/footer.component"
     FooterComponent
   ],
   templateUrl: "./http-error.component.html",
+  styleUrl: "./http-error.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush
 } )
 export class HttpErrorComponent {

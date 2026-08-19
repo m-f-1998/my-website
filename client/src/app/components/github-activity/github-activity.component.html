@@ -54,7 +54,7 @@
           <div class="contrib-graph-wrap">
             <div class="contrib-months" aria-hidden="true">
               @for (marker of monthMarkers(); track marker.index) {
-                <span class="contrib-month" [style.gridColumnStart]="marker.index + 1">{{ marker.label }}</span>
+                <span class="contrib-month" [class]="'contrib-col-' + (marker.index + 1)">{{ marker.label }}</span>
               }
             </div>
             <div class="contrib-grid" role="img" [attr.aria-label]="totalContributions() + ' GitHub contributions in the last year'">
@@ -64,11 +64,8 @@
                     <div
                       class="contrib-day"
                       [class]="'contrib-day level-' + day.level"
-                      (mouseenter)="showTooltip(day, $event)"
-                      (mouseleave)="hideTooltip()"
-                      (focus)="showTooltip(day, $event)"
-                      (blur)="hideTooltip()"
                       tabindex="0"
+                      [attr.data-tip]="dayTooltip(day)"
                       [attr.aria-label]="dayTooltip(day)"
                     ></div>
                   }
@@ -94,7 +91,4 @@
     </div>
   }
 
-  @if (tooltip(); as tip) {
-    <div class="contrib-tooltip" [style.left.px]="tip.x" [style.top.px]="tip.y">{{ tip.text }}</div>
-  }
 </div>

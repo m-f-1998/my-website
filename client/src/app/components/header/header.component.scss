@@ -41,15 +41,14 @@
   .profile-image img {
     max-width: 180px;
     max-height: 180px;
-    width: min(80vw, 80vh);
-    height: min(80vw, 80vh);
+    width: min(42vw, 180px);
+    height: min(42vw, 180px);
   }
 }
 
 .page-header {
   height: auto;
   min-height: 0;
-  max-height: none;
   padding: 0;
   color: #fff;
   position: relative;
@@ -63,7 +62,15 @@
 
 @media (min-width: 640px) {
   .page-header {
+    min-height: max(560px, 65vh);
+    max-height: min(72vh, 720px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-header {
     min-height: max(580px, 68vh);
+    max-height: min(78vh, 820px);
   }
 }
 
@@ -74,7 +81,8 @@
   position: relative;
   z-index: 10;
   width: 100%;
-  min-height: 100svh;
+  min-height: 0;
+  max-height: min(88svh, 660px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -84,7 +92,15 @@
 
 @media (min-width: 640px) {
   .page-header-inner {
+    min-height: max(560px, 65vh);
+    max-height: min(72vh, 720px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-header-inner {
     min-height: max(580px, 68vh);
+    max-height: min(78vh, 820px);
   }
 }
 

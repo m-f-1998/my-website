@@ -9,7 +9,7 @@ import cors from "@fastify/cors"
 
 import { isDevMode, router as staticRouter } from "./routes/static.js"
 import { router as imagesRouter } from "./routes/images.js"
-import { router as mailerRouter } from "./routes/mailer.js"
+import { router as mailerRouter, verifyMailTransport } from "./routes/mailer.js"
 import { router as githubRouter } from "./routes/github.js"
 
 const trustProxyEnv = process.env [ "TRUST_PROXY" ]?.trim ( )
@@ -68,7 +68,7 @@ await app.register ( helmet, {
         "https://www.gstatic.com",
         "https://www.youtube.com"
       ],
-      styleSrc: [ "'self'" ],
+      styleSrc: [ "'self'", "https://fonts.googleapis.com" ],
       styleSrcAttr: [ "'unsafe-inline'" ],
       imgSrc: [
         "'self'",
@@ -121,6 +121,8 @@ await app.register ( githubRouter, { prefix: "/api/github" } )
 await app.register ( staticRouter, { prefix: "/" } )
 
 console.log ( `Server starting (${isDevMode ( ) ? "dev" : "production"} mode)...` )
+
+await verifyMailTransport ( )
 
 await app.listen ( {
   port: 3000,

@@ -40,7 +40,6 @@ export class GithubActivityComponent implements OnInit {
   public source = signal<"graphql" | "events" | null> ( null )
   public loading = signal ( true )
   public error = signal ( false )
-  public tooltip = signal<{ text: string; x: number; y: number } | null> ( null )
 
   public readonly monthLabels = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ]
   public readonly weekdayLabels = [ "", "Mon", "", "Wed", "", "Fri", "" ]
@@ -87,19 +86,5 @@ export class GithubActivityComponent implements OnInit {
     } )
     const noun = day.count === 1 ? "contribution" : "contributions"
     return `${day.count} ${noun} on ${date}`
-  }
-
-  public showTooltip ( day: ContributionDay, event: Event ) {
-    const target = event.currentTarget as HTMLElement
-    const rect = target.getBoundingClientRect ( )
-    this.tooltip.set ( {
-      text: this.dayTooltip ( day ),
-      x: rect.left + rect.width / 2,
-      y: rect.top - 8
-    } )
-  }
-
-  public hideTooltip ( ) {
-    this.tooltip.set ( null )
   }
 }
