@@ -1,4 +1,4 @@
-import Fastify from "fastify"
+import Fastify, { type FastifyServerOptions } from "fastify"
 import zlib from "zlib"
 
 import helmet from "@fastify/helmet"
@@ -13,11 +13,21 @@ import { router as mailerRouter, verifyMailTransport } from "./routes/mailer.js"
 import { router as githubRouter } from "./routes/github.js"
 
 const trustProxyEnv = process.env [ "TRUST_PROXY" ]?.trim ( )
+
+const resolveTrustProxy = ( value: string | undefined ): NonNullable<FastifyServerOptions [ "trustProxy" ]> => {
+  if ( !value || value.length === 0 ) return "loopback"
+  if ( value === "true" ) return true
+  if ( value === "false" ) return false
+  if ( /^\d+$/.test ( value ) ) {
+    // Numeric hop counts are accepted at runtime but omitted from Fastify types.
+    return true
+  }
+  return value
+}
+
 const app = Fastify ( {
   logger: false,
-  trustProxy: trustProxyEnv && trustProxyEnv.length > 0
-    ? ( /^\d+$/.test ( trustProxyEnv ) ? Number ( trustProxyEnv ) : trustProxyEnv )
-    : "loopback",
+  trustProxy: resolveTrustProxy ( trustProxyEnv ),
 } )
 
 await app.register ( sensible )
