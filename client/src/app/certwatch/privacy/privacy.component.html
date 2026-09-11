@@ -1,0 +1,68 @@
+<div class="max-w-3xl mx-auto px-6 py-16">
+  <div class="card p-8">
+    <p class="text-xs font-semibold uppercase tracking-widest text-green-400 mb-3">CertWatch</p>
+    <h1 class="text-3xl font-bold text-gray-100 mb-2">Privacy Policy</h1>
+    <p class="text-sm text-gray-400 mb-8">Last updated: 11 September 2026</p>
+
+    <div class="space-y-6 text-sm text-gray-300 leading-relaxed">
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Overview</h2>
+        <p>
+          CertWatch is an iOS app that helps you monitor SSL/TLS certificate expiry for hostnames you choose.
+          Matthew Frankland ("we", "us") does not operate a backend service for CertWatch.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Data stored on your device</h2>
+        <p>
+          Endpoints, certificate details, tags, notes, and app settings are stored locally on your device
+          using SwiftData in an App Group container shared with the CertWatch widget extension.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Network activity</h2>
+        <p>
+          When you add or refresh an endpoint, CertWatch connects directly to the hostname and port you enter
+          to perform a TLS handshake and read certificate metadata. We do not receive or store that data on our servers.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Notifications</h2>
+        <p>
+          Expiry alerts are scheduled locally on your device. CertWatch does not use push notification servers.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Purchases</h2>
+        <p>
+          CertWatch Pro is sold as a one-time in-app purchase processed by Apple via StoreKit.
+          We do not collect payment details.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Analytics and tracking</h2>
+        <p>
+          CertWatch does not include third-party analytics, advertising, or cross-app tracking.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-semibold text-gray-100 mb-2">Contact</h2>
+        <p>
+          Questions about this policy:
+          <a href="mailto:matthew.frankland@iqx.co.uk?subject=CertWatch%20Privacy">matthew.frankland@iqx.co.uk</a>.
+        </p>
+      </section>
+
+      <p class="text-gray-500 text-xs pt-4 border-t border-gray-700/60">
+        <a routerLink="/certwatch">Back to CertWatch support</a>
+      </p>
+    </div>
+  </div>
+</div>
+<app-footer />
