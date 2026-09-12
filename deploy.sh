@@ -14,7 +14,7 @@ if [[ -f "$SCRIPT_DIR/.deploy.env" ]]; then
 fi
 
 USERNAME="m-f-1998"
-REPO_NAME="revive-scotland"
+REPO_NAME="my-website"
 MODE="${1:-local}"
 
 if [[ "$MODE" == "latest" ]]; then
