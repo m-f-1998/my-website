@@ -25,7 +25,7 @@
     "@m-f-1998/ngx-toastr": "^4.0.1",
     "ng-recaptcha-2": "^22.0.1",
     "rxjs": "~7.8.0",
-    "simple-icons": "^16.30.0",
+    "simple-icons": "^16.31.0",
     "tslib": "^2.8.1"
   },
   "devDependencies": {

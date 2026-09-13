@@ -156,13 +156,13 @@ export class ProjectsComponent {
       : this.projects.slice ( 0, this.initialVisible )
   } )
 
-  public readonly hiddenCount = computed ( ( ) => {
-    return Math.max ( 0, this.projects.length - this.initialVisible )
-  } )
-
   public readonly iconSvc = inject ( IconService )
 
   private readonly initialVisible = 4
+
+  public readonly hiddenCount = ( ) => {
+    return Math.max ( 0, this.projects.length - this.initialVisible )
+  }
 
   public toggleShowAll ( ) {
     const expanding = !this.showAll ( )
