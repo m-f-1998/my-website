@@ -17,6 +17,19 @@ export const routes: Routes = [
     ]
   },
   {
+    path: "recallwatch",
+    children: [
+      {
+        path: "",
+        loadComponent: ( ) => import ( "./recallwatch/recallwatch.component" ).then ( m => m.RecallwatchComponent )
+      },
+      {
+        path: "privacy",
+        loadComponent: ( ) => import ( "./recallwatch/privacy/privacy.component" ).then ( m => m.RecallwatchPrivacyComponent )
+      }
+    ]
+  },
+  {
     path: "error/:code",
     loadComponent: ( ) => import ( "./http-error/http-error.component" ).then ( m => m.HttpErrorComponent )
   },
