@@ -13,28 +13,28 @@
     "tsc-verify": "npx --yes tsc --noEmit"
   },
   "dependencies": {
-    "@fastify/compress": "^9.2.0",
-    "@fastify/cors": "^11.3.0",
-    "@fastify/formbody": "^9.0.0",
-    "@fastify/helmet": "^13.1.1",
-    "@fastify/rate-limit": "^11.2.0",
-    "@fastify/sensible": "^6.0.5",
-    "dotenv": "^17.4.2",
-    "fastify": "^5.12.4",
-    "mime": "^4.1.0",
-    "nodemailer": "^10.0.9",
-    "sanitize-html": "^2.17.7",
-    "sharp": "^0.35.4"
+    "@fastify/compress": "^9.2.2",
+    "@fastify/cors": "^11.3.1",
+    "@fastify/formbody": "^9.0.1",
+    "@fastify/helmet": "^13.2.0",
+    "@fastify/rate-limit": "^11.2.1",
+    "@fastify/sensible": "^6.0.7",
+    "dotenv": "^18.0.9",
+    "fastify": "^5.12.7",
+    "mime": "^4.1.1",
+    "nodemailer": "^10.2.1",
+    "sanitize-html": "^2.18.1",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/nodemailer": "^8.0.1",
-    "@types/sanitize-html": "^2.16.1",
+    "@types/nodemailer": "^8.0.2",
+    "@types/sanitize-html": "^2.16.2",
     "eslint-plugin-import": "^2.32.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.70.0"
+    "typescript-eslint": "^8.72.0"
   },
   "volta": {
-    "node": "24.21.0"
+    "node": "24.22.1"
   }
 }
